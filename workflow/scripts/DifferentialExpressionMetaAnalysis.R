@@ -47,7 +47,7 @@ plot_ly(data=pc, x=~PC1, y=~PC2, color=~species,
         text = ~paste("dataset: ", condition , '<br>resistance:', resistance))
 
 vstcounts_df = data.frame(vstcounts)
-vstcounts_df %>% round_df(2) %>% fwrite("results/vst_counts.tsv", sep="\t")
+vstcounts_df %>% round_df(2) %>% fwrite("results/vst_counts.tsv.gz", sep="\t")
 
 #### heatmap ####
 correlations = cor(vstcounts)
@@ -62,11 +62,6 @@ table(metadata$batch, metadata$resistance)
 
 
 
-meta = metadata %>% filter(batch == 6)
-resistants = unique(meta[meta$resistance == 'resistant']$condition)
-susceptibles = unique(meta[meta$resistance == 'susceptible']$condition)
-comparisons = crossing(resistants, susceptibles)
-comparisons
 
 
 volcano = function(data, title){
@@ -208,8 +203,8 @@ purrr::reduce(nsig_list, inner_join) %>% fwrite("results/genediff/nsig_genes.tsv
 
 
 
-fc_data = data.frame("GeneID" = results_list$Tiefora_v_NG$GeneID)
-pval_data = data.frame("GeneID" = results_list$Tiefora_v_NG$GeneID)
+fc_data = data.frame("GeneID" = results_list$Tiefora_v_Ngousso$GeneID)
+pval_data = data.frame("GeneID" = results_list$Tiefora_v_Ngousso$GeneID)
 for (i in 1:length(results_list)){
   name = sheets[i]
   name_var = glue("{name}_log2FoldChange")
@@ -227,21 +222,6 @@ for (i in 1:length(results_list)){
   pval_data = pval_data %>% inner_join(pval_df) %>% distinct()
 }
 
-
-fc_data = fc_data %>% column_to_rownames('GeneID')
-pval_data = pval_data %>% column_to_rownames('GeneID')
-
-pheatmap(fc_data)
-?pheatmap
-
-
-
-#fc_data['mean'] = (apply(fc_data, 1, mean))
-#fc_data['median'] = (apply(fc_data, 1, median))
-
-fc_data = fc_data %>% rownames_to_column("GeneID") %>%  inner_join(names_df)
-pval_data = pval_data %>% rownames_to_column("GeneID") %>%  inner_join(names_df)
-
 round_df = function(df, digits) {
   
   #' This function rounds all the numeric columns of a data.frame
@@ -249,17 +229,13 @@ round_df = function(df, digits) {
   df[,nums] = round(df[,nums], digits = digits)
   (df)
 }
+#fc_data['mean'] = (apply(fc_data, 1, mean))
+#fc_data['median'] = (apply(fc_data, 1, median))
+
+fc_data = fc_data %>%  inner_join(names_df)
+pval_data = pval_data  %>%  inner_join(names_df)
 
 pval_data %>% select(-c(GeneID2, TranscriptID)) %>% round_df(3) %>% distinct() %>% fwrite(., file="results/pval_data.tsv", sep="\t")
-
 fc_data %>% select(-c(GeneID2, TranscriptID)) %>% round_df(2) %>% distinct() %>% fwrite(., file="results/fc_data.tsv", sep="\t")
-
-
-
-
-colnames(names_df)
-
-
-
 
 
