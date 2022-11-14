@@ -1,0 +1,16 @@
+name: Execute notebook
+
+on: [push]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.7'
+    - run: python3 -m pip install AgamPrimer nbformat ipykernel papermill nbconvert
+    - run: python -m ipykernel install --user --name rna-seq-meta
+    - run: papermill workflow/notebooks/plot-gene-expression.ipynb ci.ipynb -k rna-seq-meta
