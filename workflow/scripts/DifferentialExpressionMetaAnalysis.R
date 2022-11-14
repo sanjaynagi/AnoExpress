@@ -47,7 +47,7 @@ plot_ly(data=pc, x=~PC1, y=~PC2, color=~species,
         text = ~paste("dataset: ", condition , '<br>resistance:', resistance))
 
 vstcounts_df = data.frame(vstcounts)
-vstcounts_df %>% fwrite("results/vst_counts.tsv", sep="\t")
+vstcounts_df %>% round_df(2) %>% fwrite("results/vst_counts.tsv", sep="\t")
 
 #### heatmap ####
 correlations = cor(vstcounts)
