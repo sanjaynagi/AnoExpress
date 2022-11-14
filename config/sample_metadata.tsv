@@ -175,18 +175,18 @@ Ethiopia3	Ethiopia	resistant	arabiensis	Ethiopia	9	Ethiopia
  Bouake_Ki2	 Bouake_Ki	susceptible	gambiae		10	
  Bouake_Ki5	 Bouake_Ki	susceptible	gambiae		10	
  Bouake_Ki7	 Bouake_Ki	susceptible	gambiae		10	
- Bouake_col_unexp6	 Bouake_col_unexp	resistant	gambiae		10	
- Bouake_col_unexp7	 Bouake_col_unexp	resistant	gambiae		10	
- Bouake_col_unexp8	 Bouake_col_unexp	resistant	gambiae		10	
- Bouake_col_unexp9	 Bouake_col_unexp	resistant	gambiae		10	
- Bouake_col_exp1	 Bouake_col_exp	resistant	gambiae		10	
- Bouake_col_exp3	 Bouake_col_exp	resistant	gambiae		10	
- Bouake_col_exp5	 Bouake_col_exp	resistant	gambiae		10	
- Bouake_col_exp7	 Bouake_col_exp	resistant	gambiae		10	
- Bouake_Ng1	 Bouake_Ng	susceptible	gambiae		10	
- Bouake_Ng11	 Bouake_Ng	susceptible	gambiae		10	
- Bouake_Ng4	 Bouake_Ng	susceptible	gambiae		10	
- Bouake_Ng7	 Bouake_Ng	susceptible	gambiae		10	
+ Bouake_col_unexp6	 Bouake_col_unexp	resistant	gambiae		11	
+ Bouake_col_unexp7	 Bouake_col_unexp	resistant	gambiae		11	
+ Bouake_col_unexp8	 Bouake_col_unexp	resistant	gambiae		11	
+ Bouake_col_unexp9	 Bouake_col_unexp	resistant	gambiae		11	
+ Bouake_col_exp1	 Bouake_col_exp	resistant	gambiae		11	
+ Bouake_col_exp3	 Bouake_col_exp	resistant	gambiae		11	
+ Bouake_col_exp5	 Bouake_col_exp	resistant	gambiae		11	
+ Bouake_col_exp7	 Bouake_col_exp	resistant	gambiae		11	
+ Bouake_Ng1	 Bouake_Ng	susceptible	gambiae		11	
+ Bouake_Ng11	 Bouake_Ng	susceptible	gambiae		11	
+ Bouake_Ng4	 Bouake_Ng	susceptible	gambiae		11	
+ Bouake_Ng7	 Bouake_Ng	susceptible	gambiae		11	
  Bouake_gamb_unexp10	 Bouake_gamb_unexp	resistant	gambiae		10	
  Bouake_gamb_unexp6	 Bouake_gamb_unexp	resistant	gambiae		10	
  Bouake_gamb_unexp7	 Bouake_gamb_unexp	resistant	gambiae		10	
@@ -195,35 +195,35 @@ Ethiopia3	Ethiopia	resistant	arabiensis	Ethiopia	9	Ethiopia
  Bouake_gamb_exp5	 Bouake_gamb_exp	resistant	gambiae		10	
  Bouake_gamb_exp7	 Bouake_gamb_exp	resistant	gambiae		10	
  Bouake_gamb_exp9	 Bouake_gamb_exp	resistant	gambiae		10	
-ContTia1	ContTia	resistant	gambiae		12	
-ContTia2	ContTia	resistant	gambiae		12	
-ContTia4	ContTia	resistant	gambiae		12	
-DeltTia1	DeltTia	resistant	gambiae		12	
-DeltTia2	DeltTia	resistant	gambiae		12	
-DeltTia5	DeltTia	resistant	gambiae		12	
-MalaTia1	MalaTia	resistant	gambiae		12	
-MalaTia2	MalaTia	resistant	gambiae		12	
-MalaTia4	MalaTia	resistant	gambiae		12	
-PiriTia2	PiriTia	resistant	gambiae		12	
-PiriTia3	PiriTia	resistant	gambiae		12	
-PiriTia4	PiriTia	resistant	gambiae		12	
- CDI_Ng1	 CDI_Ng	susceptible	gambiae		12	
- CDI_Ng11	 CDI_Ng	susceptible	gambiae		12	
- CDI_Ng4	 CDI_Ng	susceptible	gambiae		12	
- CDI_Ng7	 CDI_Ng	susceptible	gambiae		12	
-BusiaSurvivors1	BusiaSurvivors	resistant	gambiae		11	
-BusiaSurvivors2	BusiaSurvivors	resistant	gambiae		11	
-BusiaSurvivors3	BusiaSurvivors	resistant	gambiae		11	
-BusiaSurvivors4	BusiaSurvivors	resistant	gambiae		11	
-BusiaSurvivors5	BusiaSurvivors	resistant	gambiae		11	
-BusiaSurvivors6	BusiaSurvivors	resistant	gambiae		11	
-BusiaParental1	BusiaParental	resistant	gambiae		11	
-BusiaParental2	BusiaParental	resistant	gambiae		11	
-BusiaParental3	BusiaParental	resistant	gambiae		11	
-BusiaParental4	BusiaParental	resistant	gambiae		11	
-BusiaParental5	BusiaParental	resistant	gambiae		11	
-BusiaParental6	BusiaParental	resistant	gambiae		11	
-Kisumu1	Kisumu	susceptible	gambiae		11	
-Kisumu2	Kisumu	susceptible	gambiae		11	
-Kisumu3	Kisumu	susceptible	gambiae		11	
-Kisumu4	Kisumu	susceptible	gambiae		11	
+ContTia1	ContTia	resistant	gambiae		13	
+ContTia2	ContTia	resistant	gambiae		13	
+ContTia4	ContTia	resistant	gambiae		13	
+DeltTia1	DeltTia	resistant	gambiae		13	
+DeltTia2	DeltTia	resistant	gambiae		13	
+DeltTia5	DeltTia	resistant	gambiae		13	
+MalaTia1	MalaTia	resistant	gambiae		13	
+MalaTia2	MalaTia	resistant	gambiae		13	
+MalaTia4	MalaTia	resistant	gambiae		13	
+PiriTia2	PiriTia	resistant	gambiae		13	
+PiriTia3	PiriTia	resistant	gambiae		13	
+PiriTia4	PiriTia	resistant	gambiae		13	
+ CDI_Ng1	 CDI_Ng	susceptible	gambiae		13	
+ CDI_Ng11	 CDI_Ng	susceptible	gambiae		13	
+ CDI_Ng4	 CDI_Ng	susceptible	gambiae		13	
+ CDI_Ng7	 CDI_Ng	susceptible	gambiae		13	
+BusiaSurvivors1	BusiaSurvivors	resistant	gambiae		12	
+BusiaSurvivors2	BusiaSurvivors	resistant	gambiae		12	
+BusiaSurvivors3	BusiaSurvivors	resistant	gambiae		12	
+BusiaSurvivors4	BusiaSurvivors	resistant	gambiae		12	
+BusiaSurvivors5	BusiaSurvivors	resistant	gambiae		12	
+BusiaSurvivors6	BusiaSurvivors	resistant	gambiae		12	
+BusiaParental1	BusiaParental	resistant	gambiae		12	
+BusiaParental2	BusiaParental	resistant	gambiae		12	
+BusiaParental3	BusiaParental	resistant	gambiae		12	
+BusiaParental4	BusiaParental	resistant	gambiae		12	
+BusiaParental5	BusiaParental	resistant	gambiae		12	
+BusiaParental6	BusiaParental	resistant	gambiae		12	
+Kisumu1	Kisumu	susceptible	gambiae		12	
+Kisumu2	Kisumu	susceptible	gambiae		12	
+Kisumu3	Kisumu	susceptible	gambiae		12	
+Kisumu4	Kisumu	susceptible	gambiae		12	
