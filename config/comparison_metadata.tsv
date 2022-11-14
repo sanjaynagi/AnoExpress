@@ -1,0 +1,36 @@
+comparison	resistant	susceptible	species	country
+Tiefora_v_NG	Tiefora	NG	gambiae	Burkina Faso
+Gou_v_Moz	Gou	Moz	arabiensis	Burkina Faso
+Ban_v_BanS	Ban	BanS	gambiae	Burkina Faso
+BanRe_v_BanS	BanRe	BanS	gambiae	Burkina Faso
+Bak_v_Kis	Bak	Kis	gambiae	Burkina Faso
+VK7_v_Kis	VK7	Kis	gambiae	Burkina Faso
+Cameroon_v_NG	Cameroon	NG	gambiae	Cameroon
+Chad_v_NG	Chad	NG	gambiae	Chad
+Niger_v_NG	Niger	NG	gambiae	Niger
+Nigeria_v_NG	Nigeria	NG	gambiae	Nigeria
+Agboville_v_Mali	Agboville	Mali	gambiae	Cote d'Ivoire
+Agboville_v_NG	Agboville	NG	gambiae	Cote d'Ivoire
+Dabou_v_Mali	Dabou	Mali	gambiae	Cote d'Ivoire
+Dabou_v_NG	Dabou	NG	gambiae	Cote d'Ivoire
+Tiassale_v_Mali	Tiassale	Mali	gambiae	Cote d'Ivoire
+Tiassale_v_NG	Tiassale	NG	gambiae	Cote d'Ivoire
+Cam_fun_v_Fang	Cam_fun	Fang	funestus	Cameroon
+Fumoz_v_Fang	Fumoz	Fang	funestus	Mozambique
+Ghana_fun_v_Fang	Ghana_fun	Fang	funestus	Ghana
+Malawi_fun_v_Fang	Malawi_fun	Fang	funestus	Malawi
+Uganda_fun_v_Fang	Uganda_fun	Fang	funestus	Uganda
+Asendabo_v_Moz	Asendabo	Moz	arabiensis	Ethiopia
+Chewaka_v_Moz	Chewaka	Moz	arabiensis	Ethiopia
+Tolay_v_Moz	Tolay	Moz	arabiensis	Ethiopia
+Ethiopia_v_Dongola	Ethiopia	Dongola	arabiensis	Ethiopia
+Bouake_gamb_exp_v_Bouake_Ki	Bouake_gamb_exp	Ki	gambiae	Cote d'Ivoire
+Bouake_gamb_unexp_v_Bouake_Ki	Bouake_gamb_unexp	Ki	gambiae	Cote d'Ivoire
+Bouake_col_exp_v_Bouake_Ng	Bouake_col_exp	Ng	gambiae	Cote d'Ivoire
+Bouake_col_unexp_v_Bouake_Ng	Bouake_col_unexp	Ng	gambiae	Cote d'Ivoire
+ContTia_v_CDI_Ng	ContTia	CDI_Ng	gambiae	Cote d'Ivoire
+DeltTia_v_CDI_Ng	DeltTia	CDI_Ng	gambiae	Cote d'Ivoire
+MalaTia_v_CDI_Ng	MalaTia	CDI_Ng	gambiae	Cote d'Ivoire
+PiriTia_v_CDI_Ng	PiriTia	CDI_Ng	gambiae	Cote d'Ivoire
+BusiaParental_v_Kisumu	BusiaParental	Kisumu	gambiae	Uganda
+BusiaSurvivors_v_Kisumu	BusiaSurvivors	Kisumu	gambiae	Uganda
