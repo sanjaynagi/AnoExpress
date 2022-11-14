@@ -13,11 +13,11 @@ library(plotly)
 name = 'meta'
 
 
-metadata = fread("config/ALLcoldata.txt") %>% rename("sampleID"="colData")
+metadata = fread("config/sample_metadata.tsv") %>% rename("sampleID"="colData")
 metadata[(metadata$batch == 1) &(metadata$species == 'arabiensis'), 'batch'] = 0
 metadata$batch = factor(metadata$batch)
-counts_meta = fread("final_counts.txt") %>% as.data.frame()
-counts = counts_meta[,10:length(counts_meta)]
+counts_meta = fread("results/final_raw_counts.tsv") %>% as.data.frame()
+counts = counts_meta[,10:length(counts_meta)] # remove info columns
 rownames(counts) = make.unique(counts_meta$GeneID)
 
 gene_names = fread("../rna-seq-busia/resources/exampleGene2TranscriptMap.tsv", sep="\t") %>% distinct()
@@ -46,6 +46,8 @@ pc = left_join(pc, metadata)
 plot_ly(data=pc, x=~PC1, y=~PC2, color=~species,   
         text = ~paste("dataset: ", condition , '<br>resistance:', resistance))
 
+vstcounts_df = data.frame(vstcounts)
+vstcounts_df %>% round_df(2) %>% fwrite("results/vst_counts.tsv", sep="\t")
 
 #### heatmap ####
 correlations = cor(vstcounts)
@@ -58,11 +60,6 @@ garbage = dev.off()
 table(metadata$batch, metadata$species)
 table(metadata$batch, metadata$resistance)
 
-
-metadata %>% filter(batch == 7)
-
-metadata %>% filter(batch == 2)
-metadata %>% filter(batch == 5)
 
 
 meta = metadata %>% filter(batch == 6)
@@ -192,9 +189,6 @@ diff_exp = function(metadata, counts_meta, counts){
 
 
 
-
-
-
 res_list = diff_exp(metadata, counts_meta, counts)
 results_list = res_list[[1]]
 nsig_list = res_list[[2]]
@@ -242,8 +236,9 @@ pheatmap(fc_data)
 
 
 
-fc_data['mean'] = (apply(fc_data, 1, mean))
-fc_data['median'] = (apply(fc_data, 1, median))
+#fc_data['mean'] = (apply(fc_data, 1, mean))
+#fc_data['median'] = (apply(fc_data, 1, median))
+
 fc_data = fc_data %>% rownames_to_column("GeneID") %>%  inner_join(names_df)
 pval_data = pval_data %>% rownames_to_column("GeneID") %>%  inner_join(names_df)
 
