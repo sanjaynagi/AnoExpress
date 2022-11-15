@@ -1,36 +1,36 @@
-comparison	resistant	susceptible	species	country
-Tiefora_v_Ngousso	Tiefora	Ngousso	gambiae	Burkina Faso
-Gou_v_Moz	Gou	Moz	arabiensis	Burkina Faso
-Ban_v_BanS	Ban	BanS	gambiae	Burkina Faso
-BanRe_v_BanS	BanRe	BanS	gambiae	Burkina Faso
-Bak_v_Kisumu	Bak	Kisumu	gambiae	Burkina Faso
-VK7_v_Kisumu	VK7	Kisumu	gambiae	Burkina Faso
-Cameroon_v_Ngousso	Cameroon	Ngousso	gambiae	Cameroon
-Chad_v_Ngousso	Chad	Ngousso	gambiae	Chad
-Niger_v_Ngousso	Niger	Ngousso	gambiae	Niger
-Nigeria_v_Ngousso	Nigeria	Ngousso	gambiae	Nigeria
-Agboville_v_Mali	Agboville	Mali	gambiae	Cote d'Ivoire
-Agboville_v_Ngousso	Agboville	Ngousso	gambiae	Cote d'Ivoire
-Dabou_v_Mali	Dabou	Mali	gambiae	Cote d'Ivoire
-Dabou_v_Ngousso	Dabou	Ngousso	gambiae	Cote d'Ivoire
-Tiassale_v_Mali	Tiassale	Mali	gambiae	Cote d'Ivoire
-Tiassale_v_Ngousso	Tiassale	Ngousso	gambiae	Cote d'Ivoire
-Cam_fun_v_Fang	Cam_fun	Fang	funestus	Cameroon
-Fumoz_v_Fang	Fumoz	Fang	funestus	Mozambique
-Ghana_fun_v_Fang	Ghana_fun	Fang	funestus	Ghana
-Malawi_fun_v_Fang	Malawi_fun	Fang	funestus	Malawi
-Uganda_fun_v_Fang	Uganda_fun	Fang	funestus	Uganda
-Asendabo_v_Moz	Asendabo	Moz	arabiensis	Ethiopia
-Chewaka_v_Moz	Chewaka	Moz	arabiensis	Ethiopia
-Tolay_v_Moz	Tolay	Moz	arabiensis	Ethiopia
-Ethiopia_v_Dongola	Ethiopia	Dongola	arabiensis	Ethiopia
-Bouake_gamb_exp_v_Kisumu	Bouake_gamb_exp	Kisumu	gambiae	Cote d'Ivoire
-Bouake_gamb_unexp_v_Kisumu	Bouake_gamb_unexp	Kisumu	gambiae	Cote d'Ivoire
-Bouake_colu_exp_v_Ngousso	Bouake_colu_exp	Ngousso	gambiae	Cote d'Ivoire
-Bouake_colu_unexp_v_Ngousso	Bouake_colu_unexp	Ngousso	gambiae	Cote d'Ivoire
-ContTia_v_Ngousso	ContTia	Ngousso	gambiae	Cote d'Ivoire
-DeltTia_v_Ngousso	DeltTia	Ngousso	gambiae	Cote d'Ivoire
-MalaTia_v_Ngousso	MalaTia	Ngousso	gambiae	Cote d'Ivoire
-PiriTia_v_Ngousso	PiriTia	Ngousso	gambiae	Cote d'Ivoire
-BusiaParental_v_Kisumu	BusiaParental	Kisumu	gambiae	Uganda
-BusiaSurvivors_v_Kisumu	BusiaSurvivors	Kisumu	gambiae	Uganda
+comparison	resistant	susceptible	species	country	latitude	longitude
+Tiefora_v_Ngousso	Tiefora	Ngousso	gambiae	Burkina Faso	12.0753083	-1.6880314
+Gou_v_Moz	Gou	Moz	arabiensis	Burkina Faso	12.0753083	-1.6880314
+Ban_v_BanS	Ban	BanS	gambiae	Burkina Faso	12.0753083	-1.6880314
+BanRe_v_BanS	BanRe	BanS	gambiae	Burkina Faso	12.0753083	-1.6880314
+Bak_v_Kisumu	Bak	Kisumu	gambiae	Burkina Faso	12.0753083	-1.6880314
+VK7_v_Kisumu	VK7	Kisumu	gambiae	Burkina Faso	12.0753083	-1.6880314
+Cameroon_v_Ngousso	Cameroon	Ngousso	gambiae	Cameroon	4.6125522	13.1535811
+Chad_v_Ngousso	Chad	Ngousso	gambiae	Chad	15.6134137	19.0156172
+Niger_v_Ngousso	Niger	Ngousso	gambiae	Niger	17.7356214	9.3238432
+Nigeria_v_Ngousso	Nigeria	Ngousso	gambiae	Nigeria	9.6000359	7.9999721
+Agboville_v_Mali	Agboville	Mali	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+Agboville_v_Ngousso	Agboville	Ngousso	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+Dabou_v_Mali	Dabou	Mali	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+Dabou_v_Ngousso	Dabou	Ngousso	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+Tiassale_v_Mali	Tiassale	Mali	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+Tiassale_v_Ngousso	Tiassale	Ngousso	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+Cam_fun_v_Fang	Cam_fun	Fang	funestus	Cameroon	4.6125522	13.1535811
+Fumoz_v_Fang	Fumoz	Fang	funestus	Mozambique	-19.302233	34.9144977
+Ghana_fun_v_Fang	Ghana_fun	Fang	funestus	Ghana	8.0300284	-1.0800271
+Malawi_fun_v_Fang	Malawi_fun	Fang	funestus	Malawi	-13.2687204	33.9301963
+Uganda_fun_v_Fang	Uganda_fun	Fang	funestus	Uganda	1.5333554	32.2166578
+Asendabo_v_Moz	Asendabo	Moz	arabiensis	Ethiopia	10.2116702	38.6521203
+Chewaka_v_Moz	Chewaka	Moz	arabiensis	Ethiopia	10.2116702	38.6521203
+Tolay_v_Moz	Tolay	Moz	arabiensis	Ethiopia	10.2116702	38.6521203
+Ethiopia_v_Dongola	Ethiopia	Dongola	arabiensis	Ethiopia	10.2116702	38.6521203
+Bouake_gamb_exp_v_Kisumu	Bouake_gamb_exp	Kisumu	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+Bouake_gamb_unexp_v_Kisumu	Bouake_gamb_unexp	Kisumu	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+Bouake_colu_exp_v_Ngousso	Bouake_colu_exp	Ngousso	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+Bouake_colu_unexp_v_Ngousso	Bouake_colu_unexp	Ngousso	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+ContTia_v_Ngousso	ContTia	Ngousso	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+DeltTia_v_Ngousso	DeltTia	Ngousso	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+MalaTia_v_Ngousso	MalaTia	Ngousso	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+PiriTia_v_Ngousso	PiriTia	Ngousso	gambiae	Cote d'Ivoire	7.9897371	-5.5679458
+BusiaParental_v_Kisumu	BusiaParental	Kisumu	gambiae	Uganda	1.5333554	32.2166578
+BusiaSurvivors_v_Kisumu	BusiaSurvivors	Kisumu	gambiae	Uganda	1.5333554	32.2166578
