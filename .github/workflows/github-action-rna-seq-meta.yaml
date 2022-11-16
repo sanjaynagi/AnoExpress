@@ -14,3 +14,5 @@ jobs:
     - run: python3 -m pip install AgamPrimer nbformat ipykernel papermill nbconvert
     - run: python -m ipykernel install --user --name rna-seq-meta
     - run: papermill workflow/notebooks/plot-gene-expression.ipynb ci.ipynb -k rna-seq-meta
+    - run: papermill workflow/notebooks/plot-families-expression.ipynb ci2.ipynb -k rna-seq-meta
+    - run: papermill workflow/notebooks/expression-candidates.ipynb ci3.ipynb -k rna-seq-meta
