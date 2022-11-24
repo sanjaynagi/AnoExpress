@@ -16,3 +16,4 @@ jobs:
     - run: papermill workflow/notebooks/plot-gene-expression.ipynb ci.ipynb -k rna-seq-meta
     - run: papermill workflow/notebooks/plot-families-expression.ipynb ci2.ipynb -k rna-seq-meta
     - run: papermill workflow/notebooks/expression-candidates.ipynb ci3.ipynb -k rna-seq-meta
+    - run: papermill workflow/notebooks/enrichment.ipynb ci4.ipynb -k rna-seq-meta
