@@ -16,7 +16,7 @@ name = 'meta'
 metadata = fread("config/sample_metadata.tsv") %>% rename("sampleID"="colData")
 metadata[(metadata$batch == 1) &(metadata$species == 'arabiensis'), 'batch'] = 0
 metadata$batch = factor(metadata$batch)
-counts_meta = fread("results/final_raw_counts.tsv") %>% as.data.frame()
+counts_meta = fread("results/final_raw_counts.tsv.gz") %>% as.data.frame()
 counts = counts_meta[,10:length(counts_meta)] # remove info columns
 rownames(counts) = make.unique(counts_meta$GeneID)
 
@@ -237,5 +237,6 @@ pval_data = pval_data  %>%  inner_join(names_df)
 
 pval_data %>% select(-c(GeneID2, TranscriptID)) %>% round_df(3) %>% distinct() %>% fwrite(., file="results/pval_data.tsv", sep="\t")
 fc_data %>% select(-c(GeneID2, TranscriptID)) %>% round_df(2) %>% distinct() %>% fwrite(., file="results/fc_data.tsv", sep="\t")
+
 
 

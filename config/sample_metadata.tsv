@@ -171,30 +171,22 @@ Dongola3	Dongola	susceptible	arabiensis	9	Sudan
 Ethiopia1	Ethiopia	resistant	arabiensis	9	Ethiopia
 Ethiopia2	Ethiopia	resistant	arabiensis	9	Ethiopia
 Ethiopia3	Ethiopia	resistant	arabiensis	9	Ethiopia
-Bouake_Ki11	Kisumu	susceptible	gambiae	10	Kenya
-Bouake_Ki2	Kisumu	susceptible	gambiae	10	Kenya
-Bouake_Ki5	Kisumu	susceptible	gambiae	10	Kenya
-Bouake_Ki7	Kisumu	susceptible	gambiae	10	Kenya
-Bouake_col_unexp6	Bouake_colu_unexp	resistant	gambiae	11	Cote d'Ivoire
-Bouake_col_unexp7	Bouake_colu_unexp	resistant	gambiae	11	Cote d'Ivoire
-Bouake_col_unexp8	Bouake_colu_unexp	resistant	gambiae	11	Cote d'Ivoire
-Bouake_col_unexp9	Bouake_colu_unexp	resistant	gambiae	11	Cote d'Ivoire
-Bouake_col_exp1	Bouake_colu_exp	resistant	gambiae	11	Cote d'Ivoire
-Bouake_col_exp3	Bouake_colu_exp	resistant	gambiae	11	Cote d'Ivoire
-Bouake_col_exp5	Bouake_colu_exp	resistant	gambiae	11	Cote d'Ivoire
-Bouake_col_exp7	Bouake_colu_exp	resistant	gambiae	11	Cote d'Ivoire
-Bouake_Ng1	Ngousso	susceptible	gambiae	11	Cameroon
-Bouake_Ng11	Ngousso	susceptible	gambiae	11	Cameroon
-Bouake_Ng4	Ngousso	susceptible	gambiae	11	Cameroon
-Bouake_Ng7	Ngousso	susceptible	gambiae	11	Cameroon
-Bouake_gamb_unexp10	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire
-Bouake_gamb_unexp6	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire
-Bouake_gamb_unexp7	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire
-Bouake_gamb_unexp9	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire
-Bouake_gamb_exp11	Bouake_gamb_exp	resistant	gambiae	10	Cote d'Ivoire
-Bouake_gamb_exp5	Bouake_gamb_exp	resistant	gambiae	10	Cote d'Ivoire
-Bouake_gamb_exp7	Bouake_gamb_exp	resistant	gambiae	10	Cote d'Ivoire
-Bouake_gamb_exp9	Bouake_gamb_exp	resistant	gambiae	10	Cote d'Ivoire
+ Bouake_Ki11	 Kisumu	susceptible	gambiae	10	
+ Bouake_Ki2	 Kisumu	susceptible	gambiae	10	
+ Bouake_Ki5	 Kisumu	susceptible	gambiae	10	
+ Bouake_Ki7	 Kisumu	susceptible	gambiae	10	
+ Bouake_col_unexp6	 Bouake_col_unexp	resistant	gambiae	11	
+ Bouake_col_unexp7	 Bouake_col_unexp	resistant	gambiae	11	
+ Bouake_col_unexp8	 Bouake_col_unexp	resistant	gambiae	11	
+ Bouake_col_unexp9	 Bouake_col_unexp	resistant	gambiae	11	
+ Bouake_Ng1	 Ngousso	susceptible	gambiae	11	
+ Bouake_Ng11	 Ngousso	susceptible	gambiae	11	
+ Bouake_Ng4	 Ngousso	susceptible	gambiae	11	
+ Bouake_Ng7	 Ngousso	susceptible	gambiae	11	
+ Bouake_gamb_unexp10	 Bouake_gamb_unexp	resistant	gambiae	10	
+ Bouake_gamb_unexp6	 Bouake_gamb_unexp	resistant	gambiae	10	
+ Bouake_gamb_unexp7	 Bouake_gamb_unexp	resistant	gambiae	10	
+ Bouake_gamb_unexp9	 Bouake_gamb_unexp	resistant	gambiae	10	
 ContTia1	ContTia	resistant	gambiae	13	Cote d'Ivoire
 ContTia2	ContTia	resistant	gambiae	13	Cote d'Ivoire
 ContTia4	ContTia	resistant	gambiae	13	Cote d'Ivoire
@@ -207,22 +199,16 @@ MalaTia4	MalaTia	resistant	gambiae	13	Cote d'Ivoire
 PiriTia2	PiriTia	resistant	gambiae	13	Cote d'Ivoire
 PiriTia3	PiriTia	resistant	gambiae	13	Cote d'Ivoire
 PiriTia4	PiriTia	resistant	gambiae	13	Cote d'Ivoire
-CDI_Ng1	Ngousso	susceptible	gambiae	13	Cameroon
-CDI_Ng11	Ngousso	susceptible	gambiae	13	Cameroon
-CDI_Ng4	Ngousso	susceptible	gambiae	13	Cameroon
-CDI_Ng7	Ngousso	susceptible	gambiae	13	Cameroon
+ CDI_Ng1	 CDI_Ng	susceptible	gambiae	13	
+ CDI_Ng11	 CDI_Ng	susceptible	gambiae	13	
+ CDI_Ng4	 CDI_Ng	susceptible	gambiae	13	
+ CDI_Ng7	 CDI_Ng	susceptible	gambiae	13	
 BusiaSurvivors1	BusiaSurvivors	resistant	gambiae	12	Uganda
 BusiaSurvivors2	BusiaSurvivors	resistant	gambiae	12	Uganda
 BusiaSurvivors3	BusiaSurvivors	resistant	gambiae	12	Uganda
 BusiaSurvivors4	BusiaSurvivors	resistant	gambiae	12	Uganda
 BusiaSurvivors5	BusiaSurvivors	resistant	gambiae	12	Uganda
 BusiaSurvivors6	BusiaSurvivors	resistant	gambiae	12	Uganda
-BusiaParental1	BusiaParental	resistant	gambiae	12	Uganda
-BusiaParental2	BusiaParental	resistant	gambiae	12	Uganda
-BusiaParental3	BusiaParental	resistant	gambiae	12	Uganda
-BusiaParental4	BusiaParental	resistant	gambiae	12	Uganda
-BusiaParental5	BusiaParental	resistant	gambiae	12	Uganda
-BusiaParental6	BusiaParental	resistant	gambiae	12	Uganda
 Kisumu1	Kisumu	susceptible	gambiae	12	Kenya
 Kisumu2	Kisumu	susceptible	gambiae	12	Kenya
 Kisumu3	Kisumu	susceptible	gambiae	12	Kenya
