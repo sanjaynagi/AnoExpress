@@ -10,24 +10,27 @@ library(tidyverse)
 library(plotly)
 ######
 
-name = 'meta'
+f = glue
+datasets = c("gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun")
+
+counts = fread("results/gamb_colu.counts.tsv") %>% as.data.frame()
+AGAMnames_df = fread("../rna-seq-busia/resources/exampleGene2TranscriptMap.tsv", sep="\t") %>% distinct()
+#names_df = data.frame("GeneID2" = make.unique(counts_meta$GeneID))
+#names_df$GeneID = gsub("\\..*","",names_df$GeneID2)
+#names_df = names_df %>% left_join(gene_names)
+
+AFUNnames_df = fread("resources/AfunGenes2TranscriptMap.tsv", sep="\t") %>% distinct()
 
 
-metadata = fread("config/sample_metadata.tsv") %>% rename("sampleID"="colData")
-metadata[(metadata$batch == 1) &(metadata$species == 'arabiensis'), 'batch'] = 0
-metadata$batch = factor(metadata$batch)
-counts_meta = fread("results/final_raw_counts.tsv.gz") %>% as.data.frame()
-counts = counts_meta[,10:length(counts_meta)] # remove info columns
-rownames(counts) = make.unique(counts_meta$GeneID)
-
-gene_names = fread("../rna-seq-busia/resources/exampleGene2TranscriptMap.tsv", sep="\t") %>% distinct()
-names_df = data.frame("GeneID2" = make.unique(counts_meta$GeneID))
-names_df$GeneID = gsub("\\..*","",names_df$GeneID2)
-names_df = names_df %>% left_join(gene_names)
 
 
-### PCA 
+### PCA ###
 # make DESeq dataset
+counts = fread("results/gamb_colu_arab_fun.counts.tsv") %>% 
+  as.data.frame() %>% 
+  column_to_rownames("GeneID") %>% 
+  mutate_if(is.numeric, as.integer)
+
 dds = DESeqDataSetFromMatrix(countData = counts, 
                              colData = metadata, 
                              design = ~ batch)
@@ -92,21 +95,62 @@ volcano = function(data, title){
   print(plot)
 }
 
-#### need to loop through soecies as well as batches 
-diff_exp = function(metadata, counts_meta, counts){
+round_df = function(df, digits) {
+  #' This function rounds all the numeric columns of a data.frame
+  nums = vapply(df, is.numeric, FUN.VALUE = logical(1))
+  df[,nums] = round(df[,nums], digits = digits)
+  (df)
+}
+
+#### need to loop through species as well as batches 
+diff_exp = function(dataset, names_df){
   results_list = list()
   nsig_list = list()
-  for (dataset in unique(metadata$batch)){
-    if (dataset == 5){
+  
+  metadata = fread("config/sample_metadata.tsv") %>% rename("sampleID"="colData") %>% as.data.frame()
+  metadata[(metadata$batch == 1) &(metadata$species == 'arabiensis'), 'batch'] = 0
+  metadata$batch = factor(metadata$batch)
+
+  # load dataset 
+  counts = fread(f("results/{dataset}.counts.tsv"), sep="\t") %>% 
+    as.data.frame() %>%
+    column_to_rownames("GeneID") %>% 
+    mutate_if(is.numeric, as.integer)
+  
+  if (dataset == 'gamb_colu'){
+    sp_bool = metadata$species %in% c("gambiae", "coluzzii")
+  } else if (dataset == 'gamb_colu_arab'){
+    sp_bool = metadata$species %in% c("gambiae", "coluzzii", "arabiensis")
+  } else if (dataset == 'gamb_colu_arab_fun'){
+    sp_bool = metadata$species %in% c("gambiae", "coluzzii", "arabiensis", "funestus")
+  } else if (dataset == 'fun'){
+    sp_bool = metadata$species == "funestus"
+  }
+  
+  print(dataset)
+  # subset to dataset
+  meta = metadata[sp_bool, ]
+  print(dim(meta))
+  print(dim(counts))
+  
+  # analyse each experiment separately 
+  for (experiment in unique(meta$batch)){
+    if (experiment == 5){
       next
     }
-    meta = metadata %>% filter(batch == dataset)
-    counts2 = counts[, metadata$batch == dataset]
-  
-    resistants = unique(meta[meta$resistance == 'resistant']$condition)
-    susceptibles = unique(meta[meta$resistance == 'susceptible']$condition)
+    
+    stopifnot(nrow(meta) == length(counts))
+    
+    # subset to batch 
+    meta2 = meta %>% filter(batch == experiment)
+    counts2 = counts[, meta2$sampleID]
+    
+    stopifnot(all(meta2$sampleID == colnames(counts2)))
+    
+    resistants = unique(meta2[meta2$resistance == 'resistant',]$condition)
+    susceptibles = unique(meta2[meta2$resistance == 'susceptible',]$condition)
     comparisons = crossing(resistants, susceptibles)
-    print(dataset)
+    print(experiment)
     print(as.data.frame(comparisons))
 
     for (i in 1:nrow(comparisons)){
@@ -115,12 +159,12 @@ diff_exp = function(metadata, counts_meta, counts){
       comp = glue("{res}_v_{sus}")
       print(comp)
     
-      controls = which(meta$condition %in% sus)
-      cases = which(meta$condition %in% res)
+      controls = which(meta2$condition %in% sus)
+      cases = which(meta2$condition %in% res)
     
       idxs = c(controls, cases)
       subcounts = counts2[, idxs]
-      subsamples = meta[idxs,]
+      subsamples = meta2[idxs,]
       
       # make treatment a factor with the 'susceptible' as reference
       subsamples$treatment = as.factor(subsamples$resistance)
@@ -128,8 +172,10 @@ diff_exp = function(metadata, counts_meta, counts){
       # make DESeq dataset
       print("subcounts shape")
       print(dim(subcounts))
+      print(head(subcounts))
       print("subsamples shape")
       print(dim(subsamples))
+      print(head(subsamples))
       dds = DESeqDataSetFromMatrix(countData = subcounts, 
                                    colData = subsamples, 
                                    design = ~ treatment)
@@ -140,6 +186,7 @@ diff_exp = function(metadata, counts_meta, counts){
       cds = nbinomWaldTest(dds)
       results = results(cds, contrast = c("treatment", "susceptible", "resistant")) %>% as.data.frame() 
       results = results[order(results$padj),] #order by pvalue 
+      results = results %>% mutate(log2FoldChange=log2FoldChange*-1)
       results = results %>% rownames_to_column("GeneID") %>% dplyr::mutate("FC" = (2^log2FoldChange))
       
       ### absolute difference
@@ -150,14 +197,14 @@ diff_exp = function(metadata, counts_meta, counts){
       results = unique(left_join(results, readdiff[,c('GeneID','absolute_diff')]))
       
       # join DE results with normal gene names
-      results = unique(left_join(results, gene_names))
+      results = unique(left_join(results, names_df))
       results_list[[comp]] = results
 
       fwrite(results, glue("results/genediff/{comp}_diffexp.csv")) #write to csv 
       # volcano plot for each comparison, First make vector of labels which is AGAPs unless a gene name exists
-      results$labels = results %>% dplyr::mutate("Gene_name" = case_when(GeneName == "" ~ GeneID,
-                                                                         is.na(GeneName) ~ GeneID,
-                                                                         TRUE ~ GeneName)) %>% select(Gene_name) %>% deframe()
+      #results$labels = results %>% dplyr::mutate("Gene_name" = case_when(GeneName == "" ~ GeneID,
+      #                                                                   is.na(GeneName) ~ GeneID,
+      #                                                                   TRUE ~ GeneName)) %>% select(Gene_name) %>% deframe()
       #get number of sig genes 
       res1 = results %>% filter(padj < 0.05) %>% 
         count("direction" = FC > 1) %>% 
@@ -173,70 +220,71 @@ diff_exp = function(metadata, counts_meta, counts){
       
       nsig_list[[comp]] = bind_rows(res1, res2)
 
-      pdf(glue("results/genediff/{comp}_Volcano_plot.pdf"))
-      volcano(data = results, title = comp)
-      null = dev.off()
+      #pdf(glue("results/genediff/{comp}_Volcano_plot.pdf"))
+      #volcano(data = results, title = comp)
+      #null = dev.off()
       cat("\n", glue("{comp} complete!"), "\n")
       }
   }
+  #### write to excel file on diff sheets #### 
+  sheets = names(results_list)
+  wb <- createWorkbook("Workbook")
+  for (i in 1:length(sheets)){
+    addWorksheet(wb, glue("{sheets[[i]]}"))
+    writeData(wb, sheets[i], results_list[[i]], rowNames = FALSE, colNames = TRUE)
+  }
+  #### save workbook to disk once all worksheets and data have been added ####
+  saveWorkbook(wb,file=f("results/genediff/{dataset}_genediff.xlsx"), overwrite = TRUE)
+  # Join different comparisons together and write out number of sig genes 
+  purrr::reduce(nsig_list, inner_join) %>% fwrite(f("results/genediff/{dataset}_nsig_genes.tsv"), sep="\t", col.names = TRUE)
+  
+  fc_data = data.frame("GeneID" = results_list[[1]]$GeneID)
+  pval_data = data.frame("GeneID" = results_list[[1]]$GeneID)
+  for (i in 1:length(results_list)){
+    name = sheets[i]
+    name_var = glue("{name}_log2FoldChange")
+    name_pval = glue("{name}_padj")
+    df = results_list[[i]] %>% 
+      select(c("GeneID", "log2FoldChange")) %>% 
+      rename({{ name_var }} := log2FoldChange)
+    
+    pval_df = results_list[[i]] %>% 
+      select(c("GeneID", "padj")) %>% 
+      rename({{ name_var }} := padj)
+    
+    fc_data = fc_data %>% inner_join(df) %>% distinct()
+    pval_data = pval_data %>% inner_join(pval_df) %>% distinct()
+  }
+  
+  fc_data = fc_data %>% inner_join(names_df)
+  pval_data = pval_data %>% inner_join(names_df)
+  
+  pval_data %>% 
+    select(-TranscriptID) %>% 
+    round_df(3) %>% 
+    distinct() %>% 
+    fwrite(., file=f("results/pvals_{dataset}.tsv"), sep="\t")
+  
+  fc_data %>% 
+    select(-TranscriptID) %>%
+    round_df(2) %>% 
+    distinct() %>% 
+    fwrite(., file=f("results/fcs_{dataset}.tsv"), sep="\t")
+
   return(list(results_list, nsig_list))
 }
 
 
 
-res_list = diff_exp(metadata, counts_meta, counts)
-results_list = res_list[[1]]
-nsig_list = res_list[[2]]
-
-#### write to excel file on diff sheets #### 
-sheets = names(results_list)
-wb <- createWorkbook("Workbook")
-for (i in 1:length(sheets)){
-  addWorksheet(wb, glue("{sheets[[i]]}"))
-  writeData(wb, sheets[i], results_list[[i]], rowNames = FALSE, colNames = TRUE)
-}
-#### save workbook to disk once all worksheets and data have been added ####
-saveWorkbook(wb,file="results/genediff/meta_genediff.xlsx", overwrite = TRUE)
-
-# Join different comparisons together and write out number of sig genes 
-purrr::reduce(nsig_list, inner_join) %>% fwrite("results/genediff/nsig_genes.tsv", sep="\t", col.names = TRUE)
-
-
-
-fc_data = data.frame("GeneID" = results_list$Tiefora_v_Ngousso$GeneID)
-pval_data = data.frame("GeneID" = results_list$Tiefora_v_Ngousso$GeneID)
-for (i in 1:length(results_list)){
-  name = sheets[i]
-  name_var = glue("{name}_log2FoldChange")
-  name_pval = glue("{name}_padj")
-  df = results_list[[i]] %>% 
-    select(c("GeneID", "log2FoldChange")) %>% 
-    rename({{ name_var }} := log2FoldChange)
-  
-  pval_df = results_list[[i]] %>% 
-    select(c("GeneID", "padj")) %>% 
-    rename({{ name_var }} := padj)
-  
-  
-  fc_data = fc_data %>% inner_join(df) %>% distinct()
-  pval_data = pval_data %>% inner_join(pval_df) %>% distinct()
+for (dataset in datasets){
+  res_list = diff_exp(dataset, names_df = AGAMnames_df)
 }
 
-round_df = function(df, digits) {
-  
-  #' This function rounds all the numeric columns of a data.frame
-  nums = vapply(df, is.numeric, FUN.VALUE = logical(1))
-  df[,nums] = round(df[,nums], digits = digits)
-  (df)
-}
-#fc_data['mean'] = (apply(fc_data, 1, mean))
-#fc_data['median'] = (apply(fc_data, 1, median))
-
-fc_data = fc_data %>%  inner_join(names_df)
-pval_data = pval_data  %>%  inner_join(names_df)
-
-pval_data %>% select(-c(GeneID2, TranscriptID)) %>% round_df(3) %>% distinct() %>% fwrite(., file="results/pval_data.tsv", sep="\t")
-fc_data %>% select(-c(GeneID2, TranscriptID)) %>% round_df(2) %>% distinct() %>% fwrite(., file="results/fc_data.tsv", sep="\t")
 
 
+res = diff_exp(dataset = "fun", names_df = AFUNnames_df)
 
+
+all(metadata$sampleID == colnames(counts))
+
+colnames(counts)
