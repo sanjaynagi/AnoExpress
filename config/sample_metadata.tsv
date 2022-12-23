@@ -1,108 +1,156 @@
 colData	condition	resistance	species	batch	country
-Tie1	Tiefora	resistant	gambiae	1	Burkina Faso
-Tie2	Tiefora	resistant	gambiae	1	Burkina Faso
-Tie3	Tiefora	resistant	gambiae	1	Burkina Faso
-Gou1	Gou	resistant	arabiensis	1	Burkina Faso
-Gou2	Gou	resistant	arabiensis	1	Burkina Faso
-Gou3	Gou	resistant	arabiensis	1	Burkina Faso
-Ban1	Ban	resistant	gambiae	2	Burkina Faso
-Ban2	Ban	resistant	gambiae	2	Burkina Faso
-Ban3	Ban	resistant	gambiae	2	Burkina Faso
-Ban4	Ban	resistant	gambiae	2	Burkina Faso
+Tie1	Tiefora	resistant	coluzzii	1	Burkina Faso
+Tie2	Tiefora	resistant	coluzzii	1	Burkina Faso
+Tie3	Tiefora	resistant	coluzzii	1	Burkina Faso
+Ban1	Ban	resistant	coluzzii	2	Burkina Faso
+Ban2	Ban	resistant	coluzzii	2	Burkina Faso
+Ban3	Ban	resistant	coluzzii	2	Burkina Faso
+Ban4	Ban	resistant	coluzzii	2	Burkina Faso
 Bak1	Bak	resistant	gambiae	3	Burkina Faso
 Bak2	Bak	resistant	gambiae	3	Burkina Faso
 Bak3	Bak	resistant	gambiae	3	Burkina Faso
 Bak4	Bak	resistant	gambiae	3	Burkina Faso
-VK71	VK7	resistant	gambiae	3	Burkina Faso
-VK72	VK7	resistant	gambiae	3	Burkina Faso
-VK73	VK7	resistant	gambiae	3	Burkina Faso
-VK74	VK7	resistant	gambiae	3	Burkina Faso
-BanRe1	BanRe	resistant	gambiae	2	Burkina Faso
-BanRe2	BanRe	resistant	gambiae	2	Burkina Faso
-BanRe3	BanRe	resistant	gambiae	2	Burkina Faso
-BanRe4	BanRe	resistant	gambiae	2	Burkina Faso
-Chad1	Chad	resistant	gambiae	4	Chad
-Chad2	Chad	resistant	gambiae	4	Chad
-Chad3	Chad	resistant	gambiae	4	Chad
-Chad4	Chad	resistant	gambiae	4	Chad
-Chad5	Chad	resistant	gambiae	4	Chad
-Chad6	Chad	resistant	gambiae	4	Chad
-Nigeria1	Nigeria	resistant	gambiae	4	Nigeria
-Nigeria2	Nigeria	resistant	gambiae	4	Nigeria
-Nigeria3	Nigeria	resistant	gambiae	4	Nigeria
-Nigeria4	Nigeria	resistant	gambiae	4	Nigeria
-Nigeria5	Nigeria	resistant	gambiae	4	Nigeria
-Nigeria6	Nigeria	resistant	gambiae	4	Nigeria
-Cameroon1	Cameroon	resistant	gambiae	4	Cameroon
-Cameroon2	Cameroon	resistant	gambiae	4	Cameroon
-Cameroon3	Cameroon	resistant	gambiae	4	Cameroon
-Cameroon4	Cameroon	resistant	gambiae	4	Cameroon
-Cameroon5	Cameroon	resistant	gambiae	4	Cameroon
-Niger1	Niger	resistant	gambiae	4	Niger
-Niger2	Niger	resistant	gambiae	4	Niger
-Niger3	Niger	resistant	gambiae	4	Niger
-Niger4	Niger	resistant	gambiae	4	Niger
-Niger5	Niger	resistant	gambiae	4	Niger
-Niger6	Niger	resistant	gambiae	4	Niger
-NG_Jess1	Ngousso	susceptible	gambiae	1	Cameroon
-NG_Jess2	Ngousso	susceptible	gambiae	1	Cameroon
-NG_Jess3	Ngousso	susceptible	gambiae	1	Cameroon
-Moz_Ranson1	Moz	susceptible	arabiensis	1	Mozambique
-Moz_Ranson2	Moz	susceptible	arabiensis	1	Mozambique
-Moz_Ranson3	Moz	susceptible	arabiensis	1	Mozambique
+VK71	VK7	resistant	coluzzii	3	Burkina Faso
+VK72	VK7	resistant	coluzzii	3	Burkina Faso
+VK73	VK7	resistant	coluzzii	3	Burkina Faso
+VK74	VK7	resistant	coluzzii	3	Burkina Faso
+BanRe1	BanRe	resistant	coluzzii	2	Burkina Faso
+BanRe2	BanRe	resistant	coluzzii	2	Burkina Faso
+BanRe3	BanRe	resistant	coluzzii	2	Burkina Faso
+BanRe4	BanRe	resistant	coluzzii	2	Burkina Faso
+Chad1	Chad	resistant	coluzzii	4	Chad
+Chad2	Chad	resistant	coluzzii	4	Chad
+Chad3	Chad	resistant	coluzzii	4	Chad
+Chad4	Chad	resistant	coluzzii	4	Chad
+Chad5	Chad	resistant	coluzzii	4	Chad
+Chad6	Chad	resistant	coluzzii	4	Chad
+Nigeria1	Nigeria	resistant	coluzzii	4	Nigeria
+Nigeria2	Nigeria	resistant	coluzzii	4	Nigeria
+Nigeria3	Nigeria	resistant	coluzzii	4	Nigeria
+Nigeria4	Nigeria	resistant	coluzzii	4	Nigeria
+Nigeria5	Nigeria	resistant	coluzzii	4	Nigeria
+Nigeria6	Nigeria	resistant	coluzzii	4	Nigeria
+Cameroon1	Cameroon	resistant	coluzzii	4	Cameroon
+Cameroon2	Cameroon	resistant	coluzzii	4	Cameroon
+Cameroon3	Cameroon	resistant	coluzzii	4	Cameroon
+Cameroon4	Cameroon	resistant	coluzzii	4	Cameroon
+Cameroon5	Cameroon	resistant	coluzzii	4	Cameroon
+Niger1	Niger	resistant	coluzzii	4	Niger
+Niger2	Niger	resistant	coluzzii	4	Niger
+Niger3	Niger	resistant	coluzzii	4	Niger
+Niger4	Niger	resistant	coluzzii	4	Niger
+Niger5	Niger	resistant	coluzzii	4	Niger
+Niger6	Niger	resistant	coluzzii	4	Niger
+NG_Jess1	Ngousso	susceptible	coluzzii	1	Cameroon
+NG_Jess2	Ngousso	susceptible	coluzzii	1	Cameroon
+NG_Jess3	Ngousso	susceptible	coluzzii	1	Cameroon
 Kis1	Kisumu	susceptible	gambiae	3	Kenya
 Kis2	Kisumu	susceptible	gambiae	3	Kenya
 Kis3	Kisumu	susceptible	gambiae	3	Kenya
 Kis4	Kisumu	susceptible	gambiae	3	Kenya
-BanS1	BanS	susceptible	gambiae	2	BanS
-BanS2	BanS	susceptible	gambiae	2	BanS
-BanS3	BanS	susceptible	gambiae	2	BanS
-BanS4	BanS	susceptible	gambiae	2	BanS
-NG_Crete1	Ngousso	susceptible	gambiae	5	Cameroon
-NG_Crete2	Ngousso	susceptible	gambiae	5	Cameroon
-NG_Crete3	Ngousso	susceptible	gambiae	5	Cameroon
-NG_Sul1	Ngousso	susceptible	gambiae	4	Cameroon
-NG_Sul2	Ngousso	susceptible	gambiae	4	Cameroon
-NG_Sul3	Ngousso	susceptible	gambiae	4	Cameroon
-Agboville1	Agboville	resistant	gambiae	6	Cote d'Ivoire
-Agboville2	Agboville	resistant	gambiae	6	Cote d'Ivoire
-Agboville3	Agboville	resistant	gambiae	6	Cote d'Ivoire
-Agboville4	Agboville	resistant	gambiae	6	Cote d'Ivoire
-Agboville5	Agboville	resistant	gambiae	6	Cote d'Ivoire
-Agboville6	Agboville	resistant	gambiae	6	Cote d'Ivoire
-Agboville7	Agboville	resistant	gambiae	6	Cote d'Ivoire
-Agboville8	Agboville	resistant	gambiae	6	Cote d'Ivoire
-Agboville9	Agboville	resistant	gambiae	6	Cote d'Ivoire
-Dabou1	Dabou	resistant	gambiae	6	Cote d'Ivoire
-Dabou2	Dabou	resistant	gambiae	6	Cote d'Ivoire
-Dabou3	Dabou	resistant	gambiae	6	Cote d'Ivoire
-Dabou4	Dabou	resistant	gambiae	6	Cote d'Ivoire
-Dabou5	Dabou	resistant	gambiae	6	Cote d'Ivoire
-Dabou6	Dabou	resistant	gambiae	6	Cote d'Ivoire
-Dabou7	Dabou	resistant	gambiae	6	Cote d'Ivoire
-Dabou8	Dabou	resistant	gambiae	6	Cote d'Ivoire
-Dabou9	Dabou	resistant	gambiae	6	Cote d'Ivoire
-Dabou10	Dabou	resistant	gambiae	6	Cote d'Ivoire
-Tiassale1	Tiassale	resistant	gambiae	6	Cote d'Ivoire
-Tiassale2	Tiassale	resistant	gambiae	6	Cote d'Ivoire
-Tiassale3	Tiassale	resistant	gambiae	6	Cote d'Ivoire
-Tiassale4	Tiassale	resistant	gambiae	6	Cote d'Ivoire
-Tiassale5	Tiassale	resistant	gambiae	6	Cote d'Ivoire
-Tiassale6	Tiassale	resistant	gambiae	6	Cote d'Ivoire
-Tiassale7	Tiassale	resistant	gambiae	6	Cote d'Ivoire
-Tiassale8	Tiassale	resistant	gambiae	6	Cote d'Ivoire
-Tiassale9	Tiassale	resistant	gambiae	6	Cote d'Ivoire
-Tiassale10	Tiassale	resistant	gambiae	6	Cote d'Ivoire
-Ngousso_Wipf1	Ngousso	susceptible	gambiae	6	Cameroon
-Ngousso_Wipf2	Ngousso	susceptible	gambiae	6	Cameroon
-Ngousso_Wipf3	Ngousso	susceptible	gambiae	6	Cameroon
-Ngousso_Wipf4	Ngousso	susceptible	gambiae	6	Cameroon
-Ngousso_Wipf5	Ngousso	susceptible	gambiae	6	Cameroon
-Mali1	Mali	susceptible	gambiae	6	Mali
-Mali2	Mali	susceptible	gambiae	6	Mali
-Mali3	Mali	susceptible	gambiae	6	Mali
-Mali4	Mali	susceptible	gambiae	6	Mali
-Mali5	Mali	susceptible	gambiae	6	Mali
+BanS1	BanS	susceptible	coluzzii	2	BanS
+BanS2	BanS	susceptible	coluzzii	2	BanS
+BanS3	BanS	susceptible	coluzzii	2	BanS
+BanS4	BanS	susceptible	coluzzii	2	BanS
+NG_Crete1	Ngousso	susceptible	coluzzii	5	Cameroon
+NG_Crete2	Ngousso	susceptible	coluzzii	5	Cameroon
+NG_Crete3	Ngousso	susceptible	coluzzii	5	Cameroon
+NG_Sul1	Ngousso	susceptible	coluzzii	4	Cameroon
+NG_Sul2	Ngousso	susceptible	coluzzii	4	Cameroon
+NG_Sul3	Ngousso	susceptible	coluzzii	4	Cameroon
+Agboville1	Agboville	resistant	coluzzii	6	Cote d'Ivoire
+Agboville2	Agboville	resistant	coluzzii	6	Cote d'Ivoire
+Agboville3	Agboville	resistant	coluzzii	6	Cote d'Ivoire
+Agboville4	Agboville	resistant	coluzzii	6	Cote d'Ivoire
+Agboville5	Agboville	resistant	coluzzii	6	Cote d'Ivoire
+Agboville6	Agboville	resistant	coluzzii	6	Cote d'Ivoire
+Agboville7	Agboville	resistant	coluzzii	6	Cote d'Ivoire
+Agboville8	Agboville	resistant	coluzzii	6	Cote d'Ivoire
+Agboville9	Agboville	resistant	coluzzii	6	Cote d'Ivoire
+Dabou1	Dabou	resistant	coluzzii	6	Cote d'Ivoire
+Dabou2	Dabou	resistant	coluzzii	6	Cote d'Ivoire
+Dabou3	Dabou	resistant	coluzzii	6	Cote d'Ivoire
+Dabou4	Dabou	resistant	coluzzii	6	Cote d'Ivoire
+Dabou5	Dabou	resistant	coluzzii	6	Cote d'Ivoire
+Dabou6	Dabou	resistant	coluzzii	6	Cote d'Ivoire
+Dabou7	Dabou	resistant	coluzzii	6	Cote d'Ivoire
+Dabou8	Dabou	resistant	coluzzii	6	Cote d'Ivoire
+Dabou9	Dabou	resistant	coluzzii	6	Cote d'Ivoire
+Dabou10	Dabou	resistant	coluzzii	6	Cote d'Ivoire
+Tiassale1	Tiassale	resistant	coluzzii	6	Cote d'Ivoire
+Tiassale2	Tiassale	resistant	coluzzii	6	Cote d'Ivoire
+Tiassale3	Tiassale	resistant	coluzzii	6	Cote d'Ivoire
+Tiassale4	Tiassale	resistant	coluzzii	6	Cote d'Ivoire
+Tiassale5	Tiassale	resistant	coluzzii	6	Cote d'Ivoire
+Tiassale6	Tiassale	resistant	coluzzii	6	Cote d'Ivoire
+Tiassale7	Tiassale	resistant	coluzzii	6	Cote d'Ivoire
+Tiassale8	Tiassale	resistant	coluzzii	6	Cote d'Ivoire
+Tiassale9	Tiassale	resistant	coluzzii	6	Cote d'Ivoire
+Tiassale10	Tiassale	resistant	coluzzii	6	Cote d'Ivoire
+Ngousso_Wipf1	Ngousso	susceptible	coluzzii	6	Cameroon
+Ngousso_Wipf2	Ngousso	susceptible	coluzzii	6	Cameroon
+Ngousso_Wipf3	Ngousso	susceptible	coluzzii	6	Cameroon
+Ngousso_Wipf4	Ngousso	susceptible	coluzzii	6	Cameroon
+Ngousso_Wipf5	Ngousso	susceptible	coluzzii	6	Cameroon
+Mali1	Mali	susceptible	coluzzii	6	Mali
+Mali2	Mali	susceptible	coluzzii	6	Mali
+Mali3	Mali	susceptible	coluzzii	6	Mali
+Mali4	Mali	susceptible	coluzzii	6	Mali
+Mali5	Mali	susceptible	coluzzii	6	Mali
+Bouake_Kisumu1	Kisumu	susceptible	gambiae	10	Kenya
+Bouake_Kisumu2	Kisumu	susceptible	gambiae	10	Kenya
+Bouake_Kisumu3	Kisumu	susceptible	gambiae	10	Kenya
+Bouake_Kisumu4	Kisumu	susceptible	gambiae	10	Kenya
+Bouake_colu_unexp1	Bouake_colu_unexp	resistant	coluzzii	11	Cote d'Ivoire
+Bouake_colu_unexp2	Bouake_colu_unexp	resistant	coluzzii	11	Cote d'Ivoire
+Bouake_colu_unexp3	Bouake_colu_unexp	resistant	coluzzii	11	Cote d'Ivoire
+Bouake_colu_unexp4	Bouake_colu_unexp	resistant	coluzzii	11	Cote d'Ivoire
+Bouake_Ngousso1	Ngousso	susceptible	coluzzii	11	Cameroon
+Bouake_Ngousso2	Ngousso	susceptible	coluzzii	11	Cameroon
+Bouake_Ngousso3	Ngousso	susceptible	coluzzii	11	Cameroon
+Bouake_Ngousso4	Ngousso	susceptible	coluzzii	11	Cameroon
+Bouake_gamb_unexp1	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire
+Bouake_gamb_unexp2	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire
+Bouake_gamb_unexp3	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire
+Bouake_gamb_unexp4	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire
+BusiaSurvivors1	BusiaSurvivors	resistant	gambiae	12	Uganda
+BusiaSurvivors2	BusiaSurvivors	resistant	gambiae	12	Uganda
+BusiaSurvivors3	BusiaSurvivors	resistant	gambiae	12	Uganda
+BusiaSurvivors4	BusiaSurvivors	resistant	gambiae	12	Uganda
+BusiaSurvivors5	BusiaSurvivors	resistant	gambiae	12	Uganda
+BusiaSurvivors6	BusiaSurvivors	resistant	gambiae	12	Uganda
+Kisumu1	Kisumu	susceptible	gambiae	12	Kenya
+Kisumu2	Kisumu	susceptible	gambiae	12	Kenya
+Kisumu3	Kisumu	susceptible	gambiae	12	Kenya
+Kisumu4	Kisumu	susceptible	gambiae	12	Kenya
+Asendabo_ara1	Asendabo	resistant	arabiensis	8	Ethiopia
+Asendabo_ara2	Asendabo	resistant	arabiensis	8	Ethiopia
+Asendabo_ara3	Asendabo	resistant	arabiensis	8	Ethiopia
+Asendabo_ara4	Asendabo	resistant	arabiensis	8	Ethiopia
+Chewaka_ara1	Chewaka	resistant	arabiensis	8	Ethiopia
+Chewaka_ara2	Chewaka	resistant	arabiensis	8	Ethiopia
+Chewaka_ara3	Chewaka	resistant	arabiensis	8	Ethiopia
+Chewaka_ara4	Chewaka	resistant	arabiensis	8	Ethiopia
+Moz_VanLeeuwen1	Moz	susceptible	arabiensis	8	Mozambique
+Moz_VanLeeuwen2	Moz	susceptible	arabiensis	8	Mozambique
+Moz_VanLeeuwen3	Moz	susceptible	arabiensis	8	Mozambique
+Moz_VanLeeuwen4	Moz	susceptible	arabiensis	8	Mozambique
+Tolay1	Tolay	resistant	arabiensis	8	Ethiopia
+Tolay2	Tolay	resistant	arabiensis	8	Ethiopia
+Tolay3	Tolay	resistant	arabiensis	8	Ethiopia
+Tolay4	Tolay	resistant	arabiensis	8	Ethiopia
+Dongola1	Dongola	susceptible	arabiensis	9	Sudan
+Dongola2	Dongola	susceptible	arabiensis	9	Sudan
+Dongola3	Dongola	susceptible	arabiensis	9	Sudan
+Ethiopia1	Ethiopia	resistant	arabiensis	9	Ethiopia
+Ethiopia2	Ethiopia	resistant	arabiensis	9	Ethiopia
+Ethiopia3	Ethiopia	resistant	arabiensis	9	Ethiopia
+Gou1	Gou	resistant	arabiensis	1	Burkina Faso
+Gou2	Gou	resistant	arabiensis	1	Burkina Faso
+Gou3	Gou	resistant	arabiensis	1	Burkina Faso
+Moz_Ranson1	Moz	susceptible	arabiensis	1	Mozambique
+Moz_Ranson2	Moz	susceptible	arabiensis	1	Mozambique
+Moz_Ranson3	Moz	susceptible	arabiensis	1	Mozambique
 Cameroon_fun1	Cam_fun	resistant	funestus	7	Cameroon
 Cameroon_fun2	Cam_fun	resistant	funestus	7	Cameroon
 Cameroon_fun3	Cam_fun	resistant	funestus	7	Cameroon
@@ -115,11 +163,11 @@ Cameroon_fun9	Cam_fun	resistant	funestus	7	Cameroon
 Fang1	Fang	susceptible	funestus	7	Angola
 Fang2	Fang	susceptible	funestus	7	Angola
 Fang3	Fang	susceptible	funestus	7	Angola
-FuMoz1	Fumoz	resistant	funestus	7	Mozambique
-FuMoz2	Fumoz	resistant	funestus	7	Mozambique
-FuMoz3	Fumoz	resistant	funestus	7	Mozambique
-FuMoz4	Fumoz	resistant	funestus	7	Mozambique
-FuMoz5	Fumoz	resistant	funestus	7	Mozambique
+Fumoz1	Fumoz	resistant	funestus	7	Mozambique
+Fumoz2	Fumoz	resistant	funestus	7	Mozambique
+Fumoz3	Fumoz	resistant	funestus	7	Mozambique
+Fumoz4	Fumoz	resistant	funestus	7	Mozambique
+Fumoz5	Fumoz	resistant	funestus	7	Mozambique
 Ghana_fun1	Ghana_fun	resistant	funestus	7	Ghana
 Ghana_fun2	Ghana_fun	resistant	funestus	7	Ghana
 Ghana_fun3	Ghana_fun	resistant	funestus	7	Ghana
@@ -149,67 +197,3 @@ Uganda_fun6	Uganda_fun	resistant	funestus	7	Uganda
 Uganda_fun7	Uganda_fun	resistant	funestus	7	Uganda
 Uganda_fun8	Uganda_fun	resistant	funestus	7	Uganda
 Uganda_fun9	Uganda_fun	resistant	funestus	7	Uganda
-Asendabo_ara1	Asendabo	resistant	arabiensis	8	Ethiopia
-Asendabo_ara2	Asendabo	resistant	arabiensis	8	Ethiopia
-Asendabo_ara3	Asendabo	resistant	arabiensis	8	Ethiopia
-Asendabo_ara4	Asendabo	resistant	arabiensis	8	Ethiopia
-Chewaka_ara1	Chewaka	resistant	arabiensis	8	Ethiopia
-Chewaka_ara2	Chewaka	resistant	arabiensis	8	Ethiopia
-Chewaka_ara3	Chewaka	resistant	arabiensis	8	Ethiopia
-Chewaka_ara4	Chewaka	resistant	arabiensis	8	Ethiopia
-Moz_VanLeeuwen1	Moz	susceptible	arabiensis	8	Mozambique
-Moz_VanLeeuwen2	Moz	susceptible	arabiensis	8	Mozambique
-Moz_VanLeeuwen3	Moz	susceptible	arabiensis	8	Mozambique
-Moz_VanLeeuwen4	Moz	susceptible	arabiensis	8	Mozambique
-Tolay1	Tolay	resistant	arabiensis	8	Ethiopia
-Tolay2	Tolay	resistant	arabiensis	8	Ethiopia
-Tolay3	Tolay	resistant	arabiensis	8	Ethiopia
-Tolay4	Tolay	resistant	arabiensis	8	Ethiopia
-Dongola1	Dongola	susceptible	arabiensis	9	Sudan
-Dongola2	Dongola	susceptible	arabiensis	9	Sudan
-Dongola3	Dongola	susceptible	arabiensis	9	Sudan
-Ethiopia1	Ethiopia	resistant	arabiensis	9	Ethiopia
-Ethiopia2	Ethiopia	resistant	arabiensis	9	Ethiopia
-Ethiopia3	Ethiopia	resistant	arabiensis	9	Ethiopia
- Bouake_Ki11	 Kisumu	susceptible	gambiae	10	
- Bouake_Ki2	 Kisumu	susceptible	gambiae	10	
- Bouake_Ki5	 Kisumu	susceptible	gambiae	10	
- Bouake_Ki7	 Kisumu	susceptible	gambiae	10	
- Bouake_col_unexp6	 Bouake_col_unexp	resistant	gambiae	11	
- Bouake_col_unexp7	 Bouake_col_unexp	resistant	gambiae	11	
- Bouake_col_unexp8	 Bouake_col_unexp	resistant	gambiae	11	
- Bouake_col_unexp9	 Bouake_col_unexp	resistant	gambiae	11	
- Bouake_Ng1	 Ngousso	susceptible	gambiae	11	
- Bouake_Ng11	 Ngousso	susceptible	gambiae	11	
- Bouake_Ng4	 Ngousso	susceptible	gambiae	11	
- Bouake_Ng7	 Ngousso	susceptible	gambiae	11	
- Bouake_gamb_unexp10	 Bouake_gamb_unexp	resistant	gambiae	10	
- Bouake_gamb_unexp6	 Bouake_gamb_unexp	resistant	gambiae	10	
- Bouake_gamb_unexp7	 Bouake_gamb_unexp	resistant	gambiae	10	
- Bouake_gamb_unexp9	 Bouake_gamb_unexp	resistant	gambiae	10	
-ContTia1	ContTia	resistant	gambiae	13	Cote d'Ivoire
-ContTia2	ContTia	resistant	gambiae	13	Cote d'Ivoire
-ContTia4	ContTia	resistant	gambiae	13	Cote d'Ivoire
-DeltTia1	DeltTia	resistant	gambiae	13	Cote d'Ivoire
-DeltTia2	DeltTia	resistant	gambiae	13	Cote d'Ivoire
-DeltTia5	DeltTia	resistant	gambiae	13	Cote d'Ivoire
-MalaTia1	MalaTia	resistant	gambiae	13	Cote d'Ivoire
-MalaTia2	MalaTia	resistant	gambiae	13	Cote d'Ivoire
-MalaTia4	MalaTia	resistant	gambiae	13	Cote d'Ivoire
-PiriTia2	PiriTia	resistant	gambiae	13	Cote d'Ivoire
-PiriTia3	PiriTia	resistant	gambiae	13	Cote d'Ivoire
-PiriTia4	PiriTia	resistant	gambiae	13	Cote d'Ivoire
- Ngousso1	 Ngousso	susceptible	gambiae	13	
- Ngousso11	 Ngousso	susceptible	gambiae	13	
- Ngousso4	 Ngousso	susceptible	gambiae	13	
- Ngousso7	 Ngousso	susceptible	gambiae	13	
-BusiaSurvivors1	BusiaSurvivors	resistant	gambiae	12	Uganda
-BusiaSurvivors2	BusiaSurvivors	resistant	gambiae	12	Uganda
-BusiaSurvivors3	BusiaSurvivors	resistant	gambiae	12	Uganda
-BusiaSurvivors4	BusiaSurvivors	resistant	gambiae	12	Uganda
-BusiaSurvivors5	BusiaSurvivors	resistant	gambiae	12	Uganda
-BusiaSurvivors6	BusiaSurvivors	resistant	gambiae	12	Uganda
-Kisumu1	Kisumu	susceptible	gambiae	12	Kenya
-Kisumu2	Kisumu	susceptible	gambiae	12	Kenya
-Kisumu3	Kisumu	susceptible	gambiae	12	Kenya
-Kisumu4	Kisumu	susceptible	gambiae	12	Kenya
