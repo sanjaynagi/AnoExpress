@@ -1,6 +1,8 @@
-# *Ano*-expressIR
+<h1 align="center">
+  <i>Ano</i>-expressIR
+</h1>
 
-[<img src="https://github.com/sanjaynagi/rna-seq-meta/blob/main/docs/logo.png?raw=True" width="400"/>](https://github.com/sanjaynagi/rna-seq-meta/blob/main/docs/logo.png?raw=True)   
+![image](https://raw.githubusercontent.com/sanjaynagi/rna-seq-meta/main/docs/logo.png)
 
 **Authors:**
 *Sanjay Curtis Nagi* and *Victoria A Ingham*
