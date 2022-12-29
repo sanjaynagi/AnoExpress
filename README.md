@@ -1,6 +1,6 @@
 # *Ano*-expressIR
 
-[<img src="https://github.com/sanjaynagi/rna-seq-meta/blob/master/logo.png?raw=True" width="400"/>](https://github.com/sanjaynagi/rna-seq-meta/blob/master/logo.png?raw=True)   
+[<img src="https://github.com/sanjaynagi/rna-seq-meta/blob/main/docs/logo.png?raw=True" width="400"/>](https://github.com/sanjaynagi/rna-seq-meta/blob/main/docs/logo.png?raw=True)   
 
 **Authors:**
 *Sanjay Curtis Nagi* and *Victoria A Ingham*
