@@ -20,4 +20,4 @@ Documentation: https://sanjaynagi.github.io/rna-seq-meta/landing-page.html
 
 [![Custom badge](https://img.shields.io/endpoint?color=skyblue&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2Frna-seq-meta%2Fmain%2Fgraphics%2Fbadge-enrichment.json)](https://colab.research.google.com/github/sanjaynagi/rna-seq-meta/blob/main/workflow/notebooks/enrichment.ipynb)  
 
-[![Custom badge](https://img.shields.io/endpoint?color=grey&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2Frna-seq-meta%2Fmain%2Fgraphics%2Fbadge-heatmaps.json)](https://colab.research.google.com/github/sanjaynagi/rna-seq-meta/blob/main/workflow/notebooks/cluster-heatmaps-16-12-22.ipynb)  
+[![Custom badge](https://img.shields.io/endpoint?color=maroon&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2Frna-seq-meta%2Fmain%2Fgraphics%2Fbadge-heatmaps.json)](https://colab.research.google.com/github/sanjaynagi/rna-seq-meta/blob/main/workflow/notebooks/misc/cluster-heatmaps-16-12-22.ipynb)  
