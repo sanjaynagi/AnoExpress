@@ -1,6 +1,6 @@
 # Ano-expressIR
 
-Welcome to the [Ano-expressIR](https://github.com/sanjaynagi/rna-seq-meta/) documentation!
+Welcome to the [Ano-expressIR](https://github.com/sanjaynagi/ano-expressir/) documentation!
 
 Authors:
 ***Sanjay Curtis Nagi*** and ***Victoria Ingham***
