@@ -12,8 +12,8 @@ jobs:
       with:
         python-version: '3.7'
     - run: python3 -m pip install AgamPrimer nbformat ipykernel papermill nbconvert
-    - run: python -m ipykernel install --user --name rna-seq-meta
-    - run: papermill workflow/notebooks/plot-gene-expression.ipynb ci.ipynb -k rna-seq-meta
-    - run: papermill workflow/notebooks/plot-families-expression.ipynb ci2.ipynb -k rna-seq-meta
-    - run: papermill workflow/notebooks/expression-candidates.ipynb ci3.ipynb -k rna-seq-meta
-    - run: papermill workflow/notebooks/enrichment.ipynb ci4.ipynb -k rna-seq-meta
+    - run: python -m ipykernel install --user --name ano-expressir
+    - run: papermill workflow/notebooks/plot-gene-expression.ipynb ci.ipynb -k ano-expressir
+    - run: papermill workflow/notebooks/plot-families-expression.ipynb ci2.ipynb -k ano-expressir
+    - run: papermill workflow/notebooks/expression-candidates.ipynb ci3.ipynb -k ano-expressir
+    - run: papermill workflow/notebooks/enrichment.ipynb ci4.ipynb -k ano-expressir
