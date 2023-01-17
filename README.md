@@ -1,5 +1,5 @@
 <h1 align="center">
-  <i>Ano</i>-expressIR
+  <i>Ano</i>-express<ins>ir</ins>
 </h1>
 
 ![image](https://raw.githubusercontent.com/sanjaynagi/ano-expressir/main/docs/logo.png)
