@@ -4,6 +4,8 @@
 
 ![image](https://raw.githubusercontent.com/sanjaynagi/ano-expressir/main/docs/logo.png)
 
+**<ins>*Ano</ins>pheles* gene <ins>express</ins>ion in <ins>i</ins>nsecticide <ins>r</ins>esistance**
+
 **Authors:**
 *Sanjay Curtis Nagi* and *Victoria A Ingham*
 
