@@ -1,7 +1,3 @@
-<h1 align="center">
-  <i>Ano</i>-express
-</h1>
-
 ![image](https://raw.githubusercontent.com/sanjaynagi/ano-express/main/docs/logo.png)
 
 **<ins>*Ano</ins>pheles* gene <ins>exp</ins>ression in <ins>res</ins>istance <ins>s</ins>tudies**
