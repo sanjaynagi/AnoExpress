@@ -10,10 +10,11 @@ library(tidyverse)
 library(plotly)
 ######
 
+
 f = glue
 datasets = c("gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun")
 
-counts = fread("results/gamb_colu.counts.tsv") %>% as.data.frame()
+counts = fread("results/counts.gamb_colu.tsv") %>% as.data.frame()
 AGAMnames_df = fread("../rna-seq-busia/resources/exampleGene2TranscriptMap.tsv", sep="\t") %>% distinct()
 #names_df = data.frame("GeneID2" = make.unique(counts_meta$GeneID))
 #names_df$GeneID = gsub("\\..*","",names_df$GeneID2)
@@ -22,14 +23,52 @@ AGAMnames_df = fread("../rna-seq-busia/resources/exampleGene2TranscriptMap.tsv",
 AFUNnames_df = fread("resources/AfunGenes2TranscriptMap.tsv", sep="\t") %>% distinct()
 
 
+### log2 counts 
+for (analysis in c("gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun")){
+  counts = fread(f("results/counts.{analysis}.tsv")) %>% 
+  as.data.frame() %>% 
+  column_to_rownames("GeneID") %>% 
+  mutate_if(is.numeric, as.integer)
+
+  metadata = fread("config/sample_metadata.tsv")
+  metadata$batch = as.factor(metadata$batch)
+  
+  if (analysis == 'gamb_colu'){
+    sp_bool = metadata$species %in% c("gambiae", "coluzzii")
+  } else if (analysis == 'gamb_colu_arab'){
+    sp_bool = metadata$species %in% c("gambiae", "coluzzii", "arabiensis")
+  } else if (analysis == 'gamb_colu_arab_fun'){
+    sp_bool = metadata$species %in% c("gambiae", "coluzzii", "arabiensis", "funestus")
+  } else if (analysis == 'fun'){
+    sp_bool = metadata$species == "funestus"
+  }
+    # subset to analysis
+  meta = metadata[sp_bool, ]
+  
+  dds = DESeqDataSetFromMatrix(countData = counts, 
+                               colData = meta, 
+                               design = ~ resistance)
+  dds = estimateSizeFactors(dds)
+  dds = estimateDispersions(dds)
+  norm_counts = round_df(log2(as.data.frame(counts(dds, normalized=TRUE)) + 1), 2)  %>% 
+    rownames_to_column("GeneID")
+  
+  print(dim(norm_counts))
+  fwrite(norm_counts, f("results/log2counts.{analysis}.tsv"), sep="\t")
+}
 
 
 ### PCA ###
 # make DESeq dataset
-counts = fread("results/gamb_colu_arab_fun.counts.tsv") %>% 
+
+counts = fread("results/counts.gamb_colu_arab_fun.tsv") %>% 
   as.data.frame() %>% 
   column_to_rownames("GeneID") %>% 
   mutate_if(is.numeric, as.integer)
+
+
+metadata = fread("config/sample_metadata.tsv")
+metadata$batch = as.factor(metadata$batch)
 
 dds = DESeqDataSetFromMatrix(countData = counts, 
                              colData = metadata, 
@@ -112,7 +151,7 @@ diff_exp = function(dataset, names_df){
   metadata$batch = factor(metadata$batch)
 
   # load dataset 
-  counts = fread(f("results/{dataset}.counts.tsv"), sep="\t") %>% 
+  counts = fread(f("results/counts.{dataset}.tsv"), sep="\t") %>% 
     as.data.frame() %>%
     column_to_rownames("GeneID") %>% 
     mutate_if(is.numeric, as.integer)
@@ -263,13 +302,13 @@ diff_exp = function(dataset, names_df){
     select(-TranscriptID) %>% 
     round_df(3) %>% 
     distinct() %>% 
-    fwrite(., file=f("results/pvals_{dataset}.tsv"), sep="\t")
+    fwrite(., file=f("results/pvals.{dataset}.tsv"), sep="\t")
   
   fc_data %>% 
     select(-TranscriptID) %>%
     round_df(2) %>% 
     distinct() %>% 
-    fwrite(., file=f("results/fcs_{dataset}.tsv"), sep="\t")
+    fwrite(., file=f("results/fcs.{dataset}.tsv"), sep="\t")
 
   return(list(results_list, nsig_list))
 }
@@ -280,6 +319,8 @@ for (dataset in datasets){
   res_list = diff_exp(dataset, names_df = AGAMnames_df)
 }
 
+
+res_list = diff_exp("gamb_colu", names_df = AGAMnames_df)
 
 
 res = diff_exp(dataset = "fun", names_df = AFUNnames_df)
