@@ -379,3 +379,42 @@ def _hypergeometric(annotation_df, column_name, target_gene_list, N, k):
     hyper_geo =  pd.DataFrame({'annotation': sig_list, 'pval':res_list})
     hypo, hyper_geo.loc[:, 'padj'] = fdrcorrection(hyper_geo['pval'])           #[np.min([padj, 1]) for padj in hyper_geo.loc[:, 'pval']*len(unique_annots)] 
     return(hyper_geo.sort_values(by='pval'))
+
+
+
+
+
+def plot_heatmap(analysis, query_annotation=None, query_func=np.nanmedian, query_fc=None, query_name='median', cmap=None, cbar_pos=None, figsize=None):
+    
+    import seaborn as sns
+    # load metadata
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-expressir/main/results/fcs.{analysis}.tsv", sep="\t") 
+    fc_ranked = load_candidates(analysis=analysis, name=query_name, func=query_func, query_annotation=query_annotation, query_fc=query_fc)
+    fc_genes = fc_ranked.loc[:, 'GeneID']
+    fam_data = fc_data.query("GeneID in @fc_genes").copy()
+    
+    fam_data.loc[:, 'Label'] = [id_ + " | " + name if name != "" else id_ for id_, name in zip(fam_data['GeneID'].fillna(""), fam_data['GeneName'].fillna(""))]
+    fam_data = fam_data.set_index("Label").drop(columns=['GeneName', 'GeneID', 'GeneDescription'])
+    fam_data.columns = [c.replace("_log2FoldChange", "").replace("_", " ") for c in fam_data.columns]
+    mask = fam_data.isnull()
+
+    if fam_data.empty or fam_data.shape[0] == 1:
+      print(f"Too few observations for {query_annotation} and FC of greater than {query_fc}")
+      return
+    
+    if not figsize:
+        height = np.max([fam_data.shape[0]/2.5, 4])
+        figsize = [10, height]
+
+    cg = sns.clustermap(
+        fam_data.fillna(0), 
+        mask=mask, 
+        cbar_pos=cbar_pos, 
+        cmap=cmap,
+        figsize=figsize, 
+        tree_kws={'linewidths':3, 'colors':'darkgrey'},
+        linewidths=2,
+        yticklabels=True,
+    )
+
+    cg.ax_col_dendrogram.set_visible(False)
