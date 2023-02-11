@@ -2,9 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Ano-express
-
-
-def load_results_arrays(data_type, analysis, sample_query=None):
+def load_results_arrays(data_type, analysis):
     """
     Load the counts data for a given analysis and sample query
     """
@@ -199,3 +197,185 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     return(final_figure)
 
 
+def gene_ids_from_annotation(gene_annot_df, annotation):
+    """
+    Extract gene ids from gene_annot_df based on annotation
+    """
+    if isinstance(annotation, list):
+        gene_list = np.array([])
+        if annotation[0].startswith("GO"):
+            for go in annotation:
+              ids = gene_annot_df.query(f"GO_terms.str.contains('{go}', na=False)", engine='python')['gene_id'].to_numpy()
+              gene_list = np.hstack([gene_list, ids])
+            return(np.unique(gene_list))
+        else:
+          for dom in annotation:
+              ids = gene_annot_df.query("domain == @annotation")['gene_id'].to_numpy()
+              gene_list = np.hstack([gene_list, ids])
+          return(np.unique(gene_list))
+    else:
+        if annotation.startswith("GO"): 
+          return(gene_annot_df.query(f"GO_terms.str.contains('{annotation}', na=False)", engine='python')['gene_id'].to_numpy())
+        else:
+          return(gene_annot_df.query("domain == @annotation")['gene_id'].to_numpy())
+
+
+
+def plot_gene_family_expression(gene_identifier, analysis, title, microarray=False, plot_type='strip', sort_by='median', width=1600, height=None):
+  """Plot gene expression of gene families belonging to GO terms or PFAM domains
+
+  Parameters
+  ----------
+  gene_identifier : str or list
+    An AGAP identifier or list of AGAP identifiers
+  analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun"}
+    which analysis to load gene expression data for. analyses with more species will have less genes
+    present, due to the process of finding orthologs.
+  title : str
+    Plot title
+  microarray: bool, optional,
+    if True, load microarray data from Ir-tex. If False, load RNAseq data only. Defaults to False
+  plot_type : {"strip", "boxplot"}, optional
+    valid options are 'strip' or 'boxplot' 
+  sort_by : {"median", "mean", "agap"}, optional
+    sort by median/mean of fold changes (descending), or by AGAP
+    identifier
+  width : int
+    Width in pixels of the plotly figure
+  height: int, optional
+    Height in pixels of the plotly figure. Defaults to automatic sizing
+  """
+  assert analysis != 'fun', "GO terms and PFAM domains cannot be searched against An. funestus. Please use a different analysis."
+  
+  # Read in .csv file containing pfam and go terms
+  gene_annot_df = load_annotations()
+  gene_ids = gene_ids_from_annotation(gene_annot_df, gene_identifier)
+  fig = plot_gene_expression(gene_id=gene_ids, microarray=microarray, title=title, analysis=analysis, plot_type=plot_type, sort_by=sort_by, width=width, height=height)
+
+  return(fig)
+
+def load_annotations():
+    """
+    Load pfam or go annotations for Anopheles gambiae 
+    """
+    pfam_df = pd.read_csv("https://github.com/sanjaynagi/ano-expressir/blob/main/resources/Anogam_long.pep_Pfamscan.seqs.gz?raw=true", sep="\s+", header=None, compression='gzip')
+    go_df = pd.read_csv("https://github.com/sanjaynagi/ano-expressir/blob/main/resources/Anogam_long.pep_eggnog_diamond.emapper.annotations.GO.gz?raw=true", sep="\t", header=None, compression='gzip')
+    pfam_df.columns = ["transcript", "pstart", "pend", "pfamid", "domain", "domseq"]
+    go_df.columns = ['transcript', 'GO_terms']
+
+    gene_annot_df = pfam_df.merge(go_df)
+    gene_annot_df.loc[:, 'gene_id'] = gene_annot_df.loc[:, 'transcript'].str.replace("Anogam_", "").str.replace("-R[A-Z]", "", regex=True)
+    return(gene_annot_df)
+
+
+
+def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None):
+    """
+    Load the candidate genes for a given analysis. Optionally, filter by annotation or fold change data.
+    """
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-expressir/main/results/fcs.{analysis}.tsv", sep="\t")
+    fc_data = fc_data.set_index(['GeneID', 'GeneName', 'GeneDescription'])
+
+    if query_annotation is not None:
+      gene_annot_df = load_annotations()
+      gene_ids = gene_ids_from_annotation(gene_annot_df=gene_annot_df, annotation=query_annotation)
+      fc_data = fc_data.query("GeneID in @gene_ids")
+      assert not fc_data.empty, "No genes were found for the selection. It is possible these genes were removed by the ortholog finding process"
+    
+    fc_ranked = fc_data.apply(func, axis=1).to_frame().rename(columns={0:f'{name} log2 Fold Change'}).copy()
+    fc_ranked = fc_ranked.sort_values(f'{name} log2 Fold Change', ascending=False)
+    fc_ranked = fc_ranked.reset_index()
+    fc_ranked.loc[:, f'{name} Fold Change'] = np.round(2**fc_ranked.loc[:, f'{name} log2 Fold Change'], 2)
+
+    if query_fc is not None:
+       fc_ranked = fc_ranked.query(f'`{name} Fold Change` > {query_fc}')
+
+    return(fc_ranked)
+
+def go_hypergeometric(analysis, name, func, percentile=0.05):
+
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-expressir/main/results/fcs.{analysis}.tsv", sep="\t")
+    fc_genes = fc_data.reset_index()['GeneID'].to_list()
+
+    # get top % percentile genes ranked by func
+    fc_ranked = load_candidates(analysis=analysis, name=name, func=func)
+    percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
+    top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
+
+    # load gene annotation file 
+    gaf_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/ano-expressir/main/resources/AgamP4.gaf", sep="\t")
+    go_annotations = gaf_df[['go_term', 'descriptions']].rename(columns={'go_term':'annotation'}).drop_duplicates()
+    gaf_df = gaf_df[['GeneID', 'go_term']].drop_duplicates()
+    gaf_df = gaf_df.query("GeneID in @fc_genes")
+    N = gaf_df.GeneID.unique().shape[0] #Total number of genes with some annotation 
+    k = np.isin(gaf_df.loc[:, 'GeneID'].unique(), top_geneIDs).sum() 
+
+    hyper_geo = _hypergeometric(
+        annotation_df=gaf_df, 
+        column_name='go_term', 
+        target_gene_list=top_geneIDs,
+        N=N,
+        k=k)    
+    hyper_geo = hyper_geo.merge(go_annotations, how='left')
+    return(hyper_geo)
+
+def pfam_hypergeometric(analysis, name, func, percentile=0.05):
+    """
+    This function performs a hypergeometric test on pfam domains on the top percentile of genes ranked by func
+    """
+
+    # get all genes
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-expressir/main/results/fcs.{analysis}.tsv", sep="\t")
+    fc_genes = fc_data.reset_index()['GeneID'].to_list()
+
+    # get top 5% percentile genes ranked by median
+    fc_ranked = load_candidates(analysis=analysis, name=name, func=func)
+    percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
+    top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
+
+    # load gene annotation file 
+    pfam_df = pd.read_csv("https://github.com/sanjaynagi/ano-expressir/blob/main/resources/Anogam_long.pep_Pfamscan.seqs.gz?raw=true", sep="\s+", header=None, compression='gzip').iloc[:, [0,4]]
+    pfam_df.loc[:, 0] = pfam_df.loc[:, 0].str.replace("Anogam_", "").str.replace("-R[A-Z]", "", regex=True)
+    pfam_df.columns = ['GeneID', 'pfam']
+    pfam_df = pfam_df.query("GeneID in @fc_genes")
+    N = pfam_df.GeneID.unique().shape[0] #Total number of genes with some annotation 
+    k = np.isin(pfam_df.loc[:, 'GeneID'].unique(), top_geneIDs).sum()  
+
+    # run hypergeometric test
+    hyper_geo = _hypergeometric(
+        annotation_df=pfam_df, 
+        column_name='pfam', 
+        target_gene_list=top_geneIDs,
+        N=N,
+        k=k)
+        
+    return(hyper_geo)
+
+def _hypergeometric(annotation_df, column_name, target_gene_list, N, k):
+    """
+    This function performs a hypergeometric test on a given annotation column
+    """
+    from scipy.stats import hypergeom
+    from tqdm import tqdm
+    from statsmodels.stats.multitest import fdrcorrection
+
+    # get unique annotations
+    unique_annots = annotation_df.loc[:, column_name].unique()
+
+    sig_list = []
+    res_list = []
+    for annot in tqdm(unique_annots):
+
+        annot_genes = annotation_df.query("{col} == @annot".format(col=column_name))['GeneID']
+        m = len(annot_genes)
+
+        x = annot_genes.isin(target_gene_list).sum()
+        res = hypergeom(M=N, 
+                        n=m, 
+                        N=k).sf(x-1)
+        sig_list.append(annot)
+        res_list.append(res)    
+
+    hyper_geo =  pd.DataFrame({'annotation': sig_list, 'pval':res_list})
+    hypo, hyper_geo.loc[:, 'padj'] = fdrcorrection(hyper_geo['pval'])           #[np.min([padj, 1]) for padj in hyper_geo.loc[:, 'pval']*len(unique_annots)] 
+    return(hyper_geo.sort_values(by='pval'))
