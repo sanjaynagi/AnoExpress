@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "Ano-express"
+name = "Ano_express"
 version = "0.0.1"
 description = "A package to access insecticide resistance gene expression meta analyse in Anopheles mosquitoes"
 authors = [
     "Sanjay Nagi <sanjay.nagi@lstmed.ac.uk>",
     ]
 packages = [
-    { include = "Ano-express/" }
+    { include = "Ano_express" }
 ]
 license = "MIT"
 
@@ -18,6 +18,7 @@ numpy = "*"
 plotly = "*"
 scipy = "*"
 tqdm = "*"
+statsmodels = "*"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "*"
