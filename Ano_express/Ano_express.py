@@ -16,8 +16,8 @@ def xpress_metadata():
     """
     Load the sample and comparisons metadata in a pandas dataframe
     """
-    sample_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/ano-express/main/config/sample_metadata.tsv", sep="\t").rename(columns={'colData':'sampleID'})
-    comparison_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/ano-express/main/config/comparison_metadata.tsv", sep="\t")
+    sample_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/config/sample_metadata.tsv", sep="\t").rename(columns={'colData':'sampleID'})
+    comparison_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/config/comparison_metadata.tsv", sep="\t")
     return(comparison_metadata, sample_metadata)
 
 def irtex_metadata():
@@ -27,10 +27,25 @@ def irtex_metadata():
     comparison_metadata = pd.read_csv("https://github.com/sanjaynagi/Ano-express/blob/main/config/irtex_metadata.tsv?raw=true", sep="\t")
     return(comparison_metadata)
 
-def metadata(analysis, microarray=True, sample_metadata=False):
+def metadata(analysis, microarray=False, sample_metadata=False):
     """
     Load the comparisons metadata from both Ano-express and IR-Tex in a pandas dataframe
+
+    Parameters
+    ----------
+    analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
+      which analysis to load gene expression data for. analyses with more species will have less genes
+      present, due to the process of finding orthologs.
+    microarray: bool, optional
+      whether to include the IR-Tex microarray metadata in the metadata. Default is False.
+    sample_metadata: bool, optional
+      whether to return the sample metadata in addition to the comparisons metadata. Default is False.
+
+    Returns
+    -------
+    comparisons_df: pandas dataframe
     """
+
     # load metadata from Ano-express
     metadata, xpress_samples = xpress_metadata()   
     metadata = metadata.assign(technology='rnaseq')
@@ -45,14 +60,28 @@ def metadata(analysis, microarray=True, sample_metadata=False):
     comparisons_df = species_query(metadata, analysis)
     
     if sample_metadata == True:
-        return(comparisons_df, xpress_samples)
+      return(comparisons_df, xpress_samples)
     else:
       return(comparisons_df)
 
 
-def data(data_type, analysis, microarray=True):
+def data(data_type, analysis, microarray=False):
     """
     Load the combined data for a given analysis and sample query
+
+    PARAMETERS
+    ----------
+    data_type: {"log2counts", "fcs", "pvals"}
+      which data type to load gene expression data for. log2counts are the log2 counts, fcs are the fold changes, and pvals are the adjusted p-values.
+    analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
+      which analysis to load gene expression data for. analyses with more species will have less genes
+      present, due to the process of finding orthologs.
+    microarray: bool, optional
+      whether to include the IR-Tex microarray data in the requested data. Default is False.
+    
+    RETURNS
+    -------
+    results_data: pandas dataframe
     """
     assert analysis in ['gamb_colu', 'gamb_colu_arab', 'gamb_colu_arab_fun', 'fun'], "analysis must be one of 'gamb_colu', 'gamb_colu_arab', 'gamb_colu_arab_fun', 'fun'"
     # load the metadata and subset to the species of interest
@@ -116,7 +145,7 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     import plotly.subplots as sp
       
     fc_data = data("fcs", analysis=analysis, microarray=microarray).reset_index()
-    count_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-expressir/main/results/log2counts.{analysis}.tsv", sep="\t")
+    count_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-express/main/results/log2counts.{analysis}.tsv", sep="\t")
     comp_metadata, sample_metadata = metadata(analysis=analysis, microarray=microarray, sample_metadata=True)
 
     fam_fc_data = fc_data.query("GeneID in @gene_id").copy()
@@ -258,8 +287,8 @@ def load_annotations():
     """
     Load pfam or go annotations for Anopheles gambiae 
     """
-    pfam_df = pd.read_csv("https://github.com/sanjaynagi/ano-expressir/blob/main/resources/Anogam_long.pep_Pfamscan.seqs.gz?raw=true", sep="\s+", header=None, compression='gzip')
-    go_df = pd.read_csv("https://github.com/sanjaynagi/ano-expressir/blob/main/resources/Anogam_long.pep_eggnog_diamond.emapper.annotations.GO.gz?raw=true", sep="\t", header=None, compression='gzip')
+    pfam_df = pd.read_csv("https://github.com/sanjaynagi/ano-express/blob/main/resources/Anogam_long.pep_Pfamscan.seqs.gz?raw=true", sep="\s+", header=None, compression='gzip')
+    go_df = pd.read_csv("https://github.com/sanjaynagi/ano-express/blob/main/resources/Anogam_long.pep_eggnog_diamond.emapper.annotations.GO.gz?raw=true", sep="\t", header=None, compression='gzip')
     pfam_df.columns = ["transcript", "pstart", "pend", "pfamid", "domain", "domseq"]
     go_df.columns = ['transcript', 'GO_terms']
 
@@ -272,8 +301,26 @@ def load_annotations():
 def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None):
     """
     Load the candidate genes for a given analysis. Optionally, filter by annotation or fold change data.
+    
+    PARAMETERS
+    ----------
+    analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
+      which analysis to load gene expression data for. analyses with more species will have less genes
+      present, due to the process of finding orthologs.
+    name: str, optional
+      name of the function to rank genes by. Defaults to 'median'
+    func: function, optional
+      function to rank genes by. Defaults to np.nanmedian
+    query_annotation: str or list, optional
+      filter genes by GO or PFAM annotation. Defaults to None
+    query_fc: float, optional
+      filter genes by fold change. Defaults to None
+    
+    RETURNS
+    -------
+    fc_ranked: pd.DataFrame
     """
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-expressir/main/results/fcs.{analysis}.tsv", sep="\t")
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-express/main/results/fcs.{analysis}.tsv", sep="\t")
     fc_data = fc_data.set_index(['GeneID', 'GeneName', 'GeneDescription'])
 
     if query_annotation is not None:
@@ -293,8 +340,27 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
     return(fc_ranked)
 
 def go_hypergeometric(analysis, name, func, percentile=0.05):
+    """
+    Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function.
 
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-expressir/main/results/fcs.{analysis}.tsv", sep="\t")
+    PARAMETERS
+    ----------
+    analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
+      which analysis to load gene expression data for. analyses with more species will have less genes
+      present, due to the process of finding orthologs.
+    name: str
+      name of the function to rank genes by
+    func: function
+      function to rank genes by (such as np.nanmedian, np.nanmean)
+    percentile: float, optional
+      percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
+
+    RETURNS
+    -------
+    go_hypergeo_results: pd.DataFrame
+    """
+
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-express/main/results/fcs.{analysis}.tsv", sep="\t")
     fc_genes = fc_data.reset_index()['GeneID'].to_list()
 
     # get top % percentile genes ranked by func
@@ -303,7 +369,7 @@ def go_hypergeometric(analysis, name, func, percentile=0.05):
     top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
 
     # load gene annotation file 
-    gaf_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/ano-expressir/main/resources/AgamP4.gaf", sep="\t")
+    gaf_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/ano-express/main/resources/AgamP4.gaf", sep="\t")
     go_annotations = gaf_df[['go_term', 'descriptions']].rename(columns={'go_term':'annotation'}).drop_duplicates()
     gaf_df = gaf_df[['GeneID', 'go_term']].drop_duplicates()
     gaf_df = gaf_df.query("GeneID in @fc_genes")
@@ -321,11 +387,27 @@ def go_hypergeometric(analysis, name, func, percentile=0.05):
 
 def pfam_hypergeometric(analysis, name, func, percentile=0.05):
     """
-    This function performs a hypergeometric test on pfam domains on the top percentile of genes ranked by func
+    Perform a hypergeometric test on PFAM domains of the the top % percentile genes ranked by user input function.
+
+    PARAMETERS
+    ----------
+    analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
+      which analysis to load gene expression data for. analyses with more species will have less genes
+      present, due to the process of finding orthologs.
+    name: str
+      name of the function to rank genes by
+    func: function
+      function to rank genes by (such as np.nanmedian, np.nanmean)
+    percentile: float, optional
+      percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
+    
+    RETURNS
+    -------
+    pfam_hypergeo_results: pd.DataFrame
     """
 
     # get all genes
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-expressir/main/results/fcs.{analysis}.tsv", sep="\t")
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-express/main/results/fcs.{analysis}.tsv", sep="\t")
     fc_genes = fc_data.reset_index()['GeneID'].to_list()
 
     # get top 5% percentile genes ranked by median
@@ -334,7 +416,7 @@ def pfam_hypergeometric(analysis, name, func, percentile=0.05):
     top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
 
     # load gene annotation file 
-    pfam_df = pd.read_csv("https://github.com/sanjaynagi/ano-expressir/blob/main/resources/Anogam_long.pep_Pfamscan.seqs.gz?raw=true", sep="\s+", header=None, compression='gzip').iloc[:, [0,4]]
+    pfam_df = pd.read_csv("https://github.com/sanjaynagi/ano-express/blob/main/resources/Anogam_long.pep_Pfamscan.seqs.gz?raw=true", sep="\s+", header=None, compression='gzip').iloc[:, [0,4]]
     pfam_df.loc[:, 0] = pfam_df.loc[:, 0].str.replace("Anogam_", "").str.replace("-R[A-Z]", "", regex=True)
     pfam_df.columns = ['GeneID', 'pfam']
     pfam_df = pfam_df.query("GeneID in @fc_genes")
@@ -383,10 +465,32 @@ def _hypergeometric(annotation_df, column_name, target_gene_list, N, k):
 
 
 def plot_heatmap(analysis, query_annotation=None, query_func=np.nanmedian, query_fc=None, query_name='median', cmap=None, cbar_pos=None, figsize=None):
+    """
+    Plot a heatmap of the top 100 genes ranked by user input function.
     
+    PARAMETERS
+    ----------
+    analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
+      which analysis to load gene expression data for. analyses with more species will have less genes
+      present, due to the process of finding orthologs.
+    query_annotation: str, optional
+      Either a GO term or a PFAM domain to select genes to plot heatmap of. Defaults to None.
+    query_func: function, optional
+      function to rank genes by (such as np.nanmedian, np.nanmean). Defaults to np.nanmedian
+    query_fc: float, optional
+      fold change threshold to select genes to plot heatmap of. Defaults to None.
+    query_name: str, optional
+      name of the function to rank genes by. Defaults to 'median'.
+    cmap: str, optional
+      colormap to use for heatmap.
+    cbar_pos: {"left", "right", "top", "bottom"}, optional
+      position of colorbar. Defaults to None.
+    figsize: tuple, optional
+      size of figure.
+    """
     import seaborn as sns
     # load metadata
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-expressir/main/results/fcs.{analysis}.tsv", sep="\t") 
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-express/main/results/fcs.{analysis}.tsv", sep="\t") 
     fc_ranked = load_candidates(analysis=analysis, name=query_name, func=query_func, query_annotation=query_annotation, query_fc=query_fc)
     fc_genes = fc_ranked.loc[:, 'GeneID']
     fam_data = fc_data.query("GeneID in @fc_genes").copy()
