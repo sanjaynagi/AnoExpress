@@ -1,4 +1,7 @@
-![image](https://raw.githubusercontent.com/sanjaynagi/ano-express/main/docs/logo.png)
+![image](https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/docs/logo.png)
+
+[![Execute notebook](https://github.com/sanjaynagi/Ano-express/workflows/Execute%20notebook/badge.svg)](https://github.com/sanjaynagi/Ano-express/actions?query=workflow:"Execute+notebook")
+[![GitHub release](https://img.shields.io/github/release/sanjaynagi/Ano-express?include_prereleases=&sort=semver&color=blue)](https://github.com/sanjaynagi/Ano-express/releases/)
 
 **<ins>*Ano</ins>pheles* gene <ins>exp</ins>ression in <ins>res</ins>istance <ins>s</ins>tudies**
 
