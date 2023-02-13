@@ -116,7 +116,7 @@ def species_query(comparisons_df, analysis):
     return(comparisons_df)
 
 
-def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=False, title=None, plot_type='strip', sort_by='agap', width=1600, height=None):
+def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=False, title=None, plot_type='strip', sort_by='agap', width=1600, height=None, save_html=None):
     """Plot fold changes of provided AGAP gene IDs from RNA-Seq 
     meta-analysis dataset
 
@@ -140,6 +140,8 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
       Width in pixels of the plotly figure
     height: int, optional
       Height in pixels of the plotly figure. Defaults to automatic sizing
+    save_html : str, optional
+      Path to save the plotly figure as an html file
     """
     import plotly.express as px
     import plotly.subplots as sp
@@ -223,6 +225,9 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     final_figure.update_xaxes(title_text="counts", row=1, col=2, title_font = {"size": 18})
     for i in [1,2]: final_figure.add_vline(0,  line_width=1, line_dash="dash", line_color="grey", row=1, col=i)
     
+    if save_html:
+       final_figure.write_html(save_html)
+
     return(final_figure)
 
 
