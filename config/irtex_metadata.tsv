@@ -1,32 +1,32 @@
 comparison	resistant	susceptible	species	country
-Nkolondom	Nkolondom	NaN	gambiae	Cameroon
-Garre	Garre	NaN	coluzzii	Cameroon
-Messa	Messa	NaN	coluzzii	Cameroon
-Bioko	Bioko	NaN	coluzzii	Equatorial Guinea
-Kitwe	Kitwe	NaN	gambiae	Zambia
-Bouake	Bouake	NaN	coluzzii	Cote d'Ivoire
-MBe	MBe	NaN	coluzzii	Cote d'Ivoire
-Tiassale	Tiassale	NaN	coluzzii	Cote d'Ivoire
-PembaMoz	PembaMoz	NaN	arabiensis	Tanzania
-PembaUnguja	PembaUnguja	NaN	arabiensis	Tanzania
-PembaDar	PembaDar	NaN	arabiensis	Tanzania
-WadMedani	WadMedani	NaN	arabiensis	Sudan
-VK6	VK6	NaN	coluzzii	Burkina Faso
-Banfora	Banfora	NaN	coluzzii	Burkina Faso
-Tiefora13	Tiefora13	NaN	gambiae	Burkina Faso
-Tiefora14	Tiefora14	NaN	gambiae	Burkina Faso
-JinjaMoz	JinjaMoz	NaN	arabiensis	Uganda
-JinjaDong	JinjaDong	NaN	arabiensis	Uganda
-DSSBA	DSSBA	NaN	arabiensis	Burkina Faso
-Tengrela	Tengrela	NaN	coluzzii	Burkina Faso
-VK72012	VK72012	NaN	coluzzii	Burkina Faso
-VK72011	VK72011	NaN	coluzzii	Burkina Faso
-TiassaleMali	TiassaleMali	NaN	coluzzii	Cote d'Ivoire
-TiassaleOkyero	TiassaleOkyero	NaN	coluzzii	Cote d'Ivoire
-Tiassale2011	Tiassale2011	NaN	coluzzii	Cote d'Ivoire
-KovieOkyero	KovieOkyero	NaN	coluzzii	Togo
-KovieMalanville	KovieMalanville	NaN	coluzzii	Togo
-Youande	Youande	NaN	gambiae	Cameroon
-Hai	Hai	NaN	arabiensis	Tanzania
-Muheza	Muheza	NaN	arabiensis	Tanzania
-Dar	Dar	NaN	arabiensis	Tanzania
+Nkolondom	Nkolondom	Kisumu	gambiae	Cameroon
+Garre	Garre	Ngousso	coluzzii	Cameroon
+Messa	Messa	Ngousso	coluzzii	Cameroon
+Bioko	Bioko	Ngousso	coluzzii	Equatorial Guinea
+Kitwe	Kitwe	Kisumu	gambiae	Zambia
+Bouake	Bouake	Ngousso	coluzzii	Cote d'Ivoire
+MBe	MBe	Ngousso	coluzzii	Cote d'Ivoire
+Tiassale	Tiassale	Ngousso	coluzzii	Cote d'Ivoire
+PembaMoz	PembaMoz	Moz	arabiensis	Tanzania
+PembaUnguja	PembaUnguja	Unguja	arabiensis	Tanzania
+PembaDar	PembaDar	Dar	arabiensis	Tanzania
+WadMedani	WadMedani	Medani	arabiensis	Sudan
+VK6	VK6	Ngousso	coluzzii	Burkina Faso
+Banfora	Banfora	Ngousso	coluzzii	Burkina Faso
+Tiefora13	Tiefora13	Kisumu	gambiae	Burkina Faso
+Tiefora14	Tiefora14	Kisumu	gambiae	Burkina Faso
+JinjaMoz	JinjaMoz	Moz	arabiensis	Uganda
+JinjaDong	JinjaDong	Dong	arabiensis	Uganda
+DSSBA	DSSBA	Moz	arabiensis	Burkina Faso
+Tengrela	Tengrela	Mali	coluzzii	Burkina Faso
+VK72012	VK72012	Ngousso	coluzzii	Burkina Faso
+VK72011	VK72011	Mali	coluzzii	Burkina Faso
+TiassaleMali	TiassaleMali	Mali	coluzzii	Cote d'Ivoire
+TiassaleOkyero	TiassaleOkyero	Okyero	coluzzii	Cote d'Ivoire
+Tiassale2011	Tiassale2011	Ngousso	coluzzii	Cote d'Ivoire
+KovieOkyero	KovieOkyero	Okyero	coluzzii	Togo
+KovieMalanville	KovieMalanville	Malanville	coluzzii	Togo
+Youande	Youande	Kisumu	gambiae	Cameroon
+Hai	Hai	Ifakara	arabiensis	Tanzania
+Muheza	Muheza	Ifakara	arabiensis	Tanzania
+Dar	Dar	Ifakara	arabiensis	Tanzania
