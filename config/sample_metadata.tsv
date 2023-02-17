@@ -1,4 +1,4 @@
-colData	condition	resistance	species	batch	country
+sampleID	condition	resistance	species	batch	country
 Tie1	Tiefora	resistant	coluzzii	1	Burkina Faso
 Tie2	Tiefora	resistant	coluzzii	1	Burkina Faso
 Tie3	Tiefora	resistant	coluzzii	1	Burkina Faso

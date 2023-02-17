@@ -16,7 +16,7 @@ def xpress_metadata():
     """
     Load the sample and comparisons metadata in a pandas dataframe
     """
-    sample_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/config/sample_metadata.tsv", sep="\t").rename(columns={'colData':'sampleID'})
+    sample_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/config/sample_metadata.tsv", sep="\t")
     comparison_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/config/comparison_metadata.tsv", sep="\t")
     return(comparison_metadata, sample_metadata)
 
@@ -26,6 +26,7 @@ def irtex_metadata():
     """   
     comparison_metadata = pd.read_csv("https://github.com/sanjaynagi/Ano-express/blob/main/config/irtex_metadata.tsv?raw=true", sep="\t")
     return(comparison_metadata)
+
 
 def metadata(analysis, microarray=False, sample_metadata=False):
     """
@@ -57,7 +58,7 @@ def metadata(analysis, microarray=False, sample_metadata=False):
         metadata = pd.concat([metadata, irtex_meta]).reset_index(drop=True)
 
     # subset to the species of interest
-    comparisons_df = species_query(metadata, analysis)
+    comparisons_df = _species_query(metadata, analysis)
     
     if sample_metadata == True:
       return(comparisons_df, xpress_samples)
@@ -65,55 +66,76 @@ def metadata(analysis, microarray=False, sample_metadata=False):
       return(comparisons_df)
 
 
-def data(data_type, analysis, microarray=False):
+def data(data_type, analysis, microarray=False, gene_id=None):
     """
     Load the combined data for a given analysis and sample query
 
-    PARAMETERS
+    Parameters
     ----------
-    data_type: {"log2counts", "fcs", "pvals"}
+    data_type: {"fcs", "pvals", "log2counts"}
       which data type to load gene expression data for. log2counts are the log2 counts, fcs are the fold changes, and pvals are the adjusted p-values.
     analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
       which analysis to load gene expression data for. analyses with more species will have less genes
       present, due to the process of finding orthologs.
     microarray: bool, optional
       whether to include the IR-Tex microarray data in the requested data. Default is False.
+    gene_id: str or list, optional
+      A string (AGAP/AFUN identifier), or list of strings, or path to a file containing a list of gene ids in the first column. 
+      Input file can be .tsv, .txt, or .csv, or .xlsx.
     
-    RETURNS
+    Returns
     -------
     results_data: pandas dataframe
     """
     assert analysis in ['gamb_colu', 'gamb_colu_arab', 'gamb_colu_arab_fun', 'fun'], "analysis must be one of 'gamb_colu', 'gamb_colu_arab', 'gamb_colu_arab_fun', 'fun'"
+    assert data_type in ['log2counts', 'fcs', 'pvals'], "data_type must be one of 'log2counts', 'fcs', 'pvals'"
     # load the metadata and subset to the species of interest
-    comparisons_df = metadata(analysis=analysis, microarray=microarray)
-    comparisons_df = species_query(comparisons_df=comparisons_df, analysis=analysis)
-    comparisons_ids = comparisons_df.loc[:, 'comparison'].to_list()
+    comparisons_df, samples_df = metadata(analysis=analysis, microarray=microarray, sample_metadata=True)
+    
+    if data_type in ['fcs', 'pvals']:
+      metadata_df = _species_query(comparisons_df=comparisons_df, analysis=analysis)
+    else:
+      metadata_df = _species_query(comparisons_df=samples_df, analysis=analysis)
+    
+    index_col = 'comparison' if data_type in ['fcs', 'pvals'] else 'sampleID'
+    metadata_ids = metadata_df.loc[:, index_col].to_list()
 
     # load the data and merge
     df = load_results_arrays(data_type=data_type, analysis=analysis)
     
     # load ir-tex data and merge
-    if microarray == True:
+    if microarray == True and data_type != 'log2counts':
         irtex_df = load_results_arrays(data_type=data_type, analysis='irtex')
         df = df.reset_index().merge(irtex_df, on='GeneID', how='left').set_index(['GeneID', 'GeneName'])
 
     # subset to the species comparisons of interest
-    df = df.loc[:, comparisons_ids]
-    return(df)
+    df = df.loc[:, metadata_ids]
 
-def species_query(comparisons_df, analysis):
+    if gene_id:
+      if isinstance(gene_id, str):
+        if gene_id.endswith(('.tsv', '.txt')):
+            gene_id = pd.read_csv(gene_id, sep="\t", header=None).iloc[:, 0].to_list()
+        elif gene_id.endswith('.csv'):
+            gene_id = pd.read_csv(gene_id, header=None).iloc[:, 0].to_list()
+        elif gene_id.endswith('.xlsx'):
+            gene_id = pd.read_excel(gene_id, header=None).iloc[:, 0].to_list()
+      df = df.query("GeneID == @gene_id").sort_values(by='GeneID')
+    
+      return(df)
+
+def _species_query(metadata_df, analysis):
     """
     Subset the comparisons metadata to the species of interest
     """
     if analysis == 'gamb_colu':
-        comparisons_df = comparisons_df.query('species in ["gambiae","coluzzii"]')
+        metadata_df = metadata_df.query('species in ["gambiae","coluzzii"]')
     elif analysis == 'gamb_colu_arab':
-        comparisons_df = comparisons_df.query('species in ["gambiae","coluzzii","arabiensis"]')
+        metadata_df = metadata_df.query('species in ["gambiae","coluzzii","arabiensis"]')
     elif analysis == 'gamb_colu_arab_fun':
-        comparisons_df = comparisons_df.query('species in ["gambiae","coluzzii","arabiensis","funestus"]')
+        metadata_df = metadata_df.query('species in ["gambiae","coluzzii","arabiensis","funestus"]')
     elif analysis == 'fun':
-        comparisons_df = comparisons_df.query('species in ["funestus"]')
-    return(comparisons_df)
+        metadata_df = metadata_df.query('species in ["funestus"]')
+    return(metadata_df)
 
 
 def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=False, title=None, plot_type='strip', sort_by='agap', width=1600, height=None, save_html=None):
@@ -122,8 +144,10 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
 
     Parameters
     ----------
+
     gene_id : str or list
-      An AGAP identifier or list of AGAP identifiers, or AFUN if the analysis == 'fun'.
+      An AGAP identifier or list of AGAP identifiers, or AFUN if the analysis == 'fun'. Can also be a path to a file 
+      containing a list of gene ids in the first column. Input file can be .tsv, .txt, or .csv, or .xlsx.
     analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
       which analysis to load gene expression data for. analyses with more species will have less genes
       present, due to the process of finding orthologs.
@@ -146,11 +170,10 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     import plotly.express as px
     import plotly.subplots as sp
       
-    fc_data = data("fcs", analysis=analysis, microarray=microarray).reset_index()
+    fam_fc_data = data(data_type="fcs", analysis=analysis, microarray=microarray, gene_id=gene_id).reset_index()
     count_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-express/main/results/log2counts.{analysis}.tsv", sep="\t")
     comp_metadata, sample_metadata = metadata(analysis=analysis, microarray=microarray, sample_metadata=True)
 
-    fam_fc_data = fc_data.query("GeneID in @gene_id").copy()
     fam_count_data = count_data.query("GeneID in @gene_id").copy()
 
     if sort_by == 'median':
@@ -231,7 +254,7 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     return(final_figure)
 
 
-def gene_ids_from_annotation(gene_annot_df, annotation):
+def _gene_ids_from_annotation(gene_annot_df, annotation):
     """
     Extract gene ids from gene_annot_df based on annotation
     """
@@ -260,6 +283,7 @@ def plot_gene_family_expression(gene_identifier, analysis, title, microarray=Fal
 
   Parameters
   ----------
+
   gene_identifier : str or list
     An AGAP identifier or list of AGAP identifiers
   analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun"}
@@ -283,7 +307,7 @@ def plot_gene_family_expression(gene_identifier, analysis, title, microarray=Fal
   
   # Read in .csv file containing pfam and go terms
   gene_annot_df = load_annotations()
-  gene_ids = gene_ids_from_annotation(gene_annot_df, gene_identifier)
+  gene_ids = _gene_ids_from_annotation(gene_annot_df, gene_identifier)
   fig = plot_gene_expression(gene_id=gene_ids, microarray=microarray, title=title, analysis=analysis, plot_type=plot_type, sort_by=sort_by, width=width, height=height)
 
   return(fig)
@@ -303,11 +327,11 @@ def load_annotations():
 
 
 
-def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None):
+def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None, microarray=False):
     """
     Load the candidate genes for a given analysis. Optionally, filter by annotation or fold change data.
     
-    PARAMETERS
+    Parameters
     ----------
     analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
       which analysis to load gene expression data for. analyses with more species will have less genes
@@ -321,7 +345,7 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
     query_fc: float, optional
       filter genes by fold change. Defaults to None
     
-    RETURNS
+    Returns
     -------
     fc_ranked: pd.DataFrame
     """
@@ -330,7 +354,7 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
 
     if query_annotation is not None:
       gene_annot_df = load_annotations()
-      gene_ids = gene_ids_from_annotation(gene_annot_df=gene_annot_df, annotation=query_annotation)
+      gene_ids = _gene_ids_from_annotation(gene_annot_df=gene_annot_df, annotation=query_annotation)
       fc_data = fc_data.query("GeneID in @gene_ids")
       assert not fc_data.empty, "No genes were found for the selection. It is possible these genes were removed by the ortholog finding process"
     
@@ -344,11 +368,12 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
 
     return(fc_ranked)
 
+
 def go_hypergeometric(analysis, name, func, percentile=0.05):
     """
     Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function.
 
-    PARAMETERS
+    Parameters
     ----------
     analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
       which analysis to load gene expression data for. analyses with more species will have less genes
@@ -360,7 +385,7 @@ def go_hypergeometric(analysis, name, func, percentile=0.05):
     percentile: float, optional
       percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
 
-    RETURNS
+    Returns
     -------
     go_hypergeo_results: pd.DataFrame
     """
@@ -390,11 +415,12 @@ def go_hypergeometric(analysis, name, func, percentile=0.05):
     hyper_geo = hyper_geo.merge(go_annotations, how='left')
     return(hyper_geo)
 
+
 def pfam_hypergeometric(analysis, name, func, percentile=0.05):
     """
     Perform a hypergeometric test on PFAM domains of the the top % percentile genes ranked by user input function.
 
-    PARAMETERS
+    Parameters
     ----------
     analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
       which analysis to load gene expression data for. analyses with more species will have less genes
@@ -406,7 +432,7 @@ def pfam_hypergeometric(analysis, name, func, percentile=0.05):
     percentile: float, optional
       percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
     
-    RETURNS
+    Returns
     -------
     pfam_hypergeo_results: pd.DataFrame
     """
