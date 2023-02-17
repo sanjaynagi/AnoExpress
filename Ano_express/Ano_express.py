@@ -24,7 +24,7 @@ def irtex_metadata():
     """
     Load the ir-tex fold change data for a given analysis and sample query
     """   
-    comparison_metadata = pd.read_csv("https://github.com/sanjaynagi/Ano-express/blob/main/config/irtex_metadata.tsv?raw=true", sep="\t")
+    comparison_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/config/irtex_metadata.tsv", sep="\t")
     return(comparison_metadata)
 
 
