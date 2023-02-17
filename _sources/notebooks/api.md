@@ -5,48 +5,48 @@ This notebook provides an overview of the API for the *Ano*-express python packa
 ## metadata()
 
 ```{eval-rst}
-.. automethod:: Ano_express::Ano_express.metadata 
+.. autofunction:: Ano_express::Ano_express.metadata 
 ```
 
 ## data()
 
 ```{eval-rst}
-.. automethod:: Ano_express::Ano_express.data
+.. autofunction:: Ano_express::Ano_express.data
 ```
 
 ## load_candidates()
 
 ```{eval-rst}
-.. automethod:: Ano_express::Ano_express.load_candidates
+.. autofunction:: Ano_express::Ano_express.load_candidates
 ```
 
 ## plot_gene_expression()
 
 ```{eval-rst}
-.. automethod:: Ano_express::Ano_express.plot_gene_expression
+.. autofunction:: Ano_express::Ano_express.plot_gene_expression
 ```
 
 ## plot_gene_family_expression()
 
 ```{eval-rst}
-.. automethod:: Ano_express::Ano_express.plot_gene_family_expression
+.. autofunction:: Ano_express::Ano_express.plot_gene_family_expression
 ```
 
 ## plot_heatmap()
 
 ```{eval-rst}
-.. automethod:: Ano_express::Ano_express.plot_heatmap
+.. autofunction:: Ano_express::Ano_express.plot_heatmap
 ```
 
 ## go_hypergeometric()
     
 ```{eval-rst}
-.. automethod:: Ano_express::Ano_express.go_hypergeometric
+.. autofunction:: Ano_express::Ano_express.go_hypergeometric
 ```
 
 ## pfam_hypergeometric()
     
 ```{eval-rst}
-.. automethod:: Ano_express::Ano_express.pfam_hypergeometric
+.. autofunction:: Ano_express::Ano_express.pfam_hypergeometric
 ```
 
