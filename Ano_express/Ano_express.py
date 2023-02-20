@@ -45,6 +45,7 @@ def metadata(analysis, microarray=False, sample_metadata=False):
     Returns
     -------
     comparisons_df: pandas dataframe
+    samples_df: pandas dataframe
     """
 
     # load metadata from Ano-express
@@ -93,9 +94,9 @@ def data(data_type, analysis, microarray=False, gene_id=None):
     comparisons_df, samples_df = metadata(analysis=analysis, microarray=microarray, sample_metadata=True)
     
     if data_type in ['fcs', 'pvals']:
-      metadata_df = _species_query(comparisons_df=comparisons_df, analysis=analysis)
+      metadata_df = _species_query(metadata_df=comparisons_df, analysis=analysis)
     else:
-      metadata_df = _species_query(comparisons_df=samples_df, analysis=analysis)
+      metadata_df = _species_query(metadata_df=samples_df, analysis=analysis)
     
     index_col = 'comparison' if data_type in ['fcs', 'pvals'] else 'sampleID'
     metadata_ids = metadata_df.loc[:, index_col].to_list()
@@ -119,9 +120,9 @@ def data(data_type, analysis, microarray=False, gene_id=None):
             gene_id = pd.read_csv(gene_id, header=None).iloc[:, 0].to_list()
         elif gene_id.endswith('.xlsx'):
             gene_id = pd.read_excel(gene_id, header=None).iloc[:, 0].to_list()
-      df = df.query("GeneID == @gene_id").sort_values(by='GeneID')
+      df = df.query("GeneID == @gene_id")
     
-      return(df)
+      return(df.sort_values(by='GeneID'))
 
 def _species_query(metadata_df, analysis):
     """
