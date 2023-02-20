@@ -120,7 +120,7 @@ def data(data_type, analysis, microarray=False, gene_id=None):
             gene_id = pd.read_csv(gene_id, header=None).iloc[:, 0].to_list()
         elif gene_id.endswith('.xlsx'):
             gene_id = pd.read_excel(gene_id, header=None).iloc[:, 0].to_list()
-      df = df.query("GeneID == @gene_id")
+      df = df.query("GeneID in @gene_id")
     
     return(df.sort_values(by='GeneID'))
 
