@@ -122,7 +122,7 @@ def data(data_type, analysis, microarray=False, gene_id=None):
             gene_id = pd.read_excel(gene_id, header=None).iloc[:, 0].to_list()
       df = df.query("GeneID == @gene_id")
     
-      return(df.sort_values(by='GeneID'))
+    return(df.sort_values(by='GeneID'))
 
 def _species_query(metadata_df, analysis):
     """
