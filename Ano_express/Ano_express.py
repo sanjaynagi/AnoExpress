@@ -112,7 +112,7 @@ def data(data_type, analysis, microarray=False, gene_id=None):
     # subset to the species comparisons of interest
     df = df.loc[:, metadata_ids]
 
-    if gene_id:
+    if gene_id is not None:
       if isinstance(gene_id, str):
         if gene_id.endswith(('.tsv', '.txt')):
             gene_id = pd.read_csv(gene_id, sep="\t", header=None).iloc[:, 0].to_list()
