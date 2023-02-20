@@ -654,10 +654,11 @@ present, due to the process of finding orthologs.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>comparisons_df</strong></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pandas dataframe</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>comparisons_df</strong> (<em>pandas dataframe</em>)</p></li>
+<li><p><strong>samples_df</strong> (<em>pandas dataframe</em>)</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -672,7 +673,7 @@ present, due to the process of finding orthologs.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data_type</strong> (<em>{&quot;log2counts&quot;</em><em>, </em><em>&quot;fcs&quot;</em><em>, </em><em>&quot;pvals&quot;}</em>) – which data type to load gene expression data for. log2counts are the log2 counts, fcs are the fold changes, and pvals are the adjusted p-values.</p></li>
+<li><p><strong>data_type</strong> (<em>{&quot;fcs&quot;</em><em>, </em><em>&quot;pvals&quot;</em><em>, </em><em>&quot;log2counts&quot;}</em>) – which data type to load gene expression data for. log2counts are the log2 counts, fcs are the fold changes, and pvals are the adjusted p-values.</p></li>
 <li><p><strong>analysis</strong> (<em>{&quot;gamb_colu&quot;</em><em>, </em><em>&quot;gamb_colu_arab&quot;</em><em>, </em><em>&quot;gamb_colu_arab_fun&quot;</em><em>, </em><em>&quot;fun&quot;}</em>) – which analysis to load gene expression data for. analyses with more species will have less genes
 present, due to the process of finding orthologs.</p></li>
 <li><p><strong>microarray</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to include the IR-Tex microarray data in the requested data. Default is False.</p></li>
@@ -727,7 +728,8 @@ meta-analysis dataset</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>gene_id</strong> (<em>str</em><em> or </em><em>list</em>) – An AGAP identifier or list of AGAP identifiers, or AFUN if the analysis == ‘fun’.</p></li>
+<li><p><strong>gene_id</strong> (<em>str</em><em> or </em><em>list</em>) – An AGAP identifier or list of AGAP identifiers, or AFUN if the analysis == ‘fun’. Can also be a path to a file
+containing a list of gene ids in the first column. Input file can be .tsv, .txt, or .csv, or .xlsx.</p></li>
 <li><p><strong>analysis</strong> (<em>{&quot;gamb_colu&quot;</em><em>, </em><em>&quot;gamb_colu_arab&quot;</em><em>, </em><em>&quot;gamb_colu_arab_fun&quot;</em><em>, </em><em>&quot;fun&quot;}</em>) – which analysis to load gene expression data for. analyses with more species will have less genes
 present, due to the process of finding orthologs.</p></li>
 <li><p><strong>microarray</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to include the IR-Tex microarray data in the plot</p></li>
