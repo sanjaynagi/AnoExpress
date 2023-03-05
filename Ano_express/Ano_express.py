@@ -8,6 +8,7 @@ def load_results_arrays(data_type, analysis):
     """
     assert data_type in ['log2counts', 'fcs', 'pvals'], "data_type must be either 'log2counts', 'fcs' or 'pvals'"
     assert analysis in ['gamb_colu', 'gamb_colu_arab', 'gamb_colu_arab_fun', 'fun', 'irtex'], "analysis must be either 'gamb_colu', 'gamb_colu_arab', 'gamb_colu_arab_fun', 'fun' or 'irtex'"
+    assert analysis != 'irtex' and data_type != 'log2counts', "there is no count data for microarray studies"
     df_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/results/{data_type}.{analysis}.tsv", sep="\t")
     df_data = df_data.drop(columns=['GeneDescription']).set_index(['GeneID', 'GeneName']) if data_type == 'fcs' and analysis != 'irtex' else df_data.set_index("GeneID")
     return(df_data)
