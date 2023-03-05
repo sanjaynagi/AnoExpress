@@ -1,4 +1,4 @@
-name: Execute notebook
+name: Execute notebooks
 
 on: [push]
 
