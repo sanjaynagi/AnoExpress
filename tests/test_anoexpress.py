@@ -1,4 +1,4 @@
-import Ano_express as xpress
+import anoexpress as xpress
 import pytest
 import pandas as pd
 import numpy as np
