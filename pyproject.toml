@@ -19,6 +19,7 @@ plotly = "*"
 scipy = "*"
 tqdm = "*"
 statsmodels = "*"
+malariagen_data = "*"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "*"
