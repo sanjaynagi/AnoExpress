@@ -144,9 +144,9 @@ def _sort_genes(df, analysis, sort_by=None):
   if sort_by is None:
      return df.copy()
   if sort_by == 'median':
-    sort_idxs = np.argsort(df.set_index('GeneID').drop(columns='GeneName').apply(np.nanmedian, axis=1)).values
+    sort_idxs = np.argsort(df.set_index('GeneID').drop(columns='GeneName', errors='ignore').apply(np.nanmedian, axis=1)).values
   elif sort_by == 'mean':
-    sort_idxs = np.argsort(df.set_index('GeneID').drop(columns='GeneName').apply(np.nanmean, axis=1)).values
+    sort_idxs = np.argsort(df.set_index('GeneID').drop(columns='GeneName', errors='ignore').apply(np.nanmean, axis=1)).values
   elif sort_by == 'agap':
     sort_idxs = np.argsort(df['GeneID'].values)[::-1]
   elif sort_by == 'position':
