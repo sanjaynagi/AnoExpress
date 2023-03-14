@@ -1,6 +1,12 @@
+dist/
 docs/
 results/genediff
 Results*
 *Rproj
 .R*
 .Rproj.user
+*.pyc
+*svg
+*.txt
+*.fasta
+*mafft*

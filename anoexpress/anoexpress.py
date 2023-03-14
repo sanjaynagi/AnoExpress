@@ -140,7 +140,7 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None):
 
 def _sort_genes(df, analysis, sort_by=None):
   import malariagen_data
-
+  df = df.reset_index()
   if sort_by is None:
      return df.copy()
   if sort_by == 'median':
@@ -197,7 +197,7 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     df_samples = sample_metadata(analysis=analysis)
 
     # load count data, make long format and merge with metadata for hovertext
-    count_data = data(data_type="log2counts", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=sort_by)   
+    count_data = data(data_type="log2counts", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=sort_by)
     count_data = count_data.melt(id_vars='GeneID', var_name='sampleID', value_name='log2_counts')
     count_data = count_data.merge(df_samples, how='left').assign(counts = lambda x: np.round(2**x.log2_counts, 0))
 

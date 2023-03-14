@@ -60,13 +60,13 @@ def test_data_analyses(analysis):
 
 @pytest.mark.parametrize('data_type', ["fcs", "pvals", "log2counts"])
 @pytest.mark.parametrize("gene_id",    [None, gene, gene_ids])
-def test_data_types_genes(data_type, analysis, gene_id, microarray):
+def test_data_types_genes(data_type, gene_id):
 
     data_df = xpress.data(
         data_type=data_type,
-        analysis=analysis, 
+        analysis="gamb_colu", 
         gene_id= gene_id, 
-        microarray=microarray
+        microarray=True
     )
     assert data_df is not None
     assert not data_df.empty
@@ -83,13 +83,13 @@ def test_data_types_genes(data_type, analysis, gene_id, microarray):
     "microarray",
     [True, False]
 )
-def test_plot_gene_expression(gene_ids, analysis, microarray, sort_by):
+def test_plot_gene_expression(gene_ids, microarray):
 
     xpress.plot_gene_expression(
         gene_id=gene_ids, 
-        analysis=analysis, 
+        analysis="gamb_colu_arab_fun", 
         microarray=microarray, 
-        sort_by=sort_by
+        sort_by="agap"
         )
     
 
