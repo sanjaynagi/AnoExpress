@@ -1,6 +1,18 @@
 import pandas as pd
 import numpy as np
 
+
+taxon_query_dict = { 'gamb_colu':"species in ['gambiae','coluzzii']", 
+                  'gamb_colu_arab':"species in ['gambiae','coluzzii','arabiensis']", 
+                  'gamb_colu_arab_fun':"species in ['gambiae','coluzzii','arabiensis','funestus']", 
+                  'fun':"species in ['funestus']"
+                    }
+
+index_col = {'fcs':'comparison',
+            'pvals': 'comparison',
+            'log2counts': 'sampleID'}
+
+
 # Ano-express
 def load_results_arrays(data_type, analysis):
     """
@@ -12,13 +24,17 @@ def load_results_arrays(data_type, analysis):
     df_data = df_data.drop(columns=['GeneDescription']).set_index(['GeneID', 'GeneName']) if data_type == 'fcs' and analysis != 'irtex' else df_data.set_index("GeneID")
     return(df_data)
 
-def xpress_metadata():
+def sample_metadata(analysis):
     """
-    Load the sample and comparisons metadata in a pandas dataframe
+    Load the sample metadata in a pandas dataframe
     """
     sample_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/config/sample_metadata.tsv", sep="\t")
+    sample_metadata = sample_metadata.query(taxon_query_dict[analysis])
+    return sample_metadata
+
+def xpress_metadata():
     comparison_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/config/comparison_metadata.tsv", sep="\t")
-    return(comparison_metadata, sample_metadata)
+    return(comparison_metadata)
 
 def irtex_metadata():
     """
@@ -28,7 +44,7 @@ def irtex_metadata():
     return(comparison_metadata)
 
 
-def metadata(analysis, microarray=False, sample_metadata=False):
+def metadata(analysis, microarray=False):
     """
     Load the comparisons metadata from both Ano-express and IR-Tex in a pandas dataframe
 
@@ -47,9 +63,8 @@ def metadata(analysis, microarray=False, sample_metadata=False):
     comparisons_df: pandas dataframe
     samples_df: pandas dataframe
     """
-
     # load metadata from Ano-express
-    metadata, xpress_samples = xpress_metadata()   
+    metadata = xpress_metadata()   
     metadata = metadata.assign(technology='rnaseq')
 
     # load metadata from IR-Tex
@@ -59,15 +74,12 @@ def metadata(analysis, microarray=False, sample_metadata=False):
         metadata = pd.concat([metadata, irtex_meta]).reset_index(drop=True)
 
     # subset to the species of interest
-    comparisons_df = _species_query(metadata, analysis)
-    
-    if sample_metadata == True:
-      return(comparisons_df, xpress_samples)
-    else:
-      return(comparisons_df)
+    metadata = metadata.query(taxon_query_dict[analysis])
+
+    return metadata
 
 
-def data(data_type, analysis, microarray=False, gene_id=None):
+def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None):
     """
     Load the combined data for a given analysis and sample query
 
@@ -91,27 +103,25 @@ def data(data_type, analysis, microarray=False, gene_id=None):
     assert analysis in ['gamb_colu', 'gamb_colu_arab', 'gamb_colu_arab_fun', 'fun'], "analysis must be one of 'gamb_colu', 'gamb_colu_arab', 'gamb_colu_arab_fun', 'fun'"
     assert data_type in ['log2counts', 'fcs', 'pvals'], "data_type must be one of 'log2counts', 'fcs', 'pvals'"
     # load the metadata and subset to the species of interest
-    comparisons_df, samples_df = metadata(analysis=analysis, microarray=microarray, sample_metadata=True)
-    
     if data_type in ['fcs', 'pvals']:
-      metadata_df = _species_query(metadata_df=comparisons_df, analysis=analysis)
+      df_metadata = metadata(analysis=analysis, microarray=microarray)
     else:
-      metadata_df = _species_query(metadata_df=samples_df, analysis=analysis)
-    
-    index_col = 'comparison' if data_type in ['fcs', 'pvals'] else 'sampleID'
-    metadata_ids = metadata_df.loc[:, index_col].to_list()
+      # if count data load sample level metadata 
+      df_metadata = sample_metadata(analysis=analysis)
 
-    # load the data and merge
+    # load the data and merge wit microarray data if requested
     df = load_results_arrays(data_type=data_type, analysis=analysis)
-    
     # load ir-tex data and merge
     if microarray == True and data_type != 'log2counts':
         irtex_df = load_results_arrays(data_type=data_type, analysis='irtex')
         df = df.reset_index().merge(irtex_df, on='GeneID', how='left').set_index(['GeneID', 'GeneName'])
 
+    # get the sample or comparison ids 
+    metadata_ids = df_metadata.loc[:, index_col[data_type]].to_list()
     # subset to the species comparisons of interest
     df = df.loc[:, metadata_ids]
 
+    # subset to the gene ids of interest including reading file 
     if gene_id is not None:
       if isinstance(gene_id, str):
         if gene_id.endswith(('.tsv', '.txt')):
@@ -121,23 +131,34 @@ def data(data_type, analysis, microarray=False, gene_id=None):
         elif gene_id.endswith('.xlsx'):
             gene_id = pd.read_excel(gene_id, header=None).iloc[:, 0].to_list()
       df = df.query("GeneID in @gene_id")
+
+    # sort genes 
+    df = _sort_genes(df=df, analysis=analysis, sort_by=sort_by)
     
-    return(df.sort_values(by='GeneID'))
+    return df
 
-def _species_query(metadata_df, analysis):
-    """
-    Subset the comparisons metadata to the species of interest
-    """
-    if analysis == 'gamb_colu':
-        metadata_df = metadata_df.query('species in ["gambiae","coluzzii"]')
-    elif analysis == 'gamb_colu_arab':
-        metadata_df = metadata_df.query('species in ["gambiae","coluzzii","arabiensis"]')
-    elif analysis == 'gamb_colu_arab_fun':
-        metadata_df = metadata_df.query('species in ["gambiae","coluzzii","arabiensis","funestus"]')
-    elif analysis == 'fun':
-        metadata_df = metadata_df.query('species in ["funestus"]')
-    return(metadata_df)
 
+def _sort_genes(df, analysis, sort_by=None):
+  df = df.reset_index()
+  if sort_by is None:
+     return df.copy()
+  if sort_by == 'median':
+    sort_idxs = np.argsort(df.set_index('GeneID').drop(columns='GeneName', errors='ignore').apply(np.nanmedian, axis=1)).values
+  elif sort_by == 'mean':
+    sort_idxs = np.argsort(df.set_index('GeneID').drop(columns='GeneName', errors='ignore').apply(np.nanmean, axis=1)).values
+  elif sort_by == 'agap':
+    sort_idxs = np.argsort(df['GeneID'].values)[::-1]
+  elif sort_by == 'position':
+    assert analysis != 'fun', "funestus cannot be sorted by position yet"
+    
+    import malariagen_data
+    ag3 = malariagen_data.Ag3()
+    gff = ag3.genome_features().query("type == 'gene' & contig in @ag3.contigs")
+    gene_ids = df['GeneID'].to_list()
+    ordered_genes = gff.query(f"ID in '{gene_ids}'")['ID'].to_list()
+    sort_idxs = [np.where(df['GeneID'] == gene)[0][0] for gene in ordered_genes]
+
+  return df.iloc[sort_idxs, :].copy()
 
 def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=False, title=None, plot_type='strip', sort_by='agap', width=1600, height=None, save_html=None):
     """Plot fold changes of provided AGAP gene IDs from RNA-Seq 
@@ -158,8 +179,8 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
       Plot title
     plot_type : {"strip", "boxplot"}, optional
       valid options are 'strip' or 'boxplot' 
-    sort_by : {"median", "mean", "agap"}, optional
-      sort by median/mean of fold changes (descending), or by AGAP
+    sort_by : {"median", "mean", "agap", None}, optional
+      sort by median/mean of fold changes (descending), or by AGAP, or dont sort input gene ids. 
       identifier
     width : int
       Width in pixels of the plotly figure
@@ -170,39 +191,32 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     """
     import plotly.express as px
     import plotly.subplots as sp
-      
-    fam_fc_data = data(data_type="fcs", analysis=analysis, microarray=microarray, gene_id=gene_id).reset_index()
-    count_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-express/main/results/log2counts.{analysis}.tsv", sep="\t")
-    comp_metadata, sample_metadata = metadata(analysis=analysis, microarray=microarray, sample_metadata=True)
+    
+    # load the metadata and subset to the species of interest
+    df_metadata = metadata(analysis=analysis, microarray=microarray)
+    df_samples = sample_metadata(analysis=analysis)
 
-    fam_count_data = count_data.query("GeneID in @gene_id").copy()
+    # load fold change data, make long format and merge with metadata for hovertext
+    fc_data = data(data_type="fcs", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=sort_by)
+    # load count data, make long format and merge with metadata for hovertext
+    count_data = data(data_type="log2counts", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=None).set_index('GeneID')
+    count_data = count_data.loc[fc_data['GeneID']].reset_index()
+    count_data = count_data.melt(id_vars='GeneID', var_name='sampleID', value_name='log2_counts')
+    count_data = count_data.merge(df_samples, how='left').assign(counts = lambda x: np.round(2**x.log2_counts, 0))
 
-    if sort_by == 'median':
-        sort_idxs = np.argsort(fam_fc_data.set_index(['GeneID', 'GeneName']).apply(np.nanmedian, axis=1)).values
-    elif sort_by == 'mean':
-        sort_idxs = np.argsort(fam_fc_data.set_index(['GeneID', 'GeneName']).apply(np.nanmean, axis=1)).values
-    elif sort_by == 'agap':
-        sort_idxs = np.argsort(fam_fc_data['GeneID'].values)[::-1] 
-        
-    fam_fc_data = fam_fc_data.iloc[sort_idxs, :].copy()
-    fam_count_data = fam_count_data.set_index("GeneID").loc[fam_fc_data['GeneID'].to_list(), :].reset_index().copy()
-
-    fam_fc_data.loc[:, 'Label'] = [id_ + " | " + name if name != "" else id_ for id_, name in zip(fam_fc_data['GeneID'].fillna(""), fam_fc_data['GeneName'].fillna(""))]
-    fam_fc_data = fam_fc_data.drop(columns=['GeneName', 'GeneID']).melt(id_vars='Label', var_name='comparison', value_name='log2FC')
-    fam_count_data = fam_count_data.melt(id_vars='GeneID', var_name='sampleID', value_name='log2_counts')
-    fam_fc_data.loc[:, 'comparison'] = fam_fc_data['comparison'].str.replace("_log2FoldChange", "")
-    fam_fc_data = fam_fc_data.merge(comp_metadata, how='left')
-    fam_count_data = fam_count_data.merge(sample_metadata, how='left').assign(counts = lambda x: np.round(2**x.log2_counts, 0))
+    fc_data.loc[:, 'Label'] = [id_ + " | " + name if name != "" else id_ for id_, name in zip(fc_data['GeneID'].fillna(""), fc_data['GeneName'].fillna(""))]
+    fc_data = fc_data.drop(columns=['GeneName', 'GeneID']).melt(id_vars='Label', var_name='comparison', value_name='log2FC')
+    fc_data = fc_data.merge(df_metadata, how='left')
 
     if not height:
-      height = np.min([fam_fc_data.shape[0]*12, 2500])
+      height = np.min([fc_data.shape[0]*12, 2500])
     
     if not title:
       title = ""
 
     myplot = px.box if plot_type == 'boxplot' else px.strip
     figure1 = myplot(
-          fam_fc_data, 
+          fc_data, 
           y='Label', 
           x='log2FC', 
           color='species',
@@ -212,7 +226,7 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
         )
 
     figure2 = myplot(
-        fam_count_data, 
+        count_data, 
         x='counts', 
         y='GeneID', 
         color='species', 
@@ -267,15 +281,13 @@ def _gene_ids_from_annotation(gene_annot_df, annotation):
               gene_list = np.hstack([gene_list, ids])
             return(np.unique(gene_list))
         else:
-          for dom in annotation:
-              ids = gene_annot_df.query("domain == @annotation")['gene_id'].to_numpy()
-              gene_list = np.hstack([gene_list, ids])
-          return(np.unique(gene_list))
-    else:
+          ids = gene_annot_df.query("domain == @annotation")['gene_id'].to_numpy()
+          return ids
+    elif isinstance(annotation, str):
         if annotation.startswith("GO"): 
-          return(gene_annot_df.query(f"GO_terms.str.contains('{annotation}', na=False)", engine='python')['gene_id'].to_numpy())
+          return gene_annot_df.query(f"GO_terms.str.contains('{annotation}', na=False)", engine='python')['gene_id'].to_numpy()
         else:
-          return(gene_annot_df.query("domain == @annotation")['gene_id'].to_numpy())
+          return gene_annot_df.query("domain == @annotation")['gene_id'].to_numpy()
 
 
 
