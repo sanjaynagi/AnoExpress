@@ -11,7 +11,7 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.7'
-    - run: python3 -m pip install anoexpress nbformat ipykernel papermill nbconvert
+    - run: python3 -m pip install anoexpress malariagen_data nbformat ipykernel papermill nbconvert
     - run: python -m ipykernel install --user --name anoexpress
     - run: papermill workflow/notebooks/plot-gene-expression.ipynb ci.ipynb -k anoexpress
     - run: papermill workflow/notebooks/plot-families-expression.ipynb ci2.ipynb -k anoexpress
