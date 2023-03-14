@@ -139,7 +139,6 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None):
 
 
 def _sort_genes(df, analysis, sort_by=None):
-  import malariagen_data
   df = df.reset_index()
   if sort_by is None:
      return df.copy()
@@ -151,7 +150,8 @@ def _sort_genes(df, analysis, sort_by=None):
     sort_idxs = np.argsort(df['GeneID'].values)[::-1]
   elif sort_by == 'position':
     assert analysis != 'fun', "funestus cannot be sorted by position yet"
-
+    
+    import malariagen_data
     ag3 = malariagen_data.Ag3()
     gff = ag3.genome_features().query("type == 'gene' & contig in @ag3.contigs")
     gene_ids = df['GeneID'].to_list()
@@ -196,13 +196,14 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     df_metadata = metadata(analysis=analysis, microarray=microarray)
     df_samples = sample_metadata(analysis=analysis)
 
+    # load fold change data, make long format and merge with metadata for hovertext
+    fc_data = data(data_type="fcs", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=sort_by)
     # load count data, make long format and merge with metadata for hovertext
-    count_data = data(data_type="log2counts", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=sort_by)
+    count_data = data(data_type="log2counts", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=None).set_index('GeneID')
+    count_data = count_data.loc[fc_data['GeneID']].reset_index()
     count_data = count_data.melt(id_vars='GeneID', var_name='sampleID', value_name='log2_counts')
     count_data = count_data.merge(df_samples, how='left').assign(counts = lambda x: np.round(2**x.log2_counts, 0))
 
-    # load fold change data, make long format and merge with metadata for hovertext
-    fc_data = data(data_type="fcs", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=sort_by).reset_index()
     fc_data.loc[:, 'Label'] = [id_ + " | " + name if name != "" else id_ for id_, name in zip(fc_data['GeneID'].fillna(""), fc_data['GeneName'].fillna(""))]
     fc_data = fc_data.drop(columns=['GeneName', 'GeneID']).melt(id_vars='Label', var_name='comparison', value_name='log2FC')
     fc_data = fc_data.merge(df_metadata, how='left')
