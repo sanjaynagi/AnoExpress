@@ -10,7 +10,7 @@
 
 A python package, colab notebooks and results from a meta-analysis of RNA-Sequencing studies investigating insecticide resistance in *Anopheles gambiae s.l* and *Anopheles funestus*. Analyses can be launched in google colab using the badges below, allowing users to explore gene expression in their own genes of interest.
 
-Documentation: https://sanjaynagi.github.io/Ano-express/
+Documentation: https://sanjaynagi.github.io/AnoExpress/
 
 
 [![Custom badge](https://img.shields.io/endpoint?color=gold&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2Fano-express%2Fmain%2Fgraphics%2Fbadge-expression.json)](https://colab.research.google.com/github/sanjaynagi/ano-express/blob/main/workflow/notebooks/plot-gene-expression.ipynb)   
