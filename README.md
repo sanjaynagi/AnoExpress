@@ -8,7 +8,7 @@
 **Authors:**
 *Sanjay Curtis Nagi* and *Victoria A Ingham*
 
-A python package, colab notebooks and results from a meta-analysis of RNA-Sequencing studies investigating insecticide resistance in *Anopheles gambiae s.l* and *Anopheles funestus*. Analyses can be launched in google colab using the badges below, allowing users to explore gene expression in their own genes of interest.
+A python package, colab notebooks and results from a meta-analysis of RNA-Sequencing studies investigating insecticide resistance in *Anopheles gambiae s.l* and *Anopheles funestus*. Analyses can be launched in Google Colab using the badges below, allowing users to explore gene expression in their own genes of interest.
 
 Documentation: https://sanjaynagi.github.io/AnoExpress/
 
