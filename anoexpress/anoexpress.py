@@ -147,7 +147,7 @@ def _sort_genes(df, analysis, sort_by=None):
   elif sort_by == 'mean':
     sort_idxs = np.argsort(df.set_index('GeneID').drop(columns='GeneName', errors='ignore').apply(np.nanmean, axis=1)).values
   elif sort_by == 'agap':
-    sort_idxs = np.argsort(df['GeneID'].values)[::-1]
+    sort_idxs = np.argsort(df['GeneID'].values)
   elif sort_by == 'position':
     assert analysis != 'fun', "funestus cannot be sorted by position yet"
     
