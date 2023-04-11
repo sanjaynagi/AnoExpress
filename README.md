@@ -24,3 +24,9 @@ Documentation: https://sanjaynagi.github.io/AnoExpress/
 [![Custom badge](https://img.shields.io/endpoint?color=skyblue&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2Fano-express%2Fmain%2Fgraphics%2Fbadge-enrichment.json)](https://colab.research.google.com/github/sanjaynagi/ano-express/blob/main/workflow/notebooks/enrichment.ipynb)  
 
 [![Custom badge](https://img.shields.io/endpoint?color=maroon&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2Fano-express%2Fmain%2Fgraphics%2Fbadge-heatmaps.json)](https://colab.research.google.com/github/sanjaynagi/ano-express/blob/main/workflow/notebooks/misc/cluster-heatmaps-16-12-22.ipynb)  
+
+<br></br>
+
+#### Contributing datasets
+
+If you would like to contribute a dataset from a major malaria vector, please raise an [issue](https://github.com/sanjaynagi/AnoExpress/issues) or [email me!](mailto:sanjay.c.nagi@gmail.com?subject=AnoExpress-datasets) The project has been working from the stage of raw read counts.
