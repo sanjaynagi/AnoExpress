@@ -3,7 +3,7 @@ name: Execute notebooks
 on: [push]
 
 jobs:
-  run:
+  run-notebooks:
     strategy:
       fail-fast: true
       matrix:
