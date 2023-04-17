@@ -4,13 +4,17 @@ on: [push]
 
 jobs:
   run:
+    strategy:
+      fail-fast: true
+      matrix:
+          python-version: ['3.7', '3.10', '3.11']
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.7'
+        python-version:  ${{ matrix.python-version }}
     - run: python3 -m pip install anoexpress malariagen_data nbformat ipykernel papermill nbconvert
     - run: python -m ipykernel install --user --name anoexpress
     - run: papermill workflow/notebooks/plot-gene-expression.ipynb ci.ipynb -k anoexpress
