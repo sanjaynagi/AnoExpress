@@ -477,6 +477,52 @@ def pfam_hypergeometric(analysis, name, func, percentile=0.05):
         
     return(hyper_geo)
 
+def kegg_hypergeometric(analysis, name, func, percentile=0.05):
+    """
+    Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function.
+
+    Parameters
+    ----------
+    analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
+      which analysis to load gene expression data for. analyses with more species will have less genes
+      present, due to the process of finding orthologs.
+    name: str
+      name of the function to rank genes by
+    func: function
+      function to rank genes by (such as np.nanmedian, np.nanmean)
+    percentile: float, optional
+      percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
+
+    Returns
+    -------
+    go_hypergeo_results: pd.DataFrame
+    """
+
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-express/main/results/fcs.{analysis}.tsv", sep="\t")
+    fc_genes = fc_data.reset_index()['GeneID'].to_list()
+
+    # get top % percentile genes ranked by func
+    fc_ranked = load_candidates(analysis=analysis, name=name, func=func)
+    percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
+    top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
+
+    # load gene annotation file 
+    kegg_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/ano-express/main/resources/AgamP4.kegg", sep="\t")
+    kegg_annotations = kegg_df[['kegg_pathway', 'description']].rename(columns={'kegg_pathway':'annotation'}).drop_duplicates()
+    kegg_df = kegg_df[['GeneID', 'kegg_pathway']].drop_duplicates()
+    kegg_df = kegg_df.query("GeneID in @fc_genes")
+    N = kegg_df.GeneID.unique().shape[0] #Total number of genes with some annotation 
+    k = np.isin(kegg_df.loc[:, 'GeneID'].unique(), top_geneIDs).sum() 
+
+    hyper_geo = _hypergeometric(
+        annotation_df=kegg_df, 
+        column_name='kegg_pathway', 
+        target_gene_list=top_geneIDs,
+        N=N,
+        k=k)    
+    hyper_geo = hyper_geo.merge(kegg_annotations, how='left')
+    return(hyper_geo)
+
 def _hypergeometric(annotation_df, column_name, target_gene_list, N, k):
     """
     This function performs a hypergeometric test on a given annotation column
