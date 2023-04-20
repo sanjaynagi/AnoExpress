@@ -13,14 +13,14 @@ index_col = {'fcs':'comparison',
             'log2counts': 'sampleID'}
 
 
-# Ano-express
+# AnoExpress
 def load_results_arrays(data_type, analysis):
     """
     Load the counts data for a given analysis and sample query
     """
     assert data_type in ['log2counts', 'fcs', 'pvals'], "data_type must be either 'log2counts', 'fcs' or 'pvals'"
     assert analysis in ['gamb_colu', 'gamb_colu_arab', 'gamb_colu_arab_fun', 'fun', 'irtex'], "analysis must be either 'gamb_colu', 'gamb_colu_arab', 'gamb_colu_arab_fun', 'fun' or 'irtex'"
-    df_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/results/{data_type}.{analysis}.tsv", sep="\t")
+    df_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/{data_type}.{analysis}.tsv", sep="\t")
     df_data = df_data.drop(columns=['GeneDescription']).set_index(['GeneID', 'GeneName']) if data_type == 'fcs' and analysis != 'irtex' else df_data.set_index("GeneID")
     return(df_data)
 
@@ -28,25 +28,25 @@ def sample_metadata(analysis):
     """
     Load the sample metadata in a pandas dataframe
     """
-    sample_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/config/sample_metadata.tsv", sep="\t")
+    sample_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/config/sample_metadata.tsv", sep="\t")
     sample_metadata = sample_metadata.query(taxon_query_dict[analysis])
     return sample_metadata
 
 def xpress_metadata():
-    comparison_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/config/comparison_metadata.tsv", sep="\t")
+    comparison_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/config/comparison_metadata.tsv", sep="\t")
     return(comparison_metadata)
 
 def irtex_metadata():
     """
     Load the ir-tex fold change data for a given analysis and sample query
     """   
-    comparison_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/config/irtex_metadata.tsv", sep="\t")
+    comparison_metadata = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/config/irtex_metadata.tsv", sep="\t")
     return(comparison_metadata)
 
 
 def metadata(analysis, microarray=False):
     """
-    Load the comparisons metadata from both Ano-express and IR-Tex in a pandas dataframe
+    Load the comparisons metadata from both AnoExpress and IR-Tex in a pandas dataframe
 
     Parameters
     ----------
@@ -63,7 +63,7 @@ def metadata(analysis, microarray=False):
     comparisons_df: pandas dataframe
     samples_df: pandas dataframe
     """
-    # load metadata from Ano-express
+    # load metadata from AnoExpress
     metadata = xpress_metadata()   
     metadata = metadata.assign(technology='rnaseq')
 
@@ -329,8 +329,8 @@ def load_annotations():
     """
     Load pfam or go annotations for Anopheles gambiae 
     """
-    pfam_df = pd.read_csv("https://github.com/sanjaynagi/ano-express/blob/main/resources/Anogam_long.pep_Pfamscan.seqs.gz?raw=true", sep="\s+", header=None, compression='gzip')
-    go_df = pd.read_csv("https://github.com/sanjaynagi/ano-express/blob/main/resources/Anogam_long.pep_eggnog_diamond.emapper.annotations.GO.gz?raw=true", sep="\t", header=None, compression='gzip')
+    pfam_df = pd.read_csv("https://github.com/sanjaynagi/AnoExpress/blob/main/resources/Anogam_long.pep_Pfamscan.seqs.gz?raw=true", sep="\s+", header=None, compression='gzip')
+    go_df = pd.read_csv("https://github.com/sanjaynagi/AnoExpress/blob/main/resources/Anogam_long.pep_eggnog_diamond.emapper.annotations.GO.gz?raw=true", sep="\t", header=None, compression='gzip')
     pfam_df.columns = ["transcript", "pstart", "pend", "pfamid", "domain", "domseq"]
     go_df.columns = ['transcript', 'GO_terms']
 
@@ -362,7 +362,7 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
     -------
     fc_ranked: pd.DataFrame
     """
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-express/main/results/fcs.{analysis}.tsv", sep="\t")
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
     fc_data = fc_data.set_index(['GeneID', 'GeneName', 'GeneDescription'])
 
     if query_annotation is not None:
@@ -403,7 +403,7 @@ def go_hypergeometric(analysis, name, func, percentile=0.05):
     go_hypergeo_results: pd.DataFrame
     """
 
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-express/main/results/fcs.{analysis}.tsv", sep="\t")
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
     fc_genes = fc_data.reset_index()['GeneID'].to_list()
 
     # get top % percentile genes ranked by func
@@ -412,7 +412,7 @@ def go_hypergeometric(analysis, name, func, percentile=0.05):
     top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
 
     # load gene annotation file 
-    gaf_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/ano-express/main/resources/AgamP4.gaf", sep="\t")
+    gaf_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/resources/AgamP4.gaf", sep="\t")
     go_annotations = gaf_df[['go_term', 'descriptions']].rename(columns={'go_term':'annotation'}).drop_duplicates()
     gaf_df = gaf_df[['GeneID', 'go_term']].drop_duplicates()
     gaf_df = gaf_df.query("GeneID in @fc_genes")
@@ -451,7 +451,7 @@ def pfam_hypergeometric(analysis, name, func, percentile=0.05):
     """
 
     # get all genes
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-express/main/results/fcs.{analysis}.tsv", sep="\t")
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
     fc_genes = fc_data.reset_index()['GeneID'].to_list()
 
     # get top 5% percentile genes ranked by median
@@ -460,7 +460,7 @@ def pfam_hypergeometric(analysis, name, func, percentile=0.05):
     top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
 
     # load gene annotation file 
-    pfam_df = pd.read_csv("https://github.com/sanjaynagi/ano-express/blob/main/resources/Anogam_long.pep_Pfamscan.seqs.gz?raw=true", sep="\s+", header=None, compression='gzip').iloc[:, [0,4]]
+    pfam_df = pd.read_csv("https://github.com/sanjaynagi/AnoExpress/blob/main/resources/Anogam_long.pep_Pfamscan.seqs.gz?raw=true", sep="\s+", header=None, compression='gzip').iloc[:, [0,4]]
     pfam_df.loc[:, 0] = pfam_df.loc[:, 0].str.replace("Anogam_", "").str.replace("-R[A-Z]", "", regex=True)
     pfam_df.columns = ['GeneID', 'pfam']
     pfam_df = pfam_df.query("GeneID in @fc_genes")
@@ -498,7 +498,7 @@ def kegg_hypergeometric(analysis, name, func, percentile=0.05):
     go_hypergeo_results: pd.DataFrame
     """
 
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-express/main/results/fcs.{analysis}.tsv", sep="\t")
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
     fc_genes = fc_data.reset_index()['GeneID'].to_list()
 
     # get top % percentile genes ranked by func
@@ -507,7 +507,7 @@ def kegg_hypergeometric(analysis, name, func, percentile=0.05):
     top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
 
     # load gene annotation file 
-    kegg_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/ano-express/main/resources/AgamP4.kegg", sep="\t")
+    kegg_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/resources/AgamP4.kegg", sep="\t")
     kegg_annotations = kegg_df[['kegg_pathway', 'description']].rename(columns={'kegg_pathway':'annotation'}).drop_duplicates()
     kegg_df = kegg_df[['GeneID', 'kegg_pathway']].drop_duplicates()
     kegg_df = kegg_df.query("GeneID in @fc_genes")
@@ -580,7 +580,7 @@ def plot_heatmap(analysis, query_annotation=None, query_func=np.nanmedian, query
     """
     import seaborn as sns
     # load metadata
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/ano-express/main/results/fcs.{analysis}.tsv", sep="\t") 
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t") 
     fc_ranked = load_candidates(analysis=analysis, name=query_name, func=query_func, query_annotation=query_annotation, query_fc=query_fc)
     fc_genes = fc_ranked.loc[:, 'GeneID']
     fam_data = fc_data.query("GeneID in @fc_genes").copy()
