@@ -1,7 +1,7 @@
-![image](https://raw.githubusercontent.com/sanjaynagi/Ano-express/main/docs/logo.png)
+![image](https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/docs/logo.png)
 
-[![Execute notebook](https://github.com/sanjaynagi/Ano-express/workflows/Execute%20notebook/badge.svg)](https://github.com/sanjaynagi/Ano-express/actions?query=workflow:"Execute+notebook")
-[![GitHub release](https://img.shields.io/github/release/sanjaynagi/Ano-express?include_prereleases=&sort=semver&color=blue)](https://github.com/sanjaynagi/Ano-express/releases/)
+[![Execute notebook](https://github.com/sanjaynagi/AnoExpress/workflows/Execute%20notebook/badge.svg)](https://github.com/sanjaynagi/AnoExpress/actions?query=workflow:"Execute+notebook")
+[![GitHub release](https://img.shields.io/github/release/sanjaynagi/AnoExpress?include_prereleases=&sort=semver&color=blue)](https://github.com/sanjaynagi/AnoExpress/releases/)
 
 **<ins>*Ano</ins>pheles* gene <ins>exp</ins>ression in <ins>res</ins>istance <ins>s</ins>tudies**
 
@@ -24,7 +24,7 @@ Documentation: https://sanjaynagi.github.io/AnoExpress/
 
 [![Custom badge](https://img.shields.io/endpoint?color=maroon&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-heatmaps.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/misc/cluster-heatmaps-16-12-22.ipynb)  
 
-[![Custom badge](https://img.shields.io/endpoint?color=maroon&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-grns.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/gene-regulatory-network.ipynb)  
+[![Custom badge](https://img.shields.io/endpoint?color=orange&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-grn.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/gene-regulatory-network.ipynb)  
 
 <br></br>
 
