@@ -24,7 +24,7 @@ Documentation: https://sanjaynagi.github.io/AnoExpress/
 
 [![Custom badge](https://img.shields.io/endpoint?color=maroon&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-heatmaps.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/misc/cluster-heatmaps-16-12-22.ipynb)  
 
-[![Custom badge](https://img.shields.io/endpoint?color=maroon&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-grn.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/gene-regulatory-network.ipynb)  
+[![Custom badge](https://img.shields.io/endpoint?color=orange&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-grn.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/gene-regulatory-network.ipynb)  
 
 <br></br>
 
