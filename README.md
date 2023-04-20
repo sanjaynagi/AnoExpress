@@ -12,18 +12,19 @@ A python package, colab notebooks and results from a meta-analysis of RNA-Sequen
 
 Documentation: https://sanjaynagi.github.io/AnoExpress/
 
+[![Custom badge](https://img.shields.io/endpoint?color=gold&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-expression.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/plot-gene-expression.ipynb)   
 
-[![Custom badge](https://img.shields.io/endpoint?color=gold&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2Fano-express%2Fmain%2Fgraphics%2Fbadge-expression.json)](https://colab.research.google.com/github/sanjaynagi/ano-express/blob/main/workflow/notebooks/plot-gene-expression.ipynb)   
+[![Custom badge](https://img.shields.io/endpoint?color=grey&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-utilities.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/utility-functions.ipynb)  
 
-[![Custom badge](https://img.shields.io/endpoint?color=grey&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2Fano-express%2Fmain%2Fgraphics%2Fbadge-utilities.json)](https://colab.research.google.com/github/sanjaynagi/ano-express/blob/main/workflow/notebooks/utility-functions.ipynb)  
+[![Custom badge](https://img.shields.io/endpoint?color=turqoise&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-families.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/plot-families-expression.ipynb)  
 
-[![Custom badge](https://img.shields.io/endpoint?color=turqoise&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2Fano-express%2Fmain%2Fgraphics%2Fbadge-families.json)](https://colab.research.google.com/github/sanjaynagi/ano-express/blob/main/workflow/notebooks/plot-families-expression.ipynb)  
+[![Custom badge](https://img.shields.io/endpoint?color=black&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-candidates.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/expression-candidates.ipynb)  
 
-[![Custom badge](https://img.shields.io/endpoint?color=black&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2Fano-express%2Fmain%2Fgraphics%2Fbadge-candidates.json)](https://colab.research.google.com/github/sanjaynagi/ano-express/blob/main/workflow/notebooks/expression-candidates.ipynb)  
+[![Custom badge](https://img.shields.io/endpoint?color=skyblue&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-enrichment.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/enrichment.ipynb)  
 
-[![Custom badge](https://img.shields.io/endpoint?color=skyblue&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2Fano-express%2Fmain%2Fgraphics%2Fbadge-enrichment.json)](https://colab.research.google.com/github/sanjaynagi/ano-express/blob/main/workflow/notebooks/enrichment.ipynb)  
+[![Custom badge](https://img.shields.io/endpoint?color=maroon&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-heatmaps.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/misc/cluster-heatmaps-16-12-22.ipynb)  
 
-[![Custom badge](https://img.shields.io/endpoint?color=maroon&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2Fano-express%2Fmain%2Fgraphics%2Fbadge-heatmaps.json)](https://colab.research.google.com/github/sanjaynagi/ano-express/blob/main/workflow/notebooks/misc/cluster-heatmaps-16-12-22.ipynb)  
+[![Custom badge](https://img.shields.io/endpoint?color=maroon&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-grns.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/gene-regulatory-network.ipynb)  
 
 <br></br>
 
