@@ -21,7 +21,7 @@ def load_results_arrays(data_type, analysis):
     assert data_type in ['log2counts', 'fcs', 'pvals'], "data_type must be either 'log2counts', 'fcs' or 'pvals'"
     assert analysis in ['gamb_colu', 'gamb_colu_arab', 'gamb_colu_arab_fun', 'fun', 'irtex'], "analysis must be either 'gamb_colu', 'gamb_colu_arab', 'gamb_colu_arab_fun', 'fun' or 'irtex'"
     df_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/{data_type}.{analysis}.tsv", sep="\t")
-    df_data = df_data.drop(columns=['GeneDescription']).set_index(['GeneID', 'GeneName']) if data_type == 'fcs' and analysis != 'irtex' else df_data.set_index("GeneID")
+    df_data = df_data.set_index('GeneID')
     return(df_data)
 
 def sample_metadata(analysis):
@@ -79,7 +79,7 @@ def metadata(analysis, microarray=False):
     return metadata
 
 
-def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None):
+def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, annotations=False):
     """
     Load the combined data for a given analysis and sample query
 
@@ -114,7 +114,7 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None):
     # load ir-tex data and merge
     if microarray == True and data_type != 'log2counts':
         irtex_df = load_results_arrays(data_type=data_type, analysis='irtex')
-        df = df.reset_index().merge(irtex_df, on='GeneID', how='left').set_index(['GeneID', 'GeneName'])
+        df = df.reset_index().merge(irtex_df, on='GeneID', how='left').set_index('GeneID')
 
     # get the sample or comparison ids 
     metadata_ids = df_metadata.loc[:, index_col[data_type]].to_list()
@@ -132,31 +132,39 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None):
             gene_id = pd.read_excel(gene_id, header=None).iloc[:, 0].to_list()
       df = df.query("GeneID in @gene_id")
 
+    if annotations: # add gene name and description to the dataframe as index 
+      df = add_annotations_to_array(df)
+
     # sort genes 
     df = _sort_genes(df=df, analysis=analysis, sort_by=sort_by)
     
     return df
 
 
+def add_annotations_to_array(df):
+    df_annots = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/resources/AgamP4.annots.tsv", sep="\t")
+    df = df.reset_index().merge(df_annots, on="GeneID", how="left").set_index(["GeneID", "GeneName", "GeneDescription"])   
+    return df 
+
+
 def _sort_genes(df, analysis, sort_by=None):
-  df = df.reset_index()
   if sort_by is None:
      return df.copy()
   if sort_by == 'median':
-    sort_idxs = np.argsort(df.set_index('GeneID').drop(columns='GeneName', errors='ignore').apply(np.nanmedian, axis=1)).values
+    sort_idxs = np.argsort(df.apply(np.nanmedian, axis=1)).values
   elif sort_by == 'mean':
-    sort_idxs = np.argsort(df.set_index('GeneID').drop(columns='GeneName', errors='ignore').apply(np.nanmean, axis=1)).values
+    sort_idxs = np.argsort(df.apply(np.nanmean, axis=1)).values
   elif sort_by == 'agap':
-    sort_idxs = np.argsort(df['GeneID'].values)
+    sort_idxs = np.argsort(df.reset_index()['GeneID'].values)
   elif sort_by == 'position':
     assert analysis != 'fun', "funestus cannot be sorted by position yet"
     
     import malariagen_data
     ag3 = malariagen_data.Ag3()
     gff = ag3.genome_features().query("type == 'gene' & contig in @ag3.contigs")
-    gene_ids = df['GeneID'].to_list()
-    ordered_genes = gff.query(f"ID in '{gene_ids}'")['ID'].to_list()
-    sort_idxs = [np.where(df['GeneID'] == gene)[0][0] for gene in ordered_genes]
+    gene_ids = df.reset_index()['GeneID'].to_list()
+    ordered_genes = gff.query(f"ID in {gene_ids}")['ID'].to_list()
+    sort_idxs = [np.where(df.reset_index()['GeneID'] == gene)[0][0] for gene in ordered_genes]
 
   return df.iloc[sort_idxs, :].copy()
 
@@ -197,15 +205,15 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     df_samples = sample_metadata(analysis=analysis)
 
     # load fold change data, make long format and merge with metadata for hovertext
-    fc_data = data(data_type="fcs", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=sort_by)
+    fc_data = data(data_type="fcs", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=sort_by, annotations=True).reset_index()
     # load count data, make long format and merge with metadata for hovertext
-    count_data = data(data_type="log2counts", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=None).set_index('GeneID')
+    count_data = data(data_type="log2counts", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=None)
     count_data = count_data.loc[fc_data['GeneID']].reset_index()
     count_data = count_data.melt(id_vars='GeneID', var_name='sampleID', value_name='log2_counts')
     count_data = count_data.merge(df_samples, how='left').assign(counts = lambda x: np.round(2**x.log2_counts, 0))
 
     fc_data.loc[:, 'Label'] = [id_ + " | " + name if name != "" else id_ for id_, name in zip(fc_data['GeneID'].fillna(""), fc_data['GeneName'].fillna(""))]
-    fc_data = fc_data.drop(columns=['GeneName', 'GeneID']).melt(id_vars='Label', var_name='comparison', value_name='log2FC')
+    fc_data = fc_data.drop(columns=['GeneName', 'GeneID', 'GeneDescription']).melt(id_vars='Label', var_name='comparison', value_name='log2FC')
     fc_data = fc_data.merge(df_metadata, how='left')
 
     if not height:
@@ -362,8 +370,8 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
     -------
     fc_ranked: pd.DataFrame
     """
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
-    fc_data = fc_data.set_index(['GeneID', 'GeneName', 'GeneDescription'])
+    
+    fc_data = data(data_type='fcs', analysis=analysis, microarray=False, annotations=True, sort_by=None)
 
     if query_annotation is not None:
       gene_annot_df = load_annotations()
@@ -580,7 +588,7 @@ def plot_heatmap(analysis, query_annotation=None, query_func=np.nanmedian, query
     """
     import seaborn as sns
     # load metadata
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t") 
+    fc_data = data(data_type='fcs', analysis=analysis, microarray=False, annotations=True, sort_by=None).reset_index()
     fc_ranked = load_candidates(analysis=analysis, name=query_name, func=query_func, query_annotation=query_annotation, query_fc=query_fc)
     fc_genes = fc_ranked.loc[:, 'GeneID']
     fam_data = fc_data.query("GeneID in @fc_genes").copy()
