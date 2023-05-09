@@ -87,6 +87,19 @@ def test_data_sorting(gene_id):
     assert not data_df.empty
     assert isinstance(data_df, pd.DataFrame)
 
+def test_data_pvalue_filter():
+
+    data_df = xpress.data(
+        data_type="fcs",
+        analysis="gamb_colu", 
+        microarray=False,
+        sort_by=None,
+        pvalue_filter=0.05
+    )
+    assert data_df is not None
+    assert not data_df.empty
+    assert isinstance(data_df, pd.DataFrame)
+
 
 @pytest.mark.parametrize(
     "gene_ids",
