@@ -73,6 +73,19 @@ def test_data_types_genes(data_type, gene_id):
     assert isinstance(data_df, pd.DataFrame)
 
 
+@pytest.mark.parametrize("gene_id",    [None, gene, gene_ids])
+def test_data_sorting(gene_id):
+
+    data_df = xpress.data(
+        data_type="fcs",
+        analysis="gamb_colu", 
+        gene_id= gene_id, 
+        microarray=False,
+        sort_by="position"
+    )
+    assert data_df is not None
+    assert not data_df.empty
+    assert isinstance(data_df, pd.DataFrame)
 
 
 @pytest.mark.parametrize(
