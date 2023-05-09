@@ -79,7 +79,7 @@ def metadata(analysis, microarray=False):
     return metadata
 
 
-def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, annotations=False):
+def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, annotations=False, pvalue_filter=None):
     """
     Load the combined data for a given analysis and sample query
 
@@ -95,6 +95,13 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
     gene_id: str or list, optional
       A string (AGAP/AFUN identifier), or list of strings, or path to a file containing a list of gene ids in the first column. 
       Input file can be .tsv, .txt, or .csv, or .xlsx.
+    sort_by: {"median", "mean", "agap", "position", None}, optional
+      sort by median/mean of fold changes (descending), or by AGAP, or by position in the genome, or dont sort input gene ids.
+    annotations: bool, optional
+      whether to add gene name and description to the dataframe as index. Default is False.
+    pvalue_filter: float, optional
+      if provided, fold-change entries with an adjusted p-value below the threshold will be set to NaN. Default is None.
+      ignored if the data_type is not 'fcs'. 
     
     Returns
     -------
@@ -134,18 +141,25 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
 
     if annotations: # add gene name and description to the dataframe as index 
       df = add_annotations_to_array(df)
+    
+    if data_type == 'fcs' and pvalue_filter is not None:
+      pval_df = data(data_type="pvals", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=sort_by, annotations=False)
+      df = null_fold_changes(pval_df=pval_df, fc_df=df, threshold=pvalue_filter)
 
     # sort genes 
     df = _sort_genes(df=df, analysis=analysis, sort_by=sort_by)
     
     return df
 
-
+def null_fold_changes(pval_df, fc_df, threshold=0.05):
+    fold_changes_null = fc_df.copy() # make a copy of fold_changes to modify
+    fold_changes_null[pval_df > threshold] = np.nan # set values to NaN where pvalue > 0.05
+    return fold_changes_null
+ 
 def add_annotations_to_array(df):
     df_annots = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/resources/AgamP4.annots.tsv", sep="\t")
     df = df.reset_index().merge(df_annots, on="GeneID", how="left").set_index(["GeneID", "GeneName", "GeneDescription"])   
     return df 
-
 
 def _sort_genes(df, analysis, sort_by=None):
   if sort_by is None:
@@ -168,7 +182,7 @@ def _sort_genes(df, analysis, sort_by=None):
 
   return df.iloc[sort_idxs, :].copy()
 
-def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=False, title=None, plot_type='strip', sort_by='agap', width=1600, height=None, save_html=None):
+def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=False, title=None, plot_type='strip', sort_by='agap', pvalue_filter=None, width=1600, height=None, save_html=None):
     """Plot fold changes of provided AGAP gene IDs from RNA-Seq 
     meta-analysis dataset
 
@@ -205,7 +219,7 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     df_samples = sample_metadata(analysis=analysis)
 
     # load fold change data, make long format and merge with metadata for hovertext
-    fc_data = data(data_type="fcs", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=sort_by, annotations=True).reset_index()
+    fc_data = data(data_type="fcs", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=sort_by, annotations=True, pvalue_filter=pvalue_filter).reset_index()
     # load count data, make long format and merge with metadata for hovertext
     count_data = data(data_type="log2counts", analysis=analysis, microarray=microarray, gene_id=gene_id, sort_by=None)
     count_data = count_data.loc[fc_data['GeneID']].reset_index()
