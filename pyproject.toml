@@ -20,7 +20,7 @@ pandas = [
 ]
 seaborn = "*"
 numpy = "*"
-bokeh = "*"
+bokeh = ">=3.1.1"
 plotly = "*"
 scipy = "*"
 tqdm = "*"
