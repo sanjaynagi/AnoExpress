@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 
-
 taxon_query_dict = { 'gamb_colu':"species in ['gambiae','coluzzii']", 
                   'gamb_colu_arab':"species in ['gambiae','coluzzii','arabiensis']", 
                   'gamb_colu_arab_fun':"species in ['gambiae','coluzzii','arabiensis','funestus']", 
@@ -636,9 +635,64 @@ def plot_heatmap(analysis, query_annotation=None, query_func=np.nanmedian, query
 
 
 
+def contig_expression(contig, analysis, data_type='fcs', microarray=False, pvalue_filter=None, size=10, step=5):
+    """
+    Calculate fold change data for a given contig. Returns both raw fold change data for each experiment and a moving average
+    
+    
+    Parameters
+    ----------
+    contig: str
+      contig, one of 2L, 2R, 3L, 3R, X or 2RL, 3RL
+    analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
+      which analysis to load gene expression data for. analyses with more species will have less genes
+      present, due to the process of finding orthologs.
+    data_type: {"fcs", "log2counts"}, optional
+      whether to load fold change data or log2 counts data. Defaults to 'fcs'
+    microarray: bool, optional
+      whether to include the IR-Tex microarray data in the plot
+    pvalue_filter: float, optional
+      filter genes by pvalue. Defaults to None
+    size: int, optional
+      size of window in genes for moving average. Defaults to 10
+    step: int, optional
+      step size in genes for moving average. Defaults to 5
+
+    """
+    import malariagen_data
+    import allel
+    
+    fc_data = data(
+                    data_type=data_type, 
+                    analysis=analysis, 
+                    microarray=microarray, 
+                    annotations=True, 
+                    pvalue_filter=pvalue_filter
+                    ).reset_index()
+    
+    ag3 = malariagen_data.Ag3()
+    gff = ag3.genome_features(contig).query("type == 'gene'").assign(midpoint = lambda x: (x.start + x.end)/2)
+    genes_df = gff[['ID', 'midpoint']].rename(columns={'ID':'GeneID'})
+    genes_df = genes_df.merge(fc_data, how='left').set_index(['GeneID', 'GeneName', 'GeneDescription', 'midpoint'])
+    # calculate moving average of fold changes
+    median_fc = genes_df.mean(axis=1).to_frame().rename(columns={0:'median_fc'}).reset_index()
+    moving_mid = allel.moving_statistic(median_fc.midpoint, np.nanmedian, size=size, step=step)
+    moving_med = allel.moving_statistic(median_fc['median_fc'], np.nanmedian, size=size, step=step)
+    windowed_fold_change_df = pd.DataFrame({'midpoint':moving_mid, 'median_fc':moving_med})
+
+    fold_change_df = genes_df.reset_index().melt(id_vars=['midpoint', 'GeneID', 'GeneName', 'GeneDescription'], var_name='comparison', value_name='fold_change')  
+    return fold_change_df, windowed_fold_change_df
+
+
+
 def plot_contig_expression_track(
-    fold_change_df,
-    windowed_fold_change_df,
+    contig,
+    analysis="gamb_colu_arab_fun",
+    data_type='fcs',
+    microarray=False,
+    pvalue_filter=None,
+    size=10,
+    step=5,
     title=None, 
     width=800, 
     height=600, 
@@ -647,7 +701,52 @@ def plot_contig_expression_track(
     y_range=None,
     show=False
 ):
+    """
+    Plot fold change data for a given contig. Plots both raw fold change data for each experiment and a moving average
+
+    Parameters
+    ----------
+    contig: str
+      contig, one of 2L, 2R, 3L, 3R, X or 2RL, 3RL
+    analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
+      which analysis to load gene expression data for. analyses with more species will have less genes
+      present, due to the process of finding orthologs.
+    data_type: {"fcs", "log2counts"}, optional
+      whether to load fold change data or log2 counts data. Defaults to 'fcs'
+    microarray: bool, optional
+      whether to include the IR-Tex microarray data in the plot
+    pvalue_filter: float, optional
+      filter genes by pvalue. Defaults to None
+    size: int, optional
+      size of window in genes for moving average. Defaults to 10
+    step: int, optional
+      step size in genes for moving average. Defaults to 5
+    title: str, optional
+      plot title. Defaults to None
+    width: int, optional
+      width of plot. Defaults to 800
+    height: int, optional
+      height of plot. Defaults to 600
+    sizing_mode: {"stretch_width", "scale_width", "scale_both", "scale_height", "stretch_both"}, optional
+      sizing mode for plot. Defaults to 'stretch_width'
+    x_range: tuple, optional
+      x axis range. Defaults to None
+    y_range: tuple, optional
+      y axis range. Defaults to None
+    show: bool, optional
+      whether to show the plot. Defaults to False
+    """
     import bokeh
+
+    fold_change_df, windowed_fold_change_df = contig_expression(
+       contig=contig, 
+       analysis=analysis, 
+       data_type=data_type, 
+       microarray=microarray,
+       pvalue_filter=pvalue_filter, 
+       size=size, 
+       step=step
+       )
     
     # determine X axis range
     x_min = fold_change_df.midpoint.to_numpy()[0]
@@ -708,39 +807,60 @@ def plot_contig_expression_track(
         bokeh.plotting.show(fig)
     return fig 
 
-def plot_contig_expression(contig, analysis, data_type='fcs', microarray=False, pvalue_filter=None, y_range=(-10,15), height=400, width=600, title=None, size=10, step=None):
+
+
+
+
+def plot_contig_expression(contig, analysis, data_type='fcs', microarray=False, size=10, step=5, pvalue_filter=None, y_range=(-10,15), height=400, width=600, title=None, show=False):
+    """
+    Plot fold change data for a given contig with a gene track. 
+
+    Parameters
+    ----------
+    contig: str
+      contig, one of 2L, 2R, 3L, 3R, X or 2RL, 3RL
+    analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
+      which analysis to load gene expression data for. analyses with more species will have less genes
+      present, due to the process of finding orthologs.
+    data_type: {"fcs", "log2counts"}, optional
+      whether to load fold change data or log2 counts data. Defaults to 'fcs'
+    microarray: bool, optional
+      whether to include the IR-Tex microarray data in the plot
+    pvalue_filter: float, optional
+      filter genes by pvalue. Defaults to None
+    size: int, optional
+      size of window in genes for moving average. Defaults to 10
+    step: int, optional
+      step size in genes for moving average. Defaults to 5
+    title: str, optional
+      plot title. Defaults to None
+    width: int, optional
+      width of plot. Defaults to 800
+    height: int, optional
+      height of plot. Defaults to 600
+    y_range: tuple, optional
+      y axis range. Defaults to None
+    show: bool, optional
+      whether to show the plot. Defaults to False
+    """
+
     import bokeh
     import malariagen_data
-    import allel
-    
-    fc_data = data(
-                    data_type=data_type, 
-                    analysis=analysis, 
-                    microarray=microarray, 
-                    annotations=True, 
-                    pvalue_filter=pvalue_filter
-                    ).reset_index()
-    
     ag3 = malariagen_data.Ag3()
-    # calculate moving average
-    gff = ag3.genome_features(contig).query("type == 'gene'").assign(midpoint = lambda x: (x.start + x.end)/2)
-    genes_df = gff[['ID', 'midpoint']].rename(columns={'ID':'GeneID'})
-    genes_df = genes_df.merge(fc_data, how='left').set_index(['GeneID', 'GeneName', 'GeneDescription', 'midpoint'])
-    median_fc = genes_df.mean(axis=1).to_frame().rename(columns={0:'median_fc'}).reset_index()
-    moving_mid = allel.moving_statistic(median_fc.midpoint, np.nanmedian, size=size, step=step)
-    moving_med = allel.moving_statistic(median_fc['median_fc'], np.nanmedian, size=size, step=step)
-    windowed_fold_change_df = pd.DataFrame({'midpoint':moving_mid, 'median_fc':moving_med})
 
-    fold_change_df = genes_df.reset_index().melt(id_vars=['midpoint', 'GeneID', 'GeneName', 'GeneDescription'], var_name='comparison', value_name='fold_change')  
-    
     fig1 = plot_contig_expression_track(
-                                    df=fold_change_df,
-                                    moving_fc=windowed_fold_change_df,
+                                    contig=contig,
+                                    analysis=analysis,
+                                    data_type=data_type,
+                                    microarray=microarray,
+                                    pvalue_filter=pvalue_filter,
+                                    size=size,
+                                    step=step,
                                     y_range=y_range,
                                     height=height,
                                     width=width,
                                     title=title,
-                                    show=False
+                                    show=False,
                                     )
     fig1.xaxis.visible = False
     # plot genes
@@ -760,5 +880,6 @@ def plot_contig_expression(contig, analysis, data_type='fcs', microarray=False, 
         merge_tools=True,
         sizing_mode="stretch_width",
     )
-    bokeh.plotting.show(fig)
+    if show:
+      bokeh.plotting.show(fig)
     return fig
