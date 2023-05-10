@@ -11,7 +11,7 @@ packages = [
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = ">=3.7.1"
+python = ">=3.7.1, <3.11"
 malariagen_data = "*"
 scikit-allel="*"
 pandas = [
@@ -20,7 +20,7 @@ pandas = [
 ]
 seaborn = "*"
 numpy = "*"
-bokeh = ">=3.1.1"
+bokeh = "*"
 plotly = "*"
 scipy = "*"
 tqdm = "*"
