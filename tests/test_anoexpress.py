@@ -132,6 +132,29 @@ def test_plot_gene_expression_type(plot_type):
         plot_type=plot_type,
         )
     
+
+def test_contig_expression():
+
+    xpress.plot_contig_expression(
+        contig='3R',
+        analysis='gamb_colu', 
+        microarray=False,
+        y_range=(-8,10), 
+        size=10,
+        step=5,
+        height=400, 
+        width=600
+        )
+
+
+
+
+
+
+
+### hypergeometric functions ###
+
+
 def test_go_hypergeometric():
     go = xpress.go_hypergeometric(analysis='gamb_colu_arab_fun', name="median", func=np.nanmedian
         )
@@ -149,3 +172,6 @@ def test_kegg_hypergeometric():
         )
     assert isinstance(kegg, pd.DataFrame)
     assert kegg.iloc[0,0] == 'aga00982' # check first value is correct
+
+
+

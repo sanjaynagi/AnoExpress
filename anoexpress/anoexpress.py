@@ -632,3 +632,133 @@ def plot_heatmap(analysis, query_annotation=None, query_func=np.nanmedian, query
     )
 
     cg.ax_col_dendrogram.set_visible(False)
+
+
+
+
+def plot_contig_expression_track(
+    fold_change_df,
+    windowed_fold_change_df,
+    title=None, 
+    width=800, 
+    height=600, 
+    sizing_mode='stretch_width',
+    x_range=None,
+    y_range=None,
+    show=False
+):
+    import bokeh
+    
+    # determine X axis range
+    x_min = fold_change_df.midpoint.to_numpy()[0]
+    x_max = fold_change_df.midpoint.to_numpy()[-1]
+    if x_range is None:
+        x_range = bokeh.models.Range1d(x_min, x_max, bounds="auto")
+
+    # create a figure
+    xwheel_zoom = bokeh.models.WheelZoomTool(
+        dimensions="width", maintain_focus=False
+    )
+    
+    tooltips = [
+            ("Gene ID", "@GeneID"),
+            ("Gene Name","@GeneName"),
+            ("Gene Description", "@GeneDescription"),
+            ("Experiment", "@comparison"),
+            ("Fold Change", "@fold_change"),
+        ]
+
+    fig = bokeh.plotting.figure(
+        title=title,
+        tools=["xpan", "xzoom_in", "xzoom_out", xwheel_zoom, "reset", "hover"],
+        active_scroll=xwheel_zoom,
+        active_drag="xpan",
+        sizing_mode=sizing_mode,
+        width=width,
+        height=height,
+        toolbar_location="above",
+        tooltips=tooltips,
+        x_range=x_range,
+        y_range=y_range
+    )
+
+    # plot 
+    fig.circle(
+        x="midpoint",
+        y="fold_change",
+        size=4,
+        line_width=1,
+        line_color="grey",
+        fill_color=None,
+        source=fold_change_df,
+    )
+    
+    fig.line(
+        x="midpoint",
+        y="median_fc",
+        line_width=2,
+        line_color="black",
+        source=windowed_fold_change_df,
+    )
+
+    # tidy up the plot
+    fig.yaxis.axis_label = "Log2 Fold Change"
+
+    if show:
+        bokeh.plotting.show(fig)
+    return fig 
+
+def plot_contig_expression(contig, analysis, data_type='fcs', microarray=False, pvalue_filter=None, y_range=(-10,15), height=400, width=600, title=None, size=10, step=None):
+    import bokeh
+    import malariagen_data
+    import allel
+    
+    fc_data = data(
+                    data_type=data_type, 
+                    analysis=analysis, 
+                    microarray=microarray, 
+                    annotations=True, 
+                    pvalue_filter=pvalue_filter
+                    ).reset_index()
+    
+    ag3 = malariagen_data.Ag3()
+    # calculate moving average
+    gff = ag3.genome_features(contig).query("type == 'gene'").assign(midpoint = lambda x: (x.start + x.end)/2)
+    genes_df = gff[['ID', 'midpoint']].rename(columns={'ID':'GeneID'})
+    genes_df = genes_df.merge(fc_data, how='left').set_index(['GeneID', 'GeneName', 'GeneDescription', 'midpoint'])
+    median_fc = genes_df.mean(axis=1).to_frame().rename(columns={0:'median_fc'}).reset_index()
+    moving_mid = allel.moving_statistic(median_fc.midpoint, np.nanmedian, size=size, step=step)
+    moving_med = allel.moving_statistic(median_fc['median_fc'], np.nanmedian, size=size, step=step)
+    windowed_fold_change_df = pd.DataFrame({'midpoint':moving_mid, 'median_fc':moving_med})
+
+    fold_change_df = genes_df.reset_index().melt(id_vars=['midpoint', 'GeneID', 'GeneName', 'GeneDescription'], var_name='comparison', value_name='fold_change')  
+    
+    fig1 = plot_contig_expression_track(
+                                    df=fold_change_df,
+                                    moving_fc=windowed_fold_change_df,
+                                    y_range=y_range,
+                                    height=height,
+                                    width=width,
+                                    title=title,
+                                    show=False
+                                    )
+    fig1.xaxis.visible = False
+    # plot genes
+    fig2 = ag3.plot_genes(
+        region=contig,
+        sizing_mode="stretch_width",
+        width=width,
+        height=100,
+        x_range=fig1.x_range,
+        show=False,
+    )
+    # combine plots into a single figure
+    fig = bokeh.layouts.gridplot(
+        [fig1, fig2],
+        ncols=1,
+        toolbar_location="above",
+        merge_tools=True,
+        sizing_mode="stretch_width",
+    )
+    bokeh.plotting.show(fig)
+    return fig
