@@ -737,6 +737,7 @@ def plot_contig_expression_track(
       whether to show the plot. Defaults to False
     """
     import bokeh
+    import bokeh.plotting as bkplt
 
     fold_change_df, windowed_fold_change_df = contig_expression(
        contig=contig, 
@@ -767,7 +768,7 @@ def plot_contig_expression_track(
             ("Fold Change", "@fold_change"),
         ]
 
-    fig = bokeh.plotting.figure(
+    fig = bkplt.figure(
         title=title,
         tools=["xpan", "xzoom_in", "xzoom_out", xwheel_zoom, "reset", "hover"],
         active_scroll=xwheel_zoom,
@@ -804,7 +805,7 @@ def plot_contig_expression_track(
     fig.yaxis.axis_label = "Log2 Fold Change"
 
     if show:
-        bokeh.plotting.show(fig)
+        bkplt.show(fig)
     return fig 
 
 
@@ -845,6 +846,7 @@ def plot_contig_expression(contig, analysis, data_type='fcs', microarray=False, 
     """
 
     import bokeh
+    import bokeh.plotting as bkplt
     import malariagen_data
     ag3 = malariagen_data.Ag3()
 
@@ -881,5 +883,5 @@ def plot_contig_expression(contig, analysis, data_type='fcs', microarray=False, 
         sizing_mode="stretch_width",
     )
     if show:
-      bokeh.plotting.show(fig)
+      bkplt.show(fig)
     return fig
