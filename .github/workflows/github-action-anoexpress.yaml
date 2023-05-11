@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-          python-version: ['3.7', '3.10', '3.11']
+          python-version: ['3.8', '3.10']
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -22,3 +22,4 @@ jobs:
     - run: papermill workflow/notebooks/expression-candidates.ipynb ci3.ipynb -k anoexpress
     - run: papermill workflow/notebooks/enrichment.ipynb ci4.ipynb -k anoexpress
     - run: papermill workflow/notebooks/utility-functions.ipynb ci5.ipynb -k anoexpress
+    - run: papermill workflow/notebooks/genome-wide-expression-scans.ipynb ci6.ipynb -k anoexpress

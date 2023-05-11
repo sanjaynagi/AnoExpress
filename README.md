@@ -14,6 +14,8 @@ Documentation: https://sanjaynagi.github.io/AnoExpress/
 
 [![Custom badge](https://img.shields.io/endpoint?color=gold&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-expression.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/plot-gene-expression.ipynb)   
 
+[![Custom badge](https://img.shields.io/endpoint?color=darkblue&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-gwes.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/genome-wide-expression-scans.ipynb)   
+
 [![Custom badge](https://img.shields.io/endpoint?color=grey&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-utilities.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/utility-functions.ipynb)  
 
 [![Custom badge](https://img.shields.io/endpoint?color=turqoise&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-families.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/plot-families-expression.ipynb)  
