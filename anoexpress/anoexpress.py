@@ -685,6 +685,7 @@ def contig_expression(contig, analysis, data_type='fcs', microarray=False, pvalu
 
 
 
+
 def plot_contig_expression_track(
     contig,
     analysis="gamb_colu_arab_fun",
@@ -696,6 +697,7 @@ def plot_contig_expression_track(
     title=None, 
     width=800, 
     height=600, 
+    color=True,
     sizing_mode='stretch_width',
     x_range=None,
     y_range=None,
@@ -727,6 +729,8 @@ def plot_contig_expression_track(
       width of plot. Defaults to 800
     height: int, optional
       height of plot. Defaults to 600
+    color: bool, optional
+      Colour points by taxon of the experiment
     sizing_mode: {"stretch_width", "scale_width", "scale_both", "scale_height", "stretch_both"}, optional
       sizing mode for plot. Defaults to 'stretch_width'
     x_range: tuple, optional
@@ -739,7 +743,7 @@ def plot_contig_expression_track(
     import bokeh
     import bokeh.plotting as bkplt
 
-    fold_change_df, windowed_fold_change_df = contig_expression(
+    fold_change_df, windowed_fold_change_df = xpress.contig_expression(
        contig=contig, 
        analysis=analysis, 
        data_type=data_type, 
@@ -748,6 +752,30 @@ def plot_contig_expression_track(
        size=size, 
        step=step
        )
+    
+    metadata = xpress.metadata(analysis=analysis, microarray=microarray)
+    fold_change_df = fold_change_df.merge(metadata)
+    
+    if color:
+        # add color column 
+        fold_change_df['color'] = np.select(
+            [
+                fold_change_df['species'] == "coluzzii", 
+                fold_change_df['species'] == "gambiae",
+                fold_change_df['species'] == "arabiensis",
+                fold_change_df['species'] == "funestus"
+            ], 
+            [
+                '#f78181', 
+                '#f5eeba',
+                '#b2ebc1',
+                '#798bfc'
+            ], 
+                default='grey'
+            )
+        color = 'color'
+    else:
+        color = 'grey'
     
     # determine X axis range
     x_min = fold_change_df.midpoint.to_numpy()[0]
@@ -765,7 +793,10 @@ def plot_contig_expression_track(
             ("Gene Name","@GeneName"),
             ("Gene Description", "@GeneDescription"),
             ("Experiment", "@comparison"),
-            ("Fold Change", "@fold_change"),
+            ("Taxon", "@species"),
+            ("Technology", "@technology"),
+            ("Country", "@country"),
+            ("Log2 FC", "@fold_change"),
         ]
 
     fig = bkplt.figure(
@@ -788,7 +819,7 @@ def plot_contig_expression_track(
         y="fold_change",
         size=4,
         line_width=1,
-        line_color="grey",
+        line_color=color,
         fill_color=None,
         source=fold_change_df,
     )
@@ -807,6 +838,7 @@ def plot_contig_expression_track(
     if show:
         bkplt.show(fig)
     return fig 
+
 
 
 
