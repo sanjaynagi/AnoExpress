@@ -311,7 +311,6 @@ def _gene_ids_from_annotation(gene_annot_df, annotation):
           return gene_annot_df.query("domain == @annotation")['gene_id'].to_numpy()
 
 
-
 def plot_gene_family_expression(gene_identifier, analysis, title, microarray=False, plot_type='strip', sort_by='median', width=1600, height=None):
   """Plot gene expression of gene families belonging to GO terms or PFAM domains
 
@@ -743,7 +742,7 @@ def plot_contig_expression_track(
     import bokeh
     import bokeh.plotting as bkplt
 
-    fold_change_df, windowed_fold_change_df = xpress.contig_expression(
+    fold_change_df, windowed_fold_change_df = contig_expression(
        contig=contig, 
        analysis=analysis, 
        data_type=data_type, 
@@ -753,7 +752,7 @@ def plot_contig_expression_track(
        step=step
        )
     
-    metadata = xpress.metadata(analysis=analysis, microarray=microarray)
+    metadata = metadata(analysis=analysis, microarray=microarray)
     fold_change_df = fold_change_df.merge(metadata)
     
     if color:
