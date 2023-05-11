@@ -752,8 +752,8 @@ def plot_contig_expression_track(
        step=step
        )
     
-    metadata = metadata(analysis=analysis, microarray=microarray)
-    fold_change_df = fold_change_df.merge(metadata)
+    df_metadata = metadata(analysis=analysis, microarray=microarray)
+    fold_change_df = fold_change_df.merge(df_metadata)
     
     if color:
         # add color column 
