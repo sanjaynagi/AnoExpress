@@ -809,7 +809,8 @@ def plot_contig_expression_track(
         toolbar_location="above",
         tooltips=tooltips,
         x_range=x_range,
-        y_range=y_range
+        y_range=y_range,
+        output_backend='webgl'
     )
 
     # plot 
