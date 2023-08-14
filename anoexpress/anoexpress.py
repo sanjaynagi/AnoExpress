@@ -229,6 +229,9 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     fc_data = fc_data.drop(columns=['GeneName', 'GeneID', 'GeneDescription']).melt(id_vars='Label', var_name='comparison', value_name='log2FC')
     fc_data = fc_data.merge(df_metadata, how='left')
 
+    #reorder fc data to match count_data ordering (important for legends/colours matching)
+    fc_data = fc_data.set_index('species').loc[count_data.species.unique()].reset_index()
+
     if not height:
       height = np.min([fc_data.shape[0]*12, 2500])
     
@@ -243,7 +246,7 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
           color='species',
           title="title", 
           hover_data=['resistant', 'susceptible', 'species', 'country', 'technology'],
-          template='ggplot2'
+          template='simple_white'
         )
 
     figure2 = myplot(
@@ -253,7 +256,7 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
         color='species', 
         orientation='h', 
         hover_data=['sampleID', 'species', 'country'],
-        template='ggplot2',
+        template='simple_white',
         )
 
     for i in range(len(figure2.data)):
@@ -277,7 +280,7 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     # reset boxmode to group so species are separate, resize plots, set axes titles, labels and vlines
     final_figure.layout['boxmode'] = 'group'
     final_figure.layout['xaxis2']['domain'] = (0.65, 1.0)
-    final_figure.update_layout(title_text=title, title_x=0.5, width=width, height=height)
+    final_figure.update_layout(title_text=title, title_x=0.5, width=width, height=height, template='simple_white')
     final_figure.update_yaxes(title_text="Gene", row=1, col=1, title_font = {"size": 18}, tickfont={"size":14}),
     final_figure.update_yaxes(showticklabels=False, row=1, col=2)
     final_figure.update_xaxes(title_text="log2 fold change", row=1, col=1, title_font = {"size": 18})
@@ -696,7 +699,7 @@ def plot_contig_expression_track(
     title=None, 
     width=800, 
     height=600, 
-    color=True,
+    palette=None,
     sizing_mode='stretch_width',
     x_range=None,
     y_range=None,
@@ -755,7 +758,7 @@ def plot_contig_expression_track(
     df_metadata = metadata(analysis=analysis, microarray=microarray)
     fold_change_df = fold_change_df.merge(df_metadata)
     
-    if color:
+    if palette:
         # add color column 
         fold_change_df['color'] = np.select(
             [
@@ -764,13 +767,9 @@ def plot_contig_expression_track(
                 fold_change_df['species'] == "arabiensis",
                 fold_change_df['species'] == "funestus"
             ], 
-            [
-                '#f78181', 
-                '#f5eeba',
-                '#b2ebc1',
-                '#798bfc'
-            ], 
-                default='grey'
+              list(palette), 
+            
+            default='grey'
             )
         color = 'color'
     else:
@@ -844,7 +843,7 @@ def plot_contig_expression_track(
 
 
 
-def plot_contig_expression(contig, analysis, data_type='fcs', microarray=False, size=10, step=5, pvalue_filter=None, y_range=(-10,15), height=400, width=600, title=None, show=False):
+def plot_contig_expression(contig, analysis, data_type='fcs', microarray=False, size=10, step=5, pvalue_filter=None, color=False, y_range=(-10,15), height=400, width=600, title=None, show=False):
     """
     Plot fold change data for a given contig with a gene track. 
 
@@ -888,6 +887,7 @@ def plot_contig_expression(contig, analysis, data_type='fcs', microarray=False, 
                                     data_type=data_type,
                                     microarray=microarray,
                                     pvalue_filter=pvalue_filter,
+                                    color=color,
                                     size=size,
                                     step=step,
                                     y_range=y_range,
