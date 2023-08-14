@@ -843,7 +843,7 @@ def plot_contig_expression_track(
 
 
 
-def plot_contig_expression(contig, analysis, data_type='fcs', microarray=False, size=10, step=5, pvalue_filter=None, color=False, y_range=(-10,15), height=400, width=600, title=None, show=False):
+def plot_contig_expression(contig, analysis, data_type='fcs', microarray=False, size=10, step=5, pvalue_filter=None, palette=None,y_range=(-10,15), height=400, width=600, title=None, show=False):
     """
     Plot fold change data for a given contig with a gene track. 
 
