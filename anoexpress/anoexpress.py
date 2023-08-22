@@ -577,7 +577,7 @@ def _hypergeometric(annotation_df, column_name, target_gene_list, N, k):
 
 
 
-def plot_heatmap(analysis, query_annotation=None, query_func=np.nanmedian, query_fc=None, query_name='median', cmap=None, cbar_pos=None, figsize=None):
+def plot_heatmap(analysis, gene_id=None, query_annotation=None, query_func=np.nanmedian, query_fc=None, query_name='median', cmap=None, cbar_pos=None, figsize=None):
     """
     Plot a heatmap of the top 100 genes ranked by user input function.
     
@@ -603,26 +603,30 @@ def plot_heatmap(analysis, query_annotation=None, query_func=np.nanmedian, query
     """
     import seaborn as sns
     # load metadata
-    fc_data = data(data_type='fcs', analysis=analysis, microarray=False, annotations=True, sort_by=None).reset_index()
-    fc_ranked = load_candidates(analysis=analysis, name=query_name, func=query_func, query_annotation=query_annotation, query_fc=query_fc)
-    fc_genes = fc_ranked.loc[:, 'GeneID']
-    fam_data = fc_data.query("GeneID in @fc_genes").copy()
-    
-    fam_data.loc[:, 'Label'] = [id_ + " | " + name if name != "" else id_ for id_, name in zip(fam_data['GeneID'].fillna(""), fam_data['GeneName'].fillna(""))]
-    fam_data = fam_data.set_index("Label").drop(columns=['GeneName', 'GeneID', 'GeneDescription'])
-    fam_data.columns = [c.replace("_log2FoldChange", "").replace("_", " ") for c in fam_data.columns]
-    mask = fam_data.isnull()
 
-    if fam_data.empty or fam_data.shape[0] == 1:
-      print(f"Too few observations for {query_annotation} and FC of greater than {query_fc}")
+    if gene_id:      
+      fc_data = data(data_type='fcs', gene_id=gene_id, analysis=analysis, microarray=False, annotations=True, sort_by=None).reset_index()
+    elif gene_id:
+      fc_data = data(data_type='fcs', analysis=analysis, microarray=False, annotations=True, sort_by=None).reset_index()
+      fc_ranked = load_candidates(analysis=analysis, name=query_name, func=query_func, query_annotation=query_annotation, query_fc=query_fc)
+      fc_genes = fc_ranked.loc[:, 'GeneID']
+      fc_data = fc_data.query(f"GeneID in {fc_genes}").copy()
+    
+    fc_data.loc[:, 'Label'] = [id_ + " | " + name if name != "" else id_ for id_, name in zip(fc_data['GeneID'].fillna(""), fc_data['GeneName'].fillna(""))]
+    fc_data = fc_data.set_index("Label").drop(columns=['GeneName', 'GeneID', 'GeneDescription'])
+    fc_data.columns = [c.replace("_log2FoldChange", "").replace("_", " ") for c in fc_data.columns]
+    mask = fc_data.isnull()
+
+    if fc_data.empty or fc_data.shape[0] == 1:
+      print(f"Too few observations for gene selection or {query_annotation} and FC of greater than {query_fc}")
       return
     
     if not figsize:
-        height = np.max([fam_data.shape[0]/2.5, 4])
+        height = np.max([fc_data.shape[0]/2.5, 4])
         figsize = [10, height]
 
     cg = sns.clustermap(
-        fam_data.fillna(0), 
+        fc_data.fillna(0), 
         mask=mask, 
         cbar_pos=cbar_pos, 
         cmap=cmap,
