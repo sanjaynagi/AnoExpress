@@ -30,6 +30,9 @@ Documentation: https://sanjaynagi.github.io/AnoExpress/
 
 <br></br>
 
+[![Custom badge](https://img.shields.io/endpoint?color=white&logo=Google%20Colab&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsanjaynagi%2FAnoExpress%2Fmain%2Fgraphics%2Fbadge-diffexp.json)](https://colab.research.google.com/github/sanjaynagi/AnoExpress/blob/main/workflow/notebooks/differential-expression-meta-analysis.ipynb)  
+
+
 #### Contributing datasets
 
 If you would like to contribute a dataset from a major malaria vector, please raise an [issue](https://github.com/sanjaynagi/AnoExpress/issues) or [email me!](mailto:sanjay.c.nagi@gmail.com?subject=AnoExpress-datasets) The project has been working from the stage of raw read counts.
