@@ -135,7 +135,7 @@ def test_plot_gene_expression_type(plot_type):
 
 @pytest.mark.parametrize(
     "gene_id", 
-    ['2RL:28,500,500-28,520,000', 'X:8,500,500-8,530,000']
+    ['2L:28,500,500-28,520,000', 'X:8,500,500-8,530,000']
 )
 def test_plot_gene_expression_spans(gene_id):
 
