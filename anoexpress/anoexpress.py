@@ -92,7 +92,7 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
     microarray: bool, optional
       whether to include the IR-Tex microarray data in the requested data. Default is False.
     gene_id: str or list, optional
-      A string (AGAP/AFUN identifier), or list of strings, or path to a file containing a list of gene ids in the first column. 
+      A string (AGAP/AFUN identifier or genomic span in the format 2L:500-10000), or list of strings, or path to a file containing a list of gene ids in the first column. 
       Input file can be .tsv, .txt, or .csv, or .xlsx.
     sort_by: {"median", "mean", "agap", "position", None}, optional
       sort by median/mean of fold changes (descending), or by AGAP, or by position in the genome, or dont sort input gene ids.
@@ -130,7 +130,15 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
     # subset to the gene ids of interest including reading file 
     if gene_id is not None:
       if isinstance(gene_id, str):
-        if gene_id.endswith(('.tsv', '.txt')):
+        if gene_id.startswith(('2L', '2R', '3L', '3R', 'X', '2RL', '3RL')):
+          import malariagen_data
+          if analysis == 'fun':
+            assert "Unfortunately the genome feature file in malariagen_data does not contain AFUN identifiers, so we cannot subset by genomic span for An. funestus."
+          else:
+            ag3 = malariagen_data.Ag3()
+          gff = ag3.genome_features(region=gene_id).query("type == 'gene'")
+          gene_id = gff.ID.to_list()
+        elif gene_id.endswith(('.tsv', '.txt')):
             gene_id = pd.read_csv(gene_id, sep="\t", header=None).iloc[:, 0].to_list()
         elif gene_id.endswith('.csv'):
             gene_id = pd.read_csv(gene_id, header=None).iloc[:, 0].to_list()
