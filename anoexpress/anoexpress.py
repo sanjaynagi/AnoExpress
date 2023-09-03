@@ -534,7 +534,7 @@ def pfam_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
         
     return(hyper_geo)
 
-def kegg_hypergeometric(analysis, name, func, gene_ids, percentile=0.05):
+def kegg_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
     """
     Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function.
 
