@@ -446,7 +446,7 @@ def load_genes_for_enrichment(analysis, func, gene_ids, percentile):
     elif gene_ids:
       top_geneIDs = gene_ids
 
-    return fc_genes, top_geneIDs
+    return top_geneIDs, fc_genes
 
 def go_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
     """
