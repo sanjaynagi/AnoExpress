@@ -381,8 +381,8 @@ def filter_nas(df, fraction_na_allowed):
     """
     n_cols = df.shape[1]
     na_mask = df.apply(lambda x: x.isna().sum() / n_cols > fraction_na_allowed, axis=1)
-    df.loc[~na_mask, :]
-    return df 
+    return df.loc[~na_mask, :]
+
 
 def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None, microarray=False, fraction_na_allowed=None):
     """
