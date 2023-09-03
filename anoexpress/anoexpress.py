@@ -158,8 +158,9 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
     # sort genes 
     df = _sort_genes(df=df, analysis=analysis, sort_by=sort_by)
 
-    # remove genes with lots of NA
-    df = filter_nas(df=df, fraction_na_allowed=fraction_na_allowed)
+    if fraction_na_allowed:
+      # remove genes with lots of NA
+      df = filter_nas(df=df, fraction_na_allowed=fraction_na_allowed)
     
     return df
 
@@ -383,7 +384,7 @@ def filter_nas(df, fraction_na_allowed):
     df.loc[~na_mask, :]
     return df 
 
-def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None, microarray=False, fraction_na_allowed=0.5):
+def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None, microarray=False, fraction_na_allowed=None):
     """
     Load the candidate genes for a given analysis. Optionally, filter by annotation or fold change data.
     
