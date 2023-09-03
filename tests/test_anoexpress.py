@@ -169,19 +169,26 @@ def test_contig_expression():
 
 
 def test_go_hypergeometric():
-    go = xpress.go_hypergeometric(analysis='gamb_colu_arab_fun', name="median", func=np.nanmedian
+    go = xpress.go_hypergeometric(analysis='gamb_colu_arab_fun', func=np.nanmedian
         )
     assert isinstance(go, pd.DataFrame)
     assert go.iloc[0,0] == 'GO:0042302' # check first value is correct
 
 def test_pfam_hypergeometric():
-    pfam = xpress.pfam_hypergeometric(analysis='gamb_colu_arab_fun', name="median", func=np.nanmedian
+    pfam = xpress.pfam_hypergeometric(analysis='gamb_colu_arab_fun', func=np.nanmedian
         )
     assert isinstance(pfam, pd.DataFrame)
     assert pfam.iloc[0,0] == 'C_tripleX' # check first value is correct
 
+
+def test_pfam_hypergeometric_gene_ids():
+    pfam = xpress.pfam_hypergeometric(analysis='gamb_colu_arab_fun', gene_ids=gene_ids
+        )
+    assert isinstance(pfam, pd.DataFrame)
+
+
 def test_kegg_hypergeometric():
-    kegg = xpress.kegg_hypergeometric(analysis='gamb_colu_arab_fun', name="median", func=np.nanmedian
+    kegg = xpress.kegg_hypergeometric(analysis='gamb_colu_arab_fun', func=np.nanmedian
         )
     assert isinstance(kegg, pd.DataFrame)
     assert kegg.iloc[0,0] == 'aga00982' # check first value is correct

@@ -78,7 +78,7 @@ def metadata(analysis, microarray=False):
     return metadata
 
 
-def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, annotations=False, pvalue_filter=None):
+def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, annotations=False, pvalue_filter=None, fraction_na_allowed=None):
     """
     Load the combined data for a given analysis and sample query
 
@@ -101,6 +101,8 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
     pvalue_filter: float, optional
       if provided, fold-change entries with an adjusted p-value below the threshold will be set to NaN. Default is None.
       ignored if the data_type is not 'fcs'. 
+    fraction_na_allowed: float, optional
+      fraction of missing values allowed in the data. Defaults to 0.5
     
     Returns
     -------
@@ -155,6 +157,10 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
 
     # sort genes 
     df = _sort_genes(df=df, analysis=analysis, sort_by=sort_by)
+
+    if fraction_na_allowed:
+      # remove genes with lots of NA
+      df = filter_nas(df=df, fraction_na_allowed=fraction_na_allowed)
     
     return df
 
@@ -369,9 +375,16 @@ def load_annotations():
     gene_annot_df.loc[:, 'gene_id'] = gene_annot_df.loc[:, 'transcript'].str.replace("Anogam_", "").str.replace("-R[A-Z]", "", regex=True)
     return(gene_annot_df)
 
+def filter_nas(df, fraction_na_allowed):
+    """
+    Filter genes with more than fraction_na_allowed of missing values
+    """
+    n_cols = df.shape[1]
+    na_mask = df.apply(lambda x: x.isna().sum() / n_cols > fraction_na_allowed, axis=1)
+    return df.loc[~na_mask, :]
 
 
-def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None, microarray=False):
+def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None, microarray=False, fraction_na_allowed=None):
     """
     Load the candidate genes for a given analysis. Optionally, filter by annotation or fold change data.
     
@@ -388,13 +401,17 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
       filter genes by GO or PFAM annotation. Defaults to None
     query_fc: float, optional
       filter genes by fold change. Defaults to None
+    microarray: bool, optional
+      whether to include the IR-Tex microarray data in the requested data. Default is False.
+    fraction_nas_allowed: float, optional
+      fraction of missing values allowed in the data. Defaults to 0.5
     
     Returns
     -------
     fc_ranked: pd.DataFrame
     """
     
-    fc_data = data(data_type='fcs', analysis=analysis, microarray=False, annotations=True, sort_by=None)
+    fc_data = data(data_type='fcs', analysis=analysis, microarray=microarray, annotations=True, sort_by=None, fraction_na_allowed=fraction_na_allowed)
 
     if query_annotation is not None:
       gene_annot_df = load_annotations()
@@ -412,20 +429,39 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
 
     return(fc_ranked)
 
+def load_genes_for_enrichment(analysis, func, gene_ids, percentile):
+   
+    assert func is not None or gene_ids is not None, "either a ranking function (func) or gene_ids must be provided"
+    assert func is None or gene_ids is None, "Only a ranking function (func) or gene_ids must be provided, not both"
 
-def go_hypergeometric(analysis, name, func, percentile=0.05):
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
+    fc_genes = fc_data.reset_index()['GeneID'].to_list()
+    name = 'enrich'
+
+    if func:
+      # get top % percentile genes ranked by func
+      fc_ranked = load_candidates(analysis=analysis, name='enrich', func=func)
+      percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
+      top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
+    elif gene_ids:
+      top_geneIDs = gene_ids
+
+    return top_geneIDs, fc_genes
+
+def go_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
     """
-    Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function.
+    Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function, or on 
+    a user inputted gene_id list
 
     Parameters
     ----------
     analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
       which analysis to load gene expression data for. analyses with more species will have less genes
       present, due to the process of finding orthologs.
-    name: str
-      name of the function to rank genes by
     func: function
       function to rank genes by (such as np.nanmedian, np.nanmean)
+    gene_ids: list, optional
+      list of gene ids to perform hypergeometric test on. Defaults to None
     percentile: float, optional
       percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
 
@@ -434,13 +470,7 @@ def go_hypergeometric(analysis, name, func, percentile=0.05):
     go_hypergeo_results: pd.DataFrame
     """
 
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
-    fc_genes = fc_data.reset_index()['GeneID'].to_list()
-
-    # get top % percentile genes ranked by func
-    fc_ranked = load_candidates(analysis=analysis, name=name, func=func)
-    percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
-    top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
+    top_geneIDs, fc_genes = load_genes_for_enrichment(analysis=analysis, func=func, gene_ids=gene_ids, percentile=percentile)
 
     # load gene annotation file 
     gaf_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/resources/AgamP4.gaf", sep="\t")
@@ -460,9 +490,10 @@ def go_hypergeometric(analysis, name, func, percentile=0.05):
     return(hyper_geo)
 
 
-def pfam_hypergeometric(analysis, name, func, percentile=0.05):
+def pfam_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
     """
-    Perform a hypergeometric test on PFAM domains of the the top % percentile genes ranked by user input function.
+    Perform a hypergeometric test on PFAM domains of the the top % percentile genes ranked by user input function,
+    or on a user inputted gene_id list
 
     Parameters
     ----------
@@ -473,6 +504,8 @@ def pfam_hypergeometric(analysis, name, func, percentile=0.05):
       name of the function to rank genes by
     func: function
       function to rank genes by (such as np.nanmedian, np.nanmean)
+    gene_ids: list, optional
+      list of gene ids to perform hypergeometric test on. Defaults to None
     percentile: float, optional
       percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
     
@@ -481,14 +514,7 @@ def pfam_hypergeometric(analysis, name, func, percentile=0.05):
     pfam_hypergeo_results: pd.DataFrame
     """
 
-    # get all genes
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
-    fc_genes = fc_data.reset_index()['GeneID'].to_list()
-
-    # get top 5% percentile genes ranked by median
-    fc_ranked = load_candidates(analysis=analysis, name=name, func=func)
-    percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
-    top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
+    top_geneIDs, fc_genes = load_genes_for_enrichment(analysis=analysis, func=func, gene_ids=gene_ids, percentile=percentile)
 
     # load gene annotation file 
     pfam_df = pd.read_csv("https://github.com/sanjaynagi/AnoExpress/blob/main/resources/Anogam_long.pep_Pfamscan.seqs.gz?raw=true", sep="\s+", header=None, compression='gzip').iloc[:, [0,4]]
@@ -508,7 +534,7 @@ def pfam_hypergeometric(analysis, name, func, percentile=0.05):
         
     return(hyper_geo)
 
-def kegg_hypergeometric(analysis, name, func, percentile=0.05):
+def kegg_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
     """
     Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function.
 
@@ -521,6 +547,8 @@ def kegg_hypergeometric(analysis, name, func, percentile=0.05):
       name of the function to rank genes by
     func: function
       function to rank genes by (such as np.nanmedian, np.nanmean)
+    gene_ids: list, optional
+      list of gene ids to perform hypergeometric test on. Defaults to None
     percentile: float, optional
       percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
 
@@ -529,13 +557,7 @@ def kegg_hypergeometric(analysis, name, func, percentile=0.05):
     go_hypergeo_results: pd.DataFrame
     """
 
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
-    fc_genes = fc_data.reset_index()['GeneID'].to_list()
-
-    # get top % percentile genes ranked by func
-    fc_ranked = load_candidates(analysis=analysis, name=name, func=func)
-    percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
-    top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
+    top_geneIDs, fc_genes = load_genes_for_enrichment(analysis=analysis, func=func, gene_ids=gene_ids, percentile=percentile)
 
     # load gene annotation file 
     kegg_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/resources/AgamP4.kegg", sep="\t")
@@ -649,7 +671,7 @@ def plot_heatmap(analysis, gene_id=None, query_annotation=None, query_func=np.na
 
 
 
-def contig_expression(contig, analysis, data_type='fcs', microarray=False, pvalue_filter=None, size=10, step=5):
+def contig_expression(contig, analysis, data_type='fcs', microarray=False, pvalue_filter=None, size=10, step=5, fraction_na_allowed=None):
     """
     Calculate fold change data for a given contig. Returns both raw fold change data for each experiment and a moving average
     
@@ -671,7 +693,8 @@ def contig_expression(contig, analysis, data_type='fcs', microarray=False, pvalu
       size of window in genes for moving average. Defaults to 10
     step: int, optional
       step size in genes for moving average. Defaults to 5
-
+    fraction_na_allowed: float, optional
+      fraction of missing values allowed for each gene in the data. Defaults to no filter.
     """
     import malariagen_data
     import allel
@@ -681,7 +704,8 @@ def contig_expression(contig, analysis, data_type='fcs', microarray=False, pvalu
                     analysis=analysis, 
                     microarray=microarray, 
                     annotations=True, 
-                    pvalue_filter=pvalue_filter
+                    pvalue_filter=pvalue_filter,
+                    fraction_na_allowed=fraction_na_allowed
                     ).reset_index()
     
     ag3 = malariagen_data.Ag3()
