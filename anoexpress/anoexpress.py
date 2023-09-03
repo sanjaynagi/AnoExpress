@@ -429,20 +429,39 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
 
     return(fc_ranked)
 
+def load_genes_for_enrichment(analysis, func, gene_ids, percentile):
+   
+    assert func is not None and gene_ids is not None, "either a ranking function (func) or gene_ids must be provided"
+    assert func is None or gene_ids is None, "Only a ranking function (func) or gene_ids must be provided, not both"
 
-def go_hypergeometric(analysis, name, func, percentile=0.05):
+    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
+    fc_genes = fc_data.reset_index()['GeneID'].to_list()
+    name = 'enrich'
+
+    if func:
+      # get top % percentile genes ranked by func
+      fc_ranked = load_candidates(analysis=analysis, name='enrich', func=func)
+      percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
+      top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
+    elif gene_ids:
+      top_geneIDs = gene_ids
+
+    return fc_genes, top_geneIDs
+
+def go_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
     """
-    Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function.
+    Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function, or on 
+    a user inputted gene_id list
 
     Parameters
     ----------
     analysis: {"gamb_colu", "gamb_colu_arab", "gamb_colu_arab_fun", "fun"}
       which analysis to load gene expression data for. analyses with more species will have less genes
       present, due to the process of finding orthologs.
-    name: str
-      name of the function to rank genes by
     func: function
       function to rank genes by (such as np.nanmedian, np.nanmean)
+    gene_ids: list, optional
+      list of gene ids to perform hypergeometric test on. Defaults to None
     percentile: float, optional
       percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
 
@@ -451,13 +470,7 @@ def go_hypergeometric(analysis, name, func, percentile=0.05):
     go_hypergeo_results: pd.DataFrame
     """
 
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
-    fc_genes = fc_data.reset_index()['GeneID'].to_list()
-
-    # get top % percentile genes ranked by func
-    fc_ranked = load_candidates(analysis=analysis, name=name, func=func)
-    percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
-    top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
+    top_geneIDs, fc_genes = load_genes_for_enrichment(analysis=analysis, func=func, gene_ids=gene_ids, percentile=percentile)
 
     # load gene annotation file 
     gaf_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/resources/AgamP4.gaf", sep="\t")
@@ -477,9 +490,10 @@ def go_hypergeometric(analysis, name, func, percentile=0.05):
     return(hyper_geo)
 
 
-def pfam_hypergeometric(analysis, name, func, percentile=0.05):
+def pfam_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
     """
-    Perform a hypergeometric test on PFAM domains of the the top % percentile genes ranked by user input function.
+    Perform a hypergeometric test on PFAM domains of the the top % percentile genes ranked by user input function,
+    or on a user inputted gene_id list
 
     Parameters
     ----------
@@ -490,6 +504,8 @@ def pfam_hypergeometric(analysis, name, func, percentile=0.05):
       name of the function to rank genes by
     func: function
       function to rank genes by (such as np.nanmedian, np.nanmean)
+    gene_ids: list, optional
+      list of gene ids to perform hypergeometric test on. Defaults to None
     percentile: float, optional
       percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
     
@@ -498,14 +514,7 @@ def pfam_hypergeometric(analysis, name, func, percentile=0.05):
     pfam_hypergeo_results: pd.DataFrame
     """
 
-    # get all genes
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
-    fc_genes = fc_data.reset_index()['GeneID'].to_list()
-
-    # get top 5% percentile genes ranked by median
-    fc_ranked = load_candidates(analysis=analysis, name=name, func=func)
-    percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
-    top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
+    top_geneIDs, fc_genes = load_genes_for_enrichment(analysis=analysis, func=func, gene_ids=gene_ids, percentile=percentile)
 
     # load gene annotation file 
     pfam_df = pd.read_csv("https://github.com/sanjaynagi/AnoExpress/blob/main/resources/Anogam_long.pep_Pfamscan.seqs.gz?raw=true", sep="\s+", header=None, compression='gzip').iloc[:, [0,4]]
@@ -525,7 +534,7 @@ def pfam_hypergeometric(analysis, name, func, percentile=0.05):
         
     return(hyper_geo)
 
-def kegg_hypergeometric(analysis, name, func, percentile=0.05):
+def kegg_hypergeometric(analysis, name, func, gene_ids, percentile=0.05):
     """
     Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function.
 
@@ -538,6 +547,8 @@ def kegg_hypergeometric(analysis, name, func, percentile=0.05):
       name of the function to rank genes by
     func: function
       function to rank genes by (such as np.nanmedian, np.nanmean)
+    gene_ids: list, optional
+      list of gene ids to perform hypergeometric test on. Defaults to None
     percentile: float, optional
       percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
 
@@ -546,13 +557,7 @@ def kegg_hypergeometric(analysis, name, func, percentile=0.05):
     go_hypergeo_results: pd.DataFrame
     """
 
-    fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
-    fc_genes = fc_data.reset_index()['GeneID'].to_list()
-
-    # get top % percentile genes ranked by func
-    fc_ranked = load_candidates(analysis=analysis, name=name, func=func)
-    percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
-    top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
+    top_geneIDs, fc_genes = load_genes_for_enrichment(analysis=analysis, func=func, gene_ids=gene_ids, percentile=percentile)
 
     # load gene annotation file 
     kegg_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/resources/AgamP4.kegg", sep="\t")
@@ -666,7 +671,7 @@ def plot_heatmap(analysis, gene_id=None, query_annotation=None, query_func=np.na
 
 
 
-def contig_expression(contig, analysis, data_type='fcs', microarray=False, pvalue_filter=None, size=10, step=5):
+def contig_expression(contig, analysis, data_type='fcs', microarray=False, pvalue_filter=None, size=10, step=5, fraction_na_allowed=None):
     """
     Calculate fold change data for a given contig. Returns both raw fold change data for each experiment and a moving average
     
@@ -688,7 +693,8 @@ def contig_expression(contig, analysis, data_type='fcs', microarray=False, pvalu
       size of window in genes for moving average. Defaults to 10
     step: int, optional
       step size in genes for moving average. Defaults to 5
-
+    fraction_na_allowed: float, optional
+      fraction of missing values allowed for each gene in the data. Defaults to no filter.
     """
     import malariagen_data
     import allel
@@ -698,7 +704,8 @@ def contig_expression(contig, analysis, data_type='fcs', microarray=False, pvalu
                     analysis=analysis, 
                     microarray=microarray, 
                     annotations=True, 
-                    pvalue_filter=pvalue_filter
+                    pvalue_filter=pvalue_filter,
+                    fraction_na_allowed=fraction_na_allowed
                     ).reset_index()
     
     ag3 = malariagen_data.Ag3()
