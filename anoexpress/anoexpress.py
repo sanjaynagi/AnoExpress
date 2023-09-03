@@ -431,7 +431,7 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
 
 def load_genes_for_enrichment(analysis, func, gene_ids, percentile):
    
-    assert func is not None and gene_ids is not None, "either a ranking function (func) or gene_ids must be provided"
+    assert func is not None or gene_ids is not None, "either a ranking function (func) or gene_ids must be provided"
     assert func is None or gene_ids is None, "Only a ranking function (func) or gene_ids must be provided, not both"
 
     fc_data = pd.read_csv(f"https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/results/fcs.{analysis}.tsv", sep="\t")
