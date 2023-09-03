@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "anoexpress"
-version = "0.2.0"
+version = "0.2.1"
 description = "A package to access insecticide resistance gene expression meta analyse in Anopheles mosquitoes"
 authors = [
     "Sanjay Nagi <sanjay.nagi@lstmed.ac.uk>",

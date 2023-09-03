@@ -78,7 +78,7 @@ def metadata(analysis, microarray=False):
     return metadata
 
 
-def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, annotations=False, pvalue_filter=None):
+def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, annotations=False, pvalue_filter=None, fraction_na_allowed=None):
     """
     Load the combined data for a given analysis and sample query
 
@@ -101,6 +101,8 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
     pvalue_filter: float, optional
       if provided, fold-change entries with an adjusted p-value below the threshold will be set to NaN. Default is None.
       ignored if the data_type is not 'fcs'. 
+    fraction_na_allowed: float, optional
+      fraction of missing values allowed in the data. Defaults to 0.5
     
     Returns
     -------
@@ -155,6 +157,9 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
 
     # sort genes 
     df = _sort_genes(df=df, analysis=analysis, sort_by=sort_by)
+
+    # remove genes with lots of NA
+    df = filter_nas(df=df, fraction_na_allowed=fraction_na_allowed)
     
     return df
 
@@ -369,9 +374,16 @@ def load_annotations():
     gene_annot_df.loc[:, 'gene_id'] = gene_annot_df.loc[:, 'transcript'].str.replace("Anogam_", "").str.replace("-R[A-Z]", "", regex=True)
     return(gene_annot_df)
 
+def filter_nas(df, fraction_na_allowed):
+    """
+    Filter genes with more than fraction_na_allowed of missing values
+    """
+    n_cols = df.shape[1]
+    na_mask = df.apply(lambda x: x.isna().sum() / n_cols > fraction_na_allowed, axis=1)
+    df.loc[~na_mask, :]
+    return df 
 
-
-def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None, microarray=False):
+def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None, microarray=False, fraction_na_allowed=0.5):
     """
     Load the candidate genes for a given analysis. Optionally, filter by annotation or fold change data.
     
@@ -388,13 +400,17 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
       filter genes by GO or PFAM annotation. Defaults to None
     query_fc: float, optional
       filter genes by fold change. Defaults to None
+    microarray: bool, optional
+      whether to include the IR-Tex microarray data in the requested data. Default is False.
+    fraction_nas_allowed: float, optional
+      fraction of missing values allowed in the data. Defaults to 0.5
     
     Returns
     -------
     fc_ranked: pd.DataFrame
     """
     
-    fc_data = data(data_type='fcs', analysis=analysis, microarray=False, annotations=True, sort_by=None)
+    fc_data = data(data_type='fcs', analysis=analysis, microarray=microarray, annotations=True, sort_by=None, fraction_na_allowed=fraction_na_allowed)
 
     if query_annotation is not None:
       gene_annot_df = load_annotations()
