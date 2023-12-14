@@ -310,22 +310,22 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
 def _gene_ids_from_annotation(gene_annot_df, annotation):
     """
     Extract gene ids from gene_annot_df based on annotation
-    """
-    if isinstance(annotation, list):
-        gene_list = np.array([])
-        if annotation[0].startswith("GO"):
-            for go in annotation:
-              ids = gene_annot_df.query(f"GO_terms.str.contains('{go}', na=False)", engine='python')['gene_id'].to_numpy()
-              gene_list = np.hstack([gene_list, ids])
-            return(np.unique(gene_list))
-        else:
-          ids = gene_annot_df.query("domain == @annotation")['gene_id'].to_numpy()
-          return ids
-    elif isinstance(annotation, str):
-        if annotation.startswith("GO"): 
-          return gene_annot_df.query(f"GO_terms.str.contains('{annotation}', na=False)", engine='python')['gene_id'].to_numpy()
-        else:
-          return gene_annot_df.query("domain == @annotation")['gene_id'].to_numpy()
+    """      
+    if isinstance(annotation, str):
+      annotation = [annotation]
+
+    gene_list = np.array([]) 
+    for annot in annotation:
+      if annot.startswith("GO"):
+        ids = gene_annot_df.query(f"GO_terms.str.contains('{annot}', na=False)", engine='python')['gene_id'].to_numpy()
+      else:
+        ids = gene_annot_df.query("domain == @annot")['gene_id'].to_numpy()
+      gene_list = np.hstack([gene_list, ids])
+    
+    return np.unique(gene_list)
+          
+   
+    
 
 
 def plot_gene_family_expression(gene_identifier, analysis, title, microarray=False, plot_type='strip', sort_by='median', width=1600, height=None):
@@ -636,10 +636,10 @@ def plot_heatmap(analysis, gene_id=None, query_annotation=None, query_func=np.na
 
     if gene_id:      
       fc_data = data(data_type='fcs', gene_id=gene_id, analysis=analysis, microarray=False, annotations=True, sort_by=None).reset_index()
-    elif gene_id:
+    elif not gene_id:
       fc_data = data(data_type='fcs', analysis=analysis, microarray=False, annotations=True, sort_by=None).reset_index()
       fc_ranked = load_candidates(analysis=analysis, name=query_name, func=query_func, query_annotation=query_annotation, query_fc=query_fc)
-      fc_genes = fc_ranked.loc[:, 'GeneID']
+      fc_genes = fc_ranked.loc[:, 'GeneID'].to_list()
       fc_data = fc_data.query(f"GeneID in {fc_genes}").copy()
     
     fc_data.loc[:, 'Label'] = [id_ + " | " + name if name != "" else id_ for id_, name in zip(fc_data['GeneID'].fillna(""), fc_data['GeneName'].fillna(""))]
