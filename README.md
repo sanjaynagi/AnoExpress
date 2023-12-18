@@ -35,4 +35,4 @@ Documentation: https://sanjaynagi.github.io/AnoExpress/
 
 #### Contributing datasets
 
-If you would like to contribute a dataset from a major malaria vector, please raise an [issue](https://github.com/sanjaynagi/AnoExpress/issues) or [email me!](mailto:sanjay.c.nagi@gmail.com?subject=AnoExpress-datasets) The project has been working from the stage of raw read counts.
+If you would like to contribute a dataset from a major malaria vector, please raise an [issue](https://github.com/sanjaynagi/AnoExpress/issues) or [email me!](mailto:sanjay.c.nagi@gmail.com?subject=AnoExpress-datasets)
