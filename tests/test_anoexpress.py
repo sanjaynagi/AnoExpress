@@ -68,7 +68,7 @@ def test_data_types_genes(data_type, gene_id):
     data_df = xpress.data(
         data_type=data_type,
         analysis="gamb_colu", 
-        gene_id= gene_id, 
+        gene_id=gene_id, 
         microarray=True
     )
     assert data_df is not None
