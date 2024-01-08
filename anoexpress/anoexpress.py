@@ -78,6 +78,27 @@ def metadata(analysis, microarray=False):
     return metadata
 
 
+def resolve_gene_id(gene_id, analysis):
+    
+    if isinstance(gene_id, str):
+      if gene_id.startswith(('2L', '2R', '3L', '3R', 'X', '2RL', '3RL')):
+        import malariagen_data
+        if analysis == 'fun':
+          assert "Unfortunately the genome feature file in malariagen_data does not contain AFUN identifiers, so we cannot subset by genomic span for An. funestus."
+        else:
+          ag3 = malariagen_data.Ag3()
+        gff = ag3.genome_features(region=gene_id).query("type == 'gene'")
+        gene_id = gff.ID.to_list()
+      elif gene_id.endswith(('.tsv', '.txt')):
+          gene_id = pd.read_csv(gene_id, sep="\t", header=None).iloc[:, 0].to_list()
+      elif gene_id.endswith('.csv'):
+          gene_id = pd.read_csv(gene_id, header=None).iloc[:, 0].to_list()
+      elif gene_id.endswith('.xlsx'):
+          gene_id = pd.read_excel(gene_id, header=None).iloc[:, 0].to_list()
+      
+    return gene_id
+
+
 def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, annotations=False, pvalue_filter=None, fraction_na_allowed=None):
     """
     Load the combined data for a given analysis and sample query
@@ -131,21 +152,7 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
 
     # subset to the gene ids of interest including reading file 
     if gene_id is not None:
-      if isinstance(gene_id, str):
-        if gene_id.startswith(('2L', '2R', '3L', '3R', 'X', '2RL', '3RL')):
-          import malariagen_data
-          if analysis == 'fun':
-            assert "Unfortunately the genome feature file in malariagen_data does not contain AFUN identifiers, so we cannot subset by genomic span for An. funestus."
-          else:
-            ag3 = malariagen_data.Ag3()
-          gff = ag3.genome_features(region=gene_id).query("type == 'gene'")
-          gene_id = gff.ID.to_list()
-        elif gene_id.endswith(('.tsv', '.txt')):
-            gene_id = pd.read_csv(gene_id, sep="\t", header=None).iloc[:, 0].to_list()
-        elif gene_id.endswith('.csv'):
-            gene_id = pd.read_csv(gene_id, header=None).iloc[:, 0].to_list()
-        elif gene_id.endswith('.xlsx'):
-            gene_id = pd.read_excel(gene_id, header=None).iloc[:, 0].to_list()
+      gene_id = resolve_gene_id(gene_id=gene_id)
       df = df.query("GeneID in @gene_id")
 
     if annotations: # add gene name and description to the dataframe as index 
@@ -217,6 +224,8 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     sort_by : {"median", "mean", "agap", None}, optional
       sort by median/mean of fold changes (descending), or by AGAP, or dont sort input gene ids. 
       identifier
+    pvalue_filter: float, optional
+      if provided, fold-change entries with an adjusted p-value below the threshold will be removed from the plot. Default is None.
     width : int
       Width in pixels of the plotly figure
     height: int, optional
@@ -444,7 +453,7 @@ def load_genes_for_enrichment(analysis, func, gene_ids, percentile):
       percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
       top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
     elif gene_ids:
-      top_geneIDs = gene_ids
+      top_geneIDs = resolve_gene_id(gene_id=gene_ids, analysis=analysis)
 
     return top_geneIDs, fc_genes
 
