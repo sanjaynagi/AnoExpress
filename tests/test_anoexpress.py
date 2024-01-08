@@ -124,6 +124,27 @@ def test_data_low_count_filter(low_count_filter=10):
     assert isinstance(data_low_df, pd.DataFrame)
     assert data_df.shape[0] > data_low_df.shape[0]
 
+def test_data_sample_query(query="country == 'Burkina Faso'"):
+
+    data_df = xpress.data(
+        data_type="fcs",
+        analysis="gamb_colu", 
+        microarray=False,
+        sort_by=None,
+    )
+
+    data_low_df = xpress.data(
+        data_type="fcs",
+        analysis="gamb_colu", 
+        microarray=False,
+        sample_query=query,
+        sort_by=None)
+
+    assert data_low_df is not None
+    assert not data_low_df.empty
+    assert isinstance(data_low_df, pd.DataFrame)
+    assert data_df.shape[1] > data_low_df.shape[1]
+
 @pytest.mark.parametrize(
     "gene_ids",
     [gene, gene_ids]
