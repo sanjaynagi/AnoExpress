@@ -1,7 +1,10 @@
 [tool.poetry]
 name = "anoexpress"
-version = "0.2.2"
+version = "0.2.3"
 description = "A package to access insecticide resistance gene expression meta analyse in Anopheles mosquitoes"
+readme = "README.md"
+documentation = "https://sanjaynagi.github.io/AnoExpress/"
+repository = "https://github.com/sanjaynagi/AnoExpress"
 authors = [
     "Sanjay Nagi <sanjay.nagi@lstmed.ac.uk>",
     ]
@@ -12,7 +15,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = ">=3.7.1, <3.11"
-malariagen_data = "*"
+malariagen_data = ">8"
 scikit-allel="*"
 pandas = [
     {version="<1.4", python=">=3.7.1,<3.8"},
