@@ -168,7 +168,7 @@ def data(data_type, analysis, microarray=False, gene_id=None, sample_query=None,
 
     if sample_query:
       # subset to the sample ids of interest
-      mask = df_metadata.eval(sample_query)
+      mask = df_metadata.eval(sample_query).to_list()
       df = df.loc[:, mask]
 
     # subset to the gene ids of interest including reading file 
