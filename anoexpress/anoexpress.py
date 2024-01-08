@@ -98,8 +98,19 @@ def resolve_gene_id(gene_id, analysis):
       
     return gene_id
 
+def filter_low_counts(data, data_type, analysis, gene_id, count_threshold=5, func=np.nanmedian):
+    if data_type != 'log2counts':
+        count_data = data(data_type='log2counts', analysis=analysis, gene_id=gene_id)
+        mask = 2**count_data.apply(func=func, axis=1) > count_threshold
+    else:
+        mask = 2**data.apply(func=func, axis=1) > count_threshold
+        
+    print(f"Removing {(mask == 0).sum()} genes with median counts below the threshold ({count_threshold})")
+    mask = mask[mask].index.to_list()
+    
+    return data.query("GeneID in @mask")
 
-def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, annotations=False, pvalue_filter=None, fraction_na_allowed=None):
+def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, annotations=False, pvalue_filter=None, low_count_filter=None, fraction_na_allowed=None):
     """
     Load the combined data for a given analysis and sample query
 
@@ -122,6 +133,8 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
     pvalue_filter: float, optional
       if provided, fold-change entries with an adjusted p-value below the threshold will be set to NaN. Default is None.
       ignored if the data_type is not 'fcs'. 
+    low_count_filter: int, optional
+      if provided, genes with a median count below the threshold will be removed from the dataframe. Default is None.
     fraction_na_allowed: float, optional
       fraction of missing values allowed in the data. Defaults to 0.5
     
@@ -152,7 +165,7 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
 
     # subset to the gene ids of interest including reading file 
     if gene_id is not None:
-      gene_id = resolve_gene_id(gene_id=gene_id)
+      gene_id = resolve_gene_id(gene_id=gene_id, analysis=analysis)
       df = df.query("GeneID in @gene_id")
 
     if annotations: # add gene name and description to the dataframe as index 
@@ -165,8 +178,12 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
     # sort genes 
     df = _sort_genes(df=df, analysis=analysis, sort_by=sort_by)
 
+    # remove low count genes
+    if low_count_filter is not None:
+      df = filter_low_counts(data=df, data_type=data_type, analysis=analysis, gene_id=gene_id, low_count_filter=low_count_filter, func=np.nanmedian)
+      
+    # remove genes with lots of NA
     if fraction_na_allowed:
-      # remove genes with lots of NA
       df = filter_nas(df=df, fraction_na_allowed=fraction_na_allowed)
     
     return df
@@ -390,6 +407,7 @@ def filter_nas(df, fraction_na_allowed):
     """
     n_cols = df.shape[1]
     na_mask = df.apply(lambda x: x.isna().sum() / n_cols > fraction_na_allowed, axis=1)
+    print(f"Removing {na_mask.sum()} genes with higher proportion of NAs than the threshold ({fraction_na_allowed})")
     return df.loc[~na_mask, :]
 
 
@@ -437,6 +455,7 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
        fc_ranked = fc_ranked.query(f'`{name} Fold Change` > {query_fc}')
 
     return(fc_ranked)
+
 
 def load_genes_for_enrichment(analysis, func, gene_ids, percentile):
    
