@@ -98,17 +98,17 @@ def resolve_gene_id(gene_id, analysis):
       
     return gene_id
 
-def filter_low_counts(data, data_type, analysis, gene_id, count_threshold=5, func=np.nanmedian):
+def filter_low_counts(data_df, data_type, analysis, gene_id, count_threshold=5, func=np.nanmedian):
     if data_type != 'log2counts':
         count_data = data(data_type='log2counts', analysis=analysis, gene_id=gene_id)
         mask = 2**count_data.apply(func=func, axis=1) > count_threshold
     else:
-        mask = 2**data.apply(func=func, axis=1) > count_threshold
+        mask = 2**data_df.apply(func=func, axis=1) > count_threshold
         
     print(f"Removing {(mask == 0).sum()} genes with median counts below the threshold ({count_threshold})")
     mask = mask[mask].index.to_list()
     
-    return data.query("GeneID in @mask")
+    return data_df.query("GeneID in @mask")
 
 def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, annotations=False, pvalue_filter=None, low_count_filter=None, fraction_na_allowed=None):
     """
@@ -180,7 +180,7 @@ def data(data_type, analysis, microarray=False, gene_id=None, sort_by=None, anno
 
     # remove low count genes
     if low_count_filter is not None:
-      df = filter_low_counts(data=df, data_type=data_type, analysis=analysis, gene_id=gene_id, low_count_filter=low_count_filter, func=np.nanmedian)
+      df = filter_low_counts(data_df=df, data_type=data_type, analysis=analysis, gene_id=gene_id, count_threshold=low_count_filter, func=np.nanmedian)
       
     # remove genes with lots of NA
     if fraction_na_allowed:
@@ -411,7 +411,7 @@ def filter_nas(df, fraction_na_allowed):
     return df.loc[~na_mask, :]
 
 
-def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None, microarray=False, fraction_na_allowed=None):
+def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None, microarray=False, low_count_filter=None, fraction_na_allowed=None):
     """
     Load the candidate genes for a given analysis. Optionally, filter by annotation or fold change data.
     
@@ -430,6 +430,8 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
       filter genes by fold change. Defaults to None
     microarray: bool, optional
       whether to include the IR-Tex microarray data in the requested data. Default is False.
+    low_count_filter: int, optional
+      if provided, genes with a median count below the threshold will be removed before gene ranking. Default is None.
     fraction_nas_allowed: float, optional
       fraction of missing values allowed in the data. Defaults to 0.5
     
@@ -438,7 +440,7 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
     fc_ranked: pd.DataFrame
     """
     
-    fc_data = data(data_type='fcs', analysis=analysis, microarray=microarray, annotations=True, sort_by=None, fraction_na_allowed=fraction_na_allowed)
+    fc_data = data(data_type='fcs', analysis=analysis, microarray=microarray, annotations=True, sort_by=None, low_count_filter=low_count_filter, fraction_na_allowed=fraction_na_allowed)
 
     if query_annotation is not None:
       gene_annot_df = load_annotations()
@@ -457,7 +459,7 @@ def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation
     return(fc_ranked)
 
 
-def load_genes_for_enrichment(analysis, func, gene_ids, percentile):
+def load_genes_for_enrichment(analysis, func, gene_ids, percentile, microarray, low_count_filter=None):
    
     assert func is not None or gene_ids is not None, "either a ranking function (func) or gene_ids must be provided"
     assert func is None or gene_ids is None, "Only a ranking function (func) or gene_ids must be provided, not both"
@@ -468,7 +470,7 @@ def load_genes_for_enrichment(analysis, func, gene_ids, percentile):
 
     if func:
       # get top % percentile genes ranked by func
-      fc_ranked = load_candidates(analysis=analysis, name='enrich', func=func)
+      fc_ranked = load_candidates(analysis=analysis, name='enrich', func=func, microarray=microarray, low_count_filter=low_count_filter)
       percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
       top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
     elif gene_ids:
@@ -476,7 +478,7 @@ def load_genes_for_enrichment(analysis, func, gene_ids, percentile):
 
     return top_geneIDs, fc_genes
 
-def go_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
+def go_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05, microarray=False, low_count_filter=None):
     """
     Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function, or on 
     a user inputted gene_id list
@@ -492,13 +494,17 @@ def go_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
       list of gene ids to perform hypergeometric test on. Defaults to None
     percentile: float, optional
       percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
+    microarray: bool, optional
+      whether to include the IR-Tex microarray data in the gene ranking. Default is False.
+    low_count_filter: int, optional
+      if provided, genes with a median count below the threshold will be removed before gene ranking. Default is None.
 
     Returns
     -------
     go_hypergeo_results: pd.DataFrame
     """
 
-    top_geneIDs, fc_genes = load_genes_for_enrichment(analysis=analysis, func=func, gene_ids=gene_ids, percentile=percentile)
+    top_geneIDs, fc_genes = load_genes_for_enrichment(analysis=analysis, func=func, gene_ids=gene_ids, percentile=percentile, microarray=microarray, low_count_filter=low_count_filter)
 
     # load gene annotation file 
     gaf_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/resources/AgamP4.gaf", sep="\t")
@@ -518,7 +524,7 @@ def go_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
     return(hyper_geo)
 
 
-def pfam_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
+def pfam_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05, microarray=False, low_count_filter=None):
     """
     Perform a hypergeometric test on PFAM domains of the the top % percentile genes ranked by user input function,
     or on a user inputted gene_id list
@@ -536,13 +542,17 @@ def pfam_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
       list of gene ids to perform hypergeometric test on. Defaults to None
     percentile: float, optional
       percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
+    microarray: bool, optional
+      whether to include the IR-Tex microarray data in the gene ranking. Default is False.
+    low_count_filter: int, optional
+      if provided, genes with a median count below the threshold will be removed before gene ranking. Default is None.
     
     Returns
     -------
     pfam_hypergeo_results: pd.DataFrame
     """
 
-    top_geneIDs, fc_genes = load_genes_for_enrichment(analysis=analysis, func=func, gene_ids=gene_ids, percentile=percentile)
+    top_geneIDs, fc_genes = load_genes_for_enrichment(analysis=analysis, func=func, gene_ids=gene_ids, percentile=percentile, microarray=microarray, low_count_filter=low_count_filter)
 
     # load gene annotation file 
     pfam_df = pd.read_csv("https://github.com/sanjaynagi/AnoExpress/blob/main/resources/Anogam_long.pep_Pfamscan.seqs.gz?raw=true", sep="\s+", header=None, compression='gzip').iloc[:, [0,4]]
@@ -562,7 +572,7 @@ def pfam_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
         
     return(hyper_geo)
 
-def kegg_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
+def kegg_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05, microarray=False, low_count_filter=None):
     """
     Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function.
 
@@ -579,13 +589,17 @@ def kegg_hypergeometric(analysis, func=None, gene_ids=None, percentile=0.05):
       list of gene ids to perform hypergeometric test on. Defaults to None
     percentile: float, optional
       percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05
+    microarray: bool, optional
+      whether to include the IR-Tex microarray data in the gene ranking. Default is False.
+    low_count_filter: int, optional
+      if provided, genes with a median count below the threshold will be removed before gene ranking. Default is None.
 
     Returns
     -------
     go_hypergeo_results: pd.DataFrame
     """
 
-    top_geneIDs, fc_genes = load_genes_for_enrichment(analysis=analysis, func=func, gene_ids=gene_ids, percentile=percentile)
+    top_geneIDs, fc_genes = load_genes_for_enrichment(analysis=analysis, func=func, gene_ids=gene_ids, percentile=percentile, microarray=microarray, low_count_filter=low_count_filter)
 
     # load gene annotation file 
     kegg_df = pd.read_csv("https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/resources/AgamP4.kegg", sep="\t")
