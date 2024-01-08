@@ -1,45 +1,53 @@
 
+
 <!DOCTYPE html>
 
-<html lang="en">
+
+<html >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Ano-express API</title>
-    
+    <title>AnoExpress API</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -64,7 +72,7 @@ var addUtterances = () => {
     script.src = "https://utteranc.es/client.js";
     script.async = "async";
 
-    script.setAttribute("repo", "sanjaynagi/ano-express");
+    script.setAttribute("repo", "sanjaynagi/AnoExpress");
     script.setAttribute("issue-term", "pathname");
     script.setAttribute("theme", "github-light");
     script.setAttribute("label", "comment");
@@ -78,7 +86,7 @@ var addUtterances = () => {
 }
 commentsRunWhenDOMLoaded(addUtterances);
 </script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -86,564 +94,331 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/api';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Notebooks" href="notebooks.html" />
-    <link rel="prev" title="Ano-express" href="../landing-page.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
-    
-
-    <!-- Google Analytics -->
-    
+    <link rel="prev" title="AnoExpress" href="../landing-page.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../landing-page.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/logo.png" class="logo" alt="logo">
-      
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../landing-page.html">
-                    Ano-express
+                    AnoExpress
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Usage
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Ano-express API
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="notebooks.html">
-   Notebooks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="sampling_locations.html">
-   Sampling locations
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="troubleshooting_contributing.html">
-   Troubleshooting
-  </a>
- </li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">AnoExpress API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_locations.html">Sampling locations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting_contributing.html">Troubleshooting</a></li>
+
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/sanjaynagi.github.io/AnoExpress" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/sanjaynagi.github.io/AnoExpress/issues/new?title=Issue%20on%20page%20%2Fnotebooks/api.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
 
 
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
 
 
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/api.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
   </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/sanjaynagi/Ano-express"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/sanjaynagi/Ano-express/issues/new?title=Issue%20on%20page%20%2Fnotebooks/api.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/notebooks/api.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#metadata">
-   metadata()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.metadata">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.metadata()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data">
-   data()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.data">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.data()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#load-candidates">
-   load_candidates()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.load_candidates">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.load_candidates()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-gene-expression">
-   plot_gene_expression()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.plot_gene_expression">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.plot_gene_expression()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-gene-family-expression">
-   plot_gene_family_expression()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.plot_gene_family_expression">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.plot_gene_family_expression()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-heatmap">
-   plot_heatmap()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.plot_heatmap">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.plot_heatmap()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#go-hypergeometric">
-   go_hypergeometric()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.go_hypergeometric">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.go_hypergeometric()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#pfam-hypergeometric">
-   pfam_hypergeometric()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.pfam_hypergeometric">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.pfam_hypergeometric()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Ano-express API</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#metadata">
-   metadata()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.metadata">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.metadata()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data">
-   data()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.data">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.data()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#load-candidates">
-   load_candidates()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.load_candidates">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.load_candidates()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-gene-expression">
-   plot_gene_expression()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.plot_gene_expression">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.plot_gene_expression()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-gene-family-expression">
-   plot_gene_family_expression()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.plot_gene_family_expression">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.plot_gene_family_expression()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-heatmap">
-   plot_heatmap()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.plot_heatmap">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.plot_heatmap()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#go-hypergeometric">
-   go_hypergeometric()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.go_hypergeometric">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.go_hypergeometric()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#pfam-hypergeometric">
-   pfam_hypergeometric()
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Ano_express.Ano_express.pfam_hypergeometric">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Ano_express.pfam_hypergeometric()
-      </span>
-     </code>
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>AnoExpress API</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata">metadata()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">data()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-candidates">load_candidates()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-gene-expression">plot_gene_expression()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-gene-family-expression">plot_gene_family_expression()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-contig-expression">plot_contig_expression()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-heatmap">plot_heatmap()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#go-hypergeometric">go_hypergeometric()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pfam-hypergeometric">pfam_hypergeometric()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kegg-hypergeometric">kegg_hypergeometric()</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
-  <section class="tex2jax_ignore mathjax_ignore" id="ano-express-api">
-<h1>Ano-express API<a class="headerlink" href="#ano-express-api" title="Permalink to this heading">#</a></h1>
-<p>This notebook provides an overview of the API for the <em>Ano</em>-express python package, to access and visualise gene expression meta-analysis data from RNA-Sequencing and microarray experiments into insecticide resistance in <em>Anopheles</em> mosquitoes.</p>
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="anoexpress-api">
+<h1>AnoExpress API<a class="headerlink" href="#anoexpress-api" title="Permalink to this headline">#</a></h1>
+<p>This notebook provides an overview of the API for the <em>AnoExpress</em> python package, to access and visualise gene expression meta-analysis data from RNA-Sequencing and microarray experiments into insecticide resistance in <em>Anopheles</em> mosquitoes.</p>
 <section id="metadata">
-<h2>metadata()<a class="headerlink" href="#metadata" title="Permalink to this heading">#</a></h2>
+<h2>metadata()<a class="headerlink" href="#metadata" title="Permalink to this headline">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="Ano_express.Ano_express.metadata">
-<span class="sig-prename descclassname"><span class="pre">Ano_express.</span></span><span class="sig-name descname"><span class="pre">metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microarray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Ano_express.Ano_express.metadata" title="Permalink to this definition">#</a></dt>
-<dd><p>Load the comparisons metadata from both Ano-express and IR-Tex in a pandas dataframe</p>
+<dt class="sig sig-object py" id="anoexpress.anoexpress.metadata">
+<span class="sig-prename descclassname"><span class="pre">anoexpress.</span></span><span class="sig-name descname"><span class="pre">metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microarray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#anoexpress.anoexpress.metadata" title="Permalink to this definition">#</a></dt>
+<dd><p>Load the comparisons metadata from both AnoExpress and IR-Tex in a pandas dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -665,10 +440,10 @@ present, due to the process of finding orthologs.</p></li>
 
 </section>
 <section id="data">
-<h2>data()<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
+<h2>data()<a class="headerlink" href="#data" title="Permalink to this headline">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="Ano_express.Ano_express.data">
-<span class="sig-prename descclassname"><span class="pre">Ano_express.</span></span><span class="sig-name descname"><span class="pre">data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microarray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Ano_express.Ano_express.data" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="anoexpress.anoexpress.data">
+<span class="sig-prename descclassname"><span class="pre">anoexpress.</span></span><span class="sig-name descname"><span class="pre">data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microarray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pvalue_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction_na_allowed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#anoexpress.anoexpress.data" title="Permalink to this definition">#</a></dt>
 <dd><p>Load the combined data for a given analysis and sample query</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -677,8 +452,13 @@ present, due to the process of finding orthologs.</p></li>
 <li><p><strong>analysis</strong> (<em>{&quot;gamb_colu&quot;</em><em>, </em><em>&quot;gamb_colu_arab&quot;</em><em>, </em><em>&quot;gamb_colu_arab_fun&quot;</em><em>, </em><em>&quot;fun&quot;}</em>) – which analysis to load gene expression data for. analyses with more species will have less genes
 present, due to the process of finding orthologs.</p></li>
 <li><p><strong>microarray</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to include the IR-Tex microarray data in the requested data. Default is False.</p></li>
-<li><p><strong>gene_id</strong> (<em>str</em><em> or </em><em>list</em><em>, </em><em>optional</em>) – A string (AGAP/AFUN identifier), or list of strings, or path to a file containing a list of gene ids in the first column.
+<li><p><strong>gene_id</strong> (<em>str</em><em> or </em><em>list</em><em>, </em><em>optional</em>) – A string (AGAP/AFUN identifier or genomic span in the format 2L:500-10000), or list of strings, or path to a file containing a list of gene ids in the first column.
 Input file can be .tsv, .txt, or .csv, or .xlsx.</p></li>
+<li><p><strong>sort_by</strong> (<em>{&quot;median&quot;</em><em>, </em><em>&quot;mean&quot;</em><em>, </em><em>&quot;agap&quot;</em><em>, </em><em>&quot;position&quot;</em><em>, </em><em>None}</em><em>, </em><em>optional</em>) – sort by median/mean of fold changes (descending), or by AGAP, or by position in the genome, or dont sort input gene ids.</p></li>
+<li><p><strong>annotations</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to add gene name and description to the dataframe as index. Default is False.</p></li>
+<li><p><strong>pvalue_filter</strong> (<em>float</em><em>, </em><em>optional</em>) – if provided, fold-change entries with an adjusted p-value below the threshold will be set to NaN. Default is None.
+ignored if the data_type is not ‘fcs’.</p></li>
+<li><p><strong>fraction_na_allowed</strong> (<em>float</em><em>, </em><em>optional</em>) – fraction of missing values allowed in the data. Defaults to 0.5</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -692,10 +472,10 @@ Input file can be .tsv, .txt, or .csv, or .xlsx.</p></li>
 
 </section>
 <section id="load-candidates">
-<h2>load_candidates()<a class="headerlink" href="#load-candidates" title="Permalink to this heading">#</a></h2>
+<h2>load_candidates()<a class="headerlink" href="#load-candidates" title="Permalink to this headline">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="Ano_express.Ano_express.load_candidates">
-<span class="sig-prename descclassname"><span class="pre">Ano_express.</span></span><span class="sig-name descname"><span class="pre">load_candidates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name='median'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func=&lt;function</span> <span class="pre">nanmedian&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_annotation=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_fc=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microarray=False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Ano_express.Ano_express.load_candidates" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="anoexpress.anoexpress.load_candidates">
+<span class="sig-prename descclassname"><span class="pre">anoexpress.</span></span><span class="sig-name descname"><span class="pre">load_candidates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name='median'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func=&lt;function</span> <span class="pre">nanmedian&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_annotation=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_fc=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microarray=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction_na_allowed=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#anoexpress.anoexpress.load_candidates" title="Permalink to this definition">#</a></dt>
 <dd><p>Load the candidate genes for a given analysis. Optionally, filter by annotation or fold change data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -706,6 +486,8 @@ present, due to the process of finding orthologs.</p></li>
 <li><p><strong>func</strong> (<em>function</em><em>, </em><em>optional</em>) – function to rank genes by. Defaults to np.nanmedian</p></li>
 <li><p><strong>query_annotation</strong> (<em>str</em><em> or </em><em>list</em><em>, </em><em>optional</em>) – filter genes by GO or PFAM annotation. Defaults to None</p></li>
 <li><p><strong>query_fc</strong> (<em>float</em><em>, </em><em>optional</em>) – filter genes by fold change. Defaults to None</p></li>
+<li><p><strong>microarray</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to include the IR-Tex microarray data in the requested data. Default is False.</p></li>
+<li><p><strong>fraction_nas_allowed</strong> (<em>float</em><em>, </em><em>optional</em>) – fraction of missing values allowed in the data. Defaults to 0.5</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -719,10 +501,10 @@ present, due to the process of finding orthologs.</p></li>
 
 </section>
 <section id="plot-gene-expression">
-<h2>plot_gene_expression()<a class="headerlink" href="#plot-gene-expression" title="Permalink to this heading">#</a></h2>
+<h2>plot_gene_expression()<a class="headerlink" href="#plot-gene-expression" title="Permalink to this headline">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="Ano_express.Ano_express.plot_gene_expression">
-<span class="sig-prename descclassname"><span class="pre">Ano_express.</span></span><span class="sig-name descname"><span class="pre">plot_gene_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gene_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gamb_colu_arab_fun'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microarray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'strip'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'agap'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_html</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Ano_express.Ano_express.plot_gene_expression" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="anoexpress.anoexpress.plot_gene_expression">
+<span class="sig-prename descclassname"><span class="pre">anoexpress.</span></span><span class="sig-name descname"><span class="pre">plot_gene_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gene_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gamb_colu_arab_fun'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microarray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'strip'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'agap'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pvalue_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_html</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#anoexpress.anoexpress.plot_gene_expression" title="Permalink to this definition">#</a></dt>
 <dd><p>Plot fold changes of provided AGAP gene IDs from RNA-Seq
 meta-analysis dataset</p>
 <dl class="field-list simple">
@@ -735,8 +517,9 @@ present, due to the process of finding orthologs.</p></li>
 <li><p><strong>microarray</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to include the IR-Tex microarray data in the plot</p></li>
 <li><p><strong>title</strong> (<em>str</em>) – Plot title</p></li>
 <li><p><strong>plot_type</strong> (<em>{&quot;strip&quot;</em><em>, </em><em>&quot;boxplot&quot;}</em><em>, </em><em>optional</em>) – valid options are ‘strip’ or ‘boxplot’</p></li>
-<li><p><strong>sort_by</strong> (<em>{&quot;median&quot;</em><em>, </em><em>&quot;mean&quot;</em><em>, </em><em>&quot;agap&quot;}</em><em>, </em><em>optional</em>) – sort by median/mean of fold changes (descending), or by AGAP
+<li><p><strong>sort_by</strong> (<em>{&quot;median&quot;</em><em>, </em><em>&quot;mean&quot;</em><em>, </em><em>&quot;agap&quot;</em><em>, </em><em>None}</em><em>, </em><em>optional</em>) – sort by median/mean of fold changes (descending), or by AGAP, or dont sort input gene ids.
 identifier</p></li>
+<li><p><strong>pvalue_filter</strong> (<em>float</em><em>, </em><em>optional</em>) – if provided, fold-change entries with an adjusted p-value below the threshold will be removed from the plot. Default is None.</p></li>
 <li><p><strong>width</strong> (<em>int</em>) – Width in pixels of the plotly figure</p></li>
 <li><p><strong>height</strong> (<em>int</em><em>, </em><em>optional</em>) – Height in pixels of the plotly figure. Defaults to automatic sizing</p></li>
 <li><p><strong>save_html</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to save the plotly figure as an html file</p></li>
@@ -747,10 +530,10 @@ identifier</p></li>
 
 </section>
 <section id="plot-gene-family-expression">
-<h2>plot_gene_family_expression()<a class="headerlink" href="#plot-gene-family-expression" title="Permalink to this heading">#</a></h2>
+<h2>plot_gene_family_expression()<a class="headerlink" href="#plot-gene-family-expression" title="Permalink to this headline">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="Ano_express.Ano_express.plot_gene_family_expression">
-<span class="sig-prename descclassname"><span class="pre">Ano_express.</span></span><span class="sig-name descname"><span class="pre">plot_gene_family_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gene_identifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microarray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'strip'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'median'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Ano_express.Ano_express.plot_gene_family_expression" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="anoexpress.anoexpress.plot_gene_family_expression">
+<span class="sig-prename descclassname"><span class="pre">anoexpress.</span></span><span class="sig-name descname"><span class="pre">plot_gene_family_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gene_identifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microarray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'strip'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'median'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#anoexpress.anoexpress.plot_gene_family_expression" title="Permalink to this definition">#</a></dt>
 <dd><p>Plot gene expression of gene families belonging to GO terms or PFAM domains</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -771,11 +554,39 @@ identifier</p></li>
 </dd></dl>
 
 </section>
-<section id="plot-heatmap">
-<h2>plot_heatmap()<a class="headerlink" href="#plot-heatmap" title="Permalink to this heading">#</a></h2>
+<section id="plot-contig-expression">
+<h2>plot_contig_expression()<a class="headerlink" href="#plot-contig-expression" title="Permalink to this headline">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="Ano_express.Ano_express.plot_heatmap">
-<span class="sig-prename descclassname"><span class="pre">Ano_express.</span></span><span class="sig-name descname"><span class="pre">plot_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_annotation=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_func=&lt;function</span> <span class="pre">nanmedian&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_fc=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_name='median'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_pos=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Ano_express.Ano_express.plot_heatmap" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="anoexpress.anoexpress.plot_contig_expression">
+<span class="sig-prename descclassname"><span class="pre">anoexpress.</span></span><span class="sig-name descname"><span class="pre">plot_contig_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fcs'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microarray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pvalue_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">palette</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-</span> <span class="pre">10,</span> <span class="pre">15)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">400</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#anoexpress.anoexpress.plot_contig_expression" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot fold change data for a given contig with a gene track.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contig</strong> (<em>str</em>) – contig, one of 2L, 2R, 3L, 3R, X or 2RL, 3RL</p></li>
+<li><p><strong>analysis</strong> (<em>{&quot;gamb_colu&quot;</em><em>, </em><em>&quot;gamb_colu_arab&quot;</em><em>, </em><em>&quot;gamb_colu_arab_fun&quot;</em><em>, </em><em>&quot;fun&quot;}</em>) – which analysis to load gene expression data for. analyses with more species will have less genes
+present, due to the process of finding orthologs.</p></li>
+<li><p><strong>data_type</strong> (<em>{&quot;fcs&quot;</em><em>, </em><em>&quot;log2counts&quot;}</em><em>, </em><em>optional</em>) – whether to load fold change data or log2 counts data. Defaults to ‘fcs’</p></li>
+<li><p><strong>microarray</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to include the IR-Tex microarray data in the plot</p></li>
+<li><p><strong>pvalue_filter</strong> (<em>float</em><em>, </em><em>optional</em>) – filter genes by pvalue. Defaults to None</p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – size of window in genes for moving average. Defaults to 10</p></li>
+<li><p><strong>step</strong> (<em>int</em><em>, </em><em>optional</em>) – step size in genes for moving average. Defaults to 5</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – plot title. Defaults to None</p></li>
+<li><p><strong>width</strong> (<em>int</em><em>, </em><em>optional</em>) – width of plot. Defaults to 800</p></li>
+<li><p><strong>height</strong> (<em>int</em><em>, </em><em>optional</em>) – height of plot. Defaults to 600</p></li>
+<li><p><strong>y_range</strong> (<em>tuple</em><em>, </em><em>optional</em>) – y axis range. Defaults to None</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to show the plot. Defaults to False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="plot-heatmap">
+<h2>plot_heatmap()<a class="headerlink" href="#plot-heatmap" title="Permalink to this headline">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="anoexpress.anoexpress.plot_heatmap">
+<span class="sig-prename descclassname"><span class="pre">anoexpress.</span></span><span class="sig-name descname"><span class="pre">plot_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_id=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_annotation=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_func=&lt;function</span> <span class="pre">nanmedian&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_fc=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_name='median'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_pos=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#anoexpress.anoexpress.plot_heatmap" title="Permalink to this definition">#</a></dt>
 <dd><p>Plot a heatmap of the top 100 genes ranked by user input function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -796,18 +607,19 @@ present, due to the process of finding orthologs.</p></li>
 
 </section>
 <section id="go-hypergeometric">
-<h2>go_hypergeometric()<a class="headerlink" href="#go-hypergeometric" title="Permalink to this heading">#</a></h2>
+<h2>go_hypergeometric()<a class="headerlink" href="#go-hypergeometric" title="Permalink to this headline">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="Ano_express.Ano_express.go_hypergeometric">
-<span class="sig-prename descclassname"><span class="pre">Ano_express.</span></span><span class="sig-name descname"><span class="pre">go_hypergeometric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Ano_express.Ano_express.go_hypergeometric" title="Permalink to this definition">#</a></dt>
-<dd><p>Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function.</p>
+<dt class="sig sig-object py" id="anoexpress.anoexpress.go_hypergeometric">
+<span class="sig-prename descclassname"><span class="pre">anoexpress.</span></span><span class="sig-name descname"><span class="pre">go_hypergeometric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#anoexpress.anoexpress.go_hypergeometric" title="Permalink to this definition">#</a></dt>
+<dd><p>Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function, or on
+a user inputted gene_id list</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>analysis</strong> (<em>{&quot;gamb_colu&quot;</em><em>, </em><em>&quot;gamb_colu_arab&quot;</em><em>, </em><em>&quot;gamb_colu_arab_fun&quot;</em><em>, </em><em>&quot;fun&quot;}</em>) – which analysis to load gene expression data for. analyses with more species will have less genes
 present, due to the process of finding orthologs.</p></li>
-<li><p><strong>name</strong> (<em>str</em>) – name of the function to rank genes by</p></li>
 <li><p><strong>func</strong> (<em>function</em>) – function to rank genes by (such as np.nanmedian, np.nanmean)</p></li>
+<li><p><strong>gene_ids</strong> (<em>list</em><em>, </em><em>optional</em>) – list of gene ids to perform hypergeometric test on. Defaults to None</p></li>
 <li><p><strong>percentile</strong> (<em>float</em><em>, </em><em>optional</em>) – percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05</p></li>
 </ul>
 </dd>
@@ -822,11 +634,12 @@ present, due to the process of finding orthologs.</p></li>
 
 </section>
 <section id="pfam-hypergeometric">
-<h2>pfam_hypergeometric()<a class="headerlink" href="#pfam-hypergeometric" title="Permalink to this heading">#</a></h2>
+<h2>pfam_hypergeometric()<a class="headerlink" href="#pfam-hypergeometric" title="Permalink to this headline">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="Ano_express.Ano_express.pfam_hypergeometric">
-<span class="sig-prename descclassname"><span class="pre">Ano_express.</span></span><span class="sig-name descname"><span class="pre">pfam_hypergeometric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Ano_express.Ano_express.pfam_hypergeometric" title="Permalink to this definition">#</a></dt>
-<dd><p>Perform a hypergeometric test on PFAM domains of the the top % percentile genes ranked by user input function.</p>
+<dt class="sig sig-object py" id="anoexpress.anoexpress.pfam_hypergeometric">
+<span class="sig-prename descclassname"><span class="pre">anoexpress.</span></span><span class="sig-name descname"><span class="pre">pfam_hypergeometric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#anoexpress.anoexpress.pfam_hypergeometric" title="Permalink to this definition">#</a></dt>
+<dd><p>Perform a hypergeometric test on PFAM domains of the the top % percentile genes ranked by user input function,
+or on a user inputted gene_id list</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -834,11 +647,39 @@ present, due to the process of finding orthologs.</p></li>
 present, due to the process of finding orthologs.</p></li>
 <li><p><strong>name</strong> (<em>str</em>) – name of the function to rank genes by</p></li>
 <li><p><strong>func</strong> (<em>function</em>) – function to rank genes by (such as np.nanmedian, np.nanmean)</p></li>
+<li><p><strong>gene_ids</strong> (<em>list</em><em>, </em><em>optional</em>) – list of gene ids to perform hypergeometric test on. Defaults to None</p></li>
 <li><p><strong>percentile</strong> (<em>float</em><em>, </em><em>optional</em>) – percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>pfam_hypergeo_results</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="kegg-hypergeometric">
+<h2>kegg_hypergeometric()<a class="headerlink" href="#kegg-hypergeometric" title="Permalink to this headline">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="anoexpress.anoexpress.kegg_hypergeometric">
+<span class="sig-prename descclassname"><span class="pre">anoexpress.</span></span><span class="sig-name descname"><span class="pre">kegg_hypergeometric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#anoexpress.anoexpress.kegg_hypergeometric" title="Permalink to this definition">#</a></dt>
+<dd><p>Perform a hypergeometric test on GO terms of the the top % percentile genes ranked by user input function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>analysis</strong> (<em>{&quot;gamb_colu&quot;</em><em>, </em><em>&quot;gamb_colu_arab&quot;</em><em>, </em><em>&quot;gamb_colu_arab_fun&quot;</em><em>, </em><em>&quot;fun&quot;}</em>) – which analysis to load gene expression data for. analyses with more species will have less genes
+present, due to the process of finding orthologs.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – name of the function to rank genes by</p></li>
+<li><p><strong>func</strong> (<em>function</em>) – function to rank genes by (such as np.nanmedian, np.nanmean)</p></li>
+<li><p><strong>gene_ids</strong> (<em>list</em><em>, </em><em>optional</em>) – list of gene ids to perform hypergeometric test on. Defaults to None</p></li>
+<li><p><strong>percentile</strong> (<em>float</em><em>, </em><em>optional</em>) – percentile of genes to use for the enriched set in hypergeometric test. Defaults to 0.05</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>go_hypergeo_results</strong></p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
@@ -861,7 +702,7 @@ present, due to the process of finding orthologs.</p></li>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -869,50 +710,114 @@ present, due to the process of finding orthologs.</p></li>
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../landing-page.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Ano-express</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../landing-page.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">AnoExpress</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="notebooks.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="notebooks.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Notebooks</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Sanjay Curtis Nagi<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata">metadata()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">data()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-candidates">load_candidates()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-gene-expression">plot_gene_expression()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-gene-family-expression">plot_gene_family_expression()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-contig-expression">plot_contig_expression()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-heatmap">plot_heatmap()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#go-hypergeometric">go_hypergeometric()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pfam-hypergeometric">pfam_hypergeometric()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kegg-hypergeometric">kegg_hypergeometric()</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sanjay Curtis Nagi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

@@ -1,52 +1,63 @@
-# Ano-express API
+# AnoExpress API
 
-This notebook provides an overview of the API for the *Ano*-express python package, to access and visualise gene expression meta-analysis data from RNA-Sequencing and microarray experiments into insecticide resistance in *Anopheles* mosquitoes.
+This notebook provides an overview of the API for the *AnoExpress* python package, to access and visualise gene expression meta-analysis data from RNA-Sequencing and microarray experiments into insecticide resistance in *Anopheles* mosquitoes.
 
 ## metadata()
 
 ```{eval-rst}
-.. autofunction:: Ano_express::Ano_express.metadata 
+.. autofunction:: anoexpress::anoexpress.metadata 
 ```
 
 ## data()
 
 ```{eval-rst}
-.. autofunction:: Ano_express::Ano_express.data
+.. autofunction:: anoexpress::anoexpress.data
 ```
 
 ## load_candidates()
 
 ```{eval-rst}
-.. autofunction:: Ano_express::Ano_express.load_candidates
+.. autofunction:: anoexpress::anoexpress.load_candidates
 ```
 
 ## plot_gene_expression()
 
 ```{eval-rst}
-.. autofunction:: Ano_express::Ano_express.plot_gene_expression
+.. autofunction:: anoexpress::anoexpress.plot_gene_expression
 ```
 
 ## plot_gene_family_expression()
 
 ```{eval-rst}
-.. autofunction:: Ano_express::Ano_express.plot_gene_family_expression
+.. autofunction:: anoexpress::anoexpress.plot_gene_family_expression
+```
+
+## plot_contig_expression()
+
+```{eval-rst}
+.. autofunction:: anoexpress::anoexpress.plot_contig_expression
 ```
 
 ## plot_heatmap()
 
 ```{eval-rst}
-.. autofunction:: Ano_express::Ano_express.plot_heatmap
+.. autofunction:: anoexpress::anoexpress.plot_heatmap
 ```
 
 ## go_hypergeometric()
     
 ```{eval-rst}
-.. autofunction:: Ano_express::Ano_express.go_hypergeometric
+.. autofunction:: anoexpress::anoexpress.go_hypergeometric
 ```
 
 ## pfam_hypergeometric()
     
 ```{eval-rst}
-.. autofunction:: Ano_express::Ano_express.pfam_hypergeometric
+.. autofunction:: anoexpress::anoexpress.pfam_hypergeometric
 ```
 
+## kegg_hypergeometric()
+    
+```{eval-rst}
+.. autofunction:: anoexpress::anoexpress.kegg_hypergeometric
+```
