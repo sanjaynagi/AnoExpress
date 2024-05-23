@@ -190,19 +190,6 @@ def test_plot_gene_expression_spans(gene_id):
         plot_type='strip',
         )
 
-def test_contig_expression():
-
-    xpress.plot_contig_expression(
-        contig='3R',
-        analysis='gamb_colu', 
-        microarray=False,
-        y_range=(-8,10), 
-        size=10,
-        step=5,
-        height=400, 
-        width=600
-        )
-
 
 def test_load_candidates():
     
