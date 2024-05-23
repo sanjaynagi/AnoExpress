@@ -92,10 +92,28 @@ def load_gff(type='protein_coding_gene', query=None):
     # may only work for protein_coding_genes 
     df = df.assign(GeneID=df.attributes.str.split(";", expand=True).iloc[:, 0].str.split("=").str.get(1))
 
+    # combine 2R and 2L, 3R and 3L
+    offset_2R = 61545105
+    offset_3R = 53200684
+    
+    gffs = []
+    for contig in tqdm(['2R', '2L', '3R', '3L']):
+        df_contig = df.query("contig == @contig").copy()
+        if contig == '2L':
+            df_contig = df_contig.assign(contig='2RL', start=lambda x: x.start + offset_2R, end=lambda x: x.end + offset_2R)
+        if contig == '3L':
+            df_contig = df_contig.assign(contig='3RL', start=lambda x: x.start + offset_3R, end=lambda x: x.end + offset_3R)
+        elif contig in ['3R', '2R']:
+            df_contig = df_contig.assign(contig=lambda x: x.contig + 'L')
+        gffs.append(df_contig)
+
+    gff = pd.concat(gffs)
+    gff = pd.concat([gff, df]).sort_values(['contig', 'start', 'end'])
+
     if query:
-        df = df.query(query)
+        gff = gff.query(query)
         
-    return df
+    return gff
 
 def resolve_gene_id(gene_id, analysis):
     
@@ -107,7 +125,7 @@ def resolve_gene_id(gene_id, analysis):
         else:
 
           contig, start_end = gene_id.split(':')
-          start, end = start_end.split('-')
+          start, end = start_end.replace(",", "").split('-')
 
           gff = load_gff(query=f"contig == '{contig}' and start <= {end} and end >= {start}")
           gene_id = gff.GeneID.to_list()
@@ -241,7 +259,7 @@ def _sort_genes(df, analysis, sort_by=None):
   elif sort_by == 'position':
     assert analysis != 'fun', "funestus cannot be sorted by position yet"
     
-    gff = load_gff(query="contig in ['2L', '2R', '3L', '3R', 'X']").sort_values(['contig', 'start'])
+    gff = load_gff(query="contig in ['2L', '2R', '3L', '3R', 'X']")
     gene_ids = gff.reset_index()['GeneID'].to_list()
     ordered_genes = gff.query(f"GeneID in {gene_ids}")['GeneID'].to_list()
     sort_idxs = [np.where(df.reset_index()['GeneID'] == gene)[0][0] for gene in ordered_genes]
