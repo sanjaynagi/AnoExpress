@@ -22,4 +22,3 @@ jobs:
     - run: papermill workflow/notebooks/expression-candidates.ipynb ci3.ipynb -k anoexpress
     - run: papermill workflow/notebooks/enrichment.ipynb ci4.ipynb -k anoexpress
     - run: papermill workflow/notebooks/utility-functions.ipynb ci5.ipynb -k anoexpress
-    - run: papermill workflow/notebooks/genome-wide-expression-scans.ipynb ci6.ipynb -k anoexpress
