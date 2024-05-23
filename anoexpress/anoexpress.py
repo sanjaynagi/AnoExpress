@@ -87,7 +87,9 @@ def load_gff(type='protein_coding_gene', query=None):
     df = pd.concat([chunk for chunk in tqdm(pd.read_csv(gff_url, sep="\t", comment="#", chunksize=10000), desc='Loading gff data from VectorBase')])
     df.columns = ['contig', 'source', 'type', 'start', 'end', 'na', 'strand', 'na2', 'attributes']
     df = df.assign(contig=lambda x: x.contig.str.split("_").str.get(1))
-    df = df.query(f"type == '{type}'")
+    
+    if type:
+     df = df.query(f"type == '{type}'")
 
     # may only work for protein_coding_genes 
     df = df.assign(GeneID=df.attributes.str.split(";", expand=True).iloc[:, 0].str.split("=").str.get(1))
@@ -95,7 +97,7 @@ def load_gff(type='protein_coding_gene', query=None):
     # combine 2R and 2L, 3R and 3L
     offset_2R = 61545105
     offset_3R = 53200684
-    
+
     gffs = []
     for contig in tqdm(['2R', '2L', '3R', '3L']):
         df_contig = df.query("contig == @contig").copy()
@@ -119,13 +121,13 @@ def resolve_gene_id(gene_id, analysis):
     
     if isinstance(gene_id, str):
       if gene_id.startswith(('2L', '2R', '3L', '3R', 'X', '2RL', '3RL')):
-        import malariagen_data
         if analysis == 'fun':
-          assert "Unfortunately the genome feature file in malariagen_data does not contain AFUN identifiers, so we cannot subset by genomic span for An. funestus."
+          assert "Unfortunately the genome feature file does not contain AFUN identifiers, so we cannot subset by genomic span for An. funestus."
         else:
 
           contig, start_end = gene_id.split(':')
           start, end = start_end.replace(",", "").split('-')
+          start, end = int(start), int(end)
 
           gff = load_gff(query=f"contig == '{contig}' and start <= {end} and end >= {start}")
           gene_id = gff.GeneID.to_list()
@@ -259,10 +261,10 @@ def _sort_genes(df, analysis, sort_by=None):
   elif sort_by == 'position':
     assert analysis != 'fun', "funestus cannot be sorted by position yet"
     
-    gff = load_gff(query="contig in ['2L', '2R', '3L', '3R', 'X']")
+    gff = load_gff()
     gene_ids = gff.reset_index()['GeneID'].to_list()
     ordered_genes = gff.query(f"GeneID in {gene_ids}")['GeneID'].to_list()
-    sort_idxs = [np.where(df.reset_index()['GeneID'] == gene)[0][0] for gene in ordered_genes]
+    sort_idxs = [np.where(df.reset_index()['GeneID'] == gene)[0][0] for gene in ordered_genes if gene in df.reset_index()['GeneID'].to_list()]
 
   return df.iloc[sort_idxs, :].copy()
 
