@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from tqdm.notebook import tqdm
 
 taxon_query_dict = { 'gamb_colu':"species in ['gambiae','coluzzii']", 
                   'gamb_colu_arab':"species in ['gambiae','coluzzii','arabiensis']", 
@@ -10,6 +11,9 @@ taxon_query_dict = { 'gamb_colu':"species in ['gambiae','coluzzii']",
 index_col = {'fcs':'comparison',
             'pvals': 'comparison',
             'log2counts': 'sampleID'}
+
+
+gff_url =  'https://vectorbase.org/common/downloads/release-68/AgambiaePEST/gff/data/VectorBase-68_AgambiaePEST.gff'
 
 
 # AnoExpress
@@ -78,6 +82,21 @@ def metadata(analysis, microarray=False):
     return metadata
 
 
+def load_gff(type='protein_coding_gene', query=None):
+
+    df = pd.concat([chunk for chunk in tqdm(pd.read_csv(gff_url, sep="\t", comment="#", chunksize=10000), desc='Loading gff data from VectorBase')])
+    df.columns = ['contig', 'source', 'type', 'start', 'end', 'na', 'strand', 'na2', 'attributes']
+    df = df.assign(contig=lambda x: x.contig.str.split("_").str.get(1))
+    df = df.query(f"type == '{type}'")
+
+    # may only work for protein_coding_genes 
+    df = df.assign(GeneID=df.attributes.str.split(";", expand=True).iloc[:, 0].str.split("=").str.get(1))
+
+    if query:
+        df = df.query(query)
+        
+    return df
+
 def resolve_gene_id(gene_id, analysis):
     
     if isinstance(gene_id, str):
@@ -86,9 +105,13 @@ def resolve_gene_id(gene_id, analysis):
         if analysis == 'fun':
           assert "Unfortunately the genome feature file in malariagen_data does not contain AFUN identifiers, so we cannot subset by genomic span for An. funestus."
         else:
-          ag3 = malariagen_data.Ag3()
-        gff = ag3.genome_features(region=gene_id).query("type == 'gene'")
-        gene_id = gff.ID.to_list()
+
+          contig, start_end = gene_id.split(':')
+          start, end = start_end.split('-')
+
+          gff = load_gff(query=f"contig == '{contig}' and start <= {end} and end >= {start}")
+          gene_id = gff.GeneID.to_list()
+
       elif gene_id.endswith(('.tsv', '.txt')):
           gene_id = pd.read_csv(gene_id, sep="\t", header=None).iloc[:, 0].to_list()
       elif gene_id.endswith('.csv'):
@@ -218,11 +241,9 @@ def _sort_genes(df, analysis, sort_by=None):
   elif sort_by == 'position':
     assert analysis != 'fun', "funestus cannot be sorted by position yet"
     
-    import malariagen_data
-    ag3 = malariagen_data.Ag3()
-    gff = ag3.genome_features().query("type == 'gene' & contig in @ag3.contigs")
-    gene_ids = df.reset_index()['GeneID'].to_list()
-    ordered_genes = gff.query(f"ID in {gene_ids}")['ID'].to_list()
+    gff = load_gff(query="contig in ['2L', '2R', '3L', '3R', 'X']").sort_values(['contig', 'start'])
+    gene_ids = gff.reset_index()['GeneID'].to_list()
+    ordered_genes = gff.query(f"GeneID in {gene_ids}")['GeneID'].to_list()
     sort_idxs = [np.where(df.reset_index()['GeneID'] == gene)[0][0] for gene in ordered_genes]
 
   return df.iloc[sort_idxs, :].copy()
@@ -1024,3 +1045,29 @@ def plot_contig_expression(contig, analysis, data_type='fcs', microarray=False, 
     if show:
       bkplt.show(fig)
     return fig
+
+
+def consistent_genes(analysis, direction, n_experiments, low_count_filter=None):
+    
+    fc_data = data(data_type="fcs", analysis=analysis, microarray=False, annotations=True, low_count_filter=low_count_filter)
+    pval_data = data(data_type='pvals', analysis=analysis, microarray=False, annotations=True, low_count_filter=low_count_filter)
+
+    print(f"There are {fc_data.shape[0]} genes and {fc_data.shape[1]} differential expression comparisons in {analysis}")
+    if direction == 'up':
+        res_df = fc_data[fc_data.apply(lambda x: (x > 0).sum() >= n_experiments , axis=1)]
+        res_pval = pval_data[pval_data.apply(lambda x: x < 0.05, axis=1).sum(axis=1) > n_experiments].reset_index()['GeneID'].to_list()
+        res_df = res_df.query("GeneID in @res_pval")
+
+        if res_df.empty: 
+            print(f"There are no genes expressed direction={direction} in {n_experiments} experiments")
+            return
+        else:
+            return(res_df)
+    else: 
+        res_df = fc_data[fc_data.apply(lambda x: (x < 0).sum() >= n_experiments, axis=1)]
+        res_pval = pval_data[pval_data.apply(lambda x: x < 0.05, axis=1).sum(axis=1) > n_experiments].reset_index()['GeneID'].to_list()
+        res_df = res_df.query("GeneID in @res_pval")
+    if res_df.empty:
+        print(f"There are no genes expressed {direction} in {n_experiments} experiments")
+        return
+    return(res_df)
