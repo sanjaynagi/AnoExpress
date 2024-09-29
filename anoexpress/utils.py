@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from tqdm.notebook import tqdm
 
-from .data import data
+from .load_data import data
 
 gff_url =  'https://vectorbase.org/common/downloads/release-68/AgambiaePEST/gff/data/VectorBase-68_AgambiaePEST.gff'
 
