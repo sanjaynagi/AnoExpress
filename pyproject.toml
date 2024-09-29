@@ -22,7 +22,7 @@ pandas = [
     {version="*", python=">=3.8,<3.12"}
 ]
 seaborn = "*"
-numpy = "*"
+numpy = "<1.24"
 bokeh = "*"
 plotly = "*"
 scipy = "*"
