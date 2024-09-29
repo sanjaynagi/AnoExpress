@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from tqdm.notebook import tqdm
 
-from .load_data import data
 
 gff_url =  'https://vectorbase.org/common/downloads/release-68/AgambiaePEST/gff/data/VectorBase-68_AgambiaePEST.gff'
 
@@ -50,18 +49,6 @@ def _gene_ids_from_annotation(gene_annot_df, annotation):
     
     return np.unique(gene_list)
 
-
-def filter_low_counts(data_df, data_type, analysis, gene_id, count_threshold=5, func=np.nanmedian):
-    if data_type != 'log2counts':
-        count_data = data(data_type='log2counts', analysis=analysis, gene_id=gene_id)
-        mask = 2**count_data.apply(func=func, axis=1) > count_threshold
-    else:
-        mask = 2**data_df.apply(func=func, axis=1) > count_threshold
-        
-    print(f"Removing {(mask == 0).sum()} genes with median counts below the threshold ({count_threshold})")
-    mask = mask[mask].index.to_list()
-    
-    return data_df.query("GeneID in @mask")
 
 def load_gff(type='protein_coding_gene', query=None):
 

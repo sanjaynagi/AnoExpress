@@ -1,5 +1,6 @@
 # flake8: noqa
-from .load_data import *
-from .gsea import *
+from .data import *
 from .utils import *
+from .candidates import *
 from .plot import *
+from .gsea import *
