@@ -3,7 +3,6 @@ import numpy as np
 
 from .utils import (
     resolve_gene_id, 
-    _gene_ids_from_annotation,
     load_gff
 )
 

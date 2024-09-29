@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-from .data import load_candidates
+from .candidates import load_candidates
 from .utils import resolve_gene_id
 
 

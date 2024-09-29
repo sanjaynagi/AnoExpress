@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 from .data import data, load_annotations
-from .utils import resolve_gene_id, load_gff, _gene_ids_from_annotation
+from .utils import _gene_ids_from_annotation
 
 
 def load_candidates(analysis, name='median', func=np.nanmedian, query_annotation=None, query_fc=None, microarray=False, low_count_filter=None, fraction_na_allowed=None):

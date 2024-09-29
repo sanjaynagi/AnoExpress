@@ -4,8 +4,9 @@ import plotly.express as px
 import plotly.subplots as sp
 import seaborn as sns
 
-from .data import data, metadata, sample_metadata, query_fc_count_data, load_candidates, contig_expression
+from .data import data, metadata, sample_metadata, query_fc_count_data, load_annotations
 from .utils import _gene_ids_from_annotation
+from .candidates import load_candidates, contig_expression
 
 
 
