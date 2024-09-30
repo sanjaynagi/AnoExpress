@@ -18,15 +18,15 @@ jobs:
     - name: Setup python
       uses: actions/setup-python@v5
       with:
-        python-version: "3.12"
+        python-version: ${{ matrix.python-version }}
         cache: "poetry"
 
     - name: Install dependencies
       run: poetry install
     
-    - run: python -m ipykernel install --user --name anoexpress
-    - run: papermill workflow/notebooks/plot-gene-expression.ipynb ci.ipynb -k anoexpress
-    - run: papermill workflow/notebooks/plot-families-expression.ipynb ci2.ipynb -k anoexpress
-    - run: papermill workflow/notebooks/expression-candidates.ipynb ci3.ipynb -k anoexpress
-    - run: papermill workflow/notebooks/enrichment.ipynb ci4.ipynb -k anoexpress
-    - run: papermill workflow/notebooks/utility-functions.ipynb ci5.ipynb -k anoexpress
+    - run: poetry run python -m ipykernel install --user --name anoexpress
+    - run: poetry run papermill workflow/notebooks/plot-gene-expression.ipynb ci.ipynb -k anoexpress
+    - run: poetry run papermill workflow/notebooks/plot-families-expression.ipynb ci2.ipynb -k anoexpress
+    - run: poetry run papermill workflow/notebooks/expression-candidates.ipynb ci3.ipynb -k anoexpress
+    - run: poetry run papermill workflow/notebooks/enrichment.ipynb ci4.ipynb -k anoexpress
+    - run: poetry run papermill workflow/notebooks/utility-functions.ipynb ci5.ipynb -k anoexpress
