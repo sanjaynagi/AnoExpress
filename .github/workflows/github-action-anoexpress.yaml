@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: poetry install
     
-    - run: python -m ipykernel install --user --name anoexpress
+    - run: poetry run python -m ipykernel install --user --name anoexpress
     - run: papermill workflow/notebooks/plot-gene-expression.ipynb ci.ipynb -k anoexpress
     - run: papermill workflow/notebooks/plot-families-expression.ipynb ci2.ipynb -k anoexpress
     - run: papermill workflow/notebooks/expression-candidates.ipynb ci3.ipynb -k anoexpress
