@@ -87,7 +87,7 @@ def metadata(analysis, microarray=False):
 
 
 
-def data(data_type, analysis, microarray=False, gene_id=None, sample_query=None, sort_by=None, annotations=False, pvalue_filter=None, low_count_filter=None, fraction_na_allowed=None):
+def data(data_type, analysis, microarray=False, gene_id=None, sample_query=None, sort_by=None, annotations=False, pvalue_filter=None, low_count_filter=None, fraction_na_allowed=None, gff_method='malariagen_data'):
     """
     Load the combined data for a given analysis and sample query
 
@@ -117,6 +117,8 @@ def data(data_type, analysis, microarray=False, gene_id=None, sample_query=None,
       if provided, genes with a median count below the threshold will be removed from the dataframe. Default is None.
     fraction_na_allowed: float, optional
       fraction of missing values allowed in the data. Defaults to 0.5
+    gff_method: {"malariagen_data", "vectorbase"}, optional
+      which method to use to load the gff file. Default is 'malariagen_data'.
     
     Returns
     -------
@@ -150,7 +152,7 @@ def data(data_type, analysis, microarray=False, gene_id=None, sample_query=None,
 
     # subset to the gene ids of interest including reading file 
     if gene_id is not None:
-      gene_id = resolve_gene_id(gene_id=gene_id, analysis=analysis)
+      gene_id = resolve_gene_id(gene_id=gene_id, analysis=analysis, gff_method=gff_method)
       df = df.query("GeneID in @gene_id")
 
     if annotations: # add gene name and description to the dataframe as index 
@@ -161,7 +163,7 @@ def data(data_type, analysis, microarray=False, gene_id=None, sample_query=None,
       df = null_fold_changes(pval_df=pval_df, fc_df=df, threshold=pvalue_filter)
 
     # sort genes 
-    df = _sort_genes(df=df, analysis=analysis, sort_by=sort_by)
+    df = _sort_genes(df=df, analysis=analysis, sort_by=sort_by, gff_method=gff_method)
 
     # remove low count genes
     if low_count_filter is not None:
@@ -195,7 +197,7 @@ def add_annotations_to_array(df):
     df = df.reset_index().merge(df_annots, on="GeneID", how="left").set_index(["GeneID", "GeneName", "GeneDescription"])   
     return df 
 
-def _sort_genes(df, analysis, sort_by=None):
+def _sort_genes(df, analysis, sort_by=None, gff_method='malariagen_data'):
   if sort_by is None:
      return df.copy()
   if sort_by == 'median':
@@ -207,7 +209,7 @@ def _sort_genes(df, analysis, sort_by=None):
   elif sort_by == 'position':
     assert analysis != 'fun', "funestus cannot be sorted by position yet"
     
-    gff = load_gff()
+    gff = load_gff(method=gff_method)
     gene_ids = gff.reset_index()['GeneID'].to_list()
     ordered_genes = gff.query(f"GeneID in {gene_ids}")['GeneID'].to_list()
     sort_idxs = [np.where(df.reset_index()['GeneID'] == gene)[0][0] for gene in ordered_genes if gene in df.reset_index()['GeneID'].to_list()]

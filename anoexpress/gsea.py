@@ -5,7 +5,7 @@ from .candidates import load_candidates
 from .utils import resolve_gene_id
 
 
-def load_genes_for_enrichment(analysis, func, gene_ids, percentile, microarray, low_count_filter=None):
+def load_genes_for_enrichment(analysis, func, gene_ids, percentile, microarray, low_count_filter=None, gff_method='malariagen_data'):
    
     assert func is not None or gene_ids is not None, "either a ranking function (func) or gene_ids must be provided"
     assert func is None or gene_ids is None, "Only a ranking function (func) or gene_ids must be provided, not both"
@@ -20,7 +20,7 @@ def load_genes_for_enrichment(analysis, func, gene_ids, percentile, microarray, 
       percentile_idx = fc_ranked.reset_index()['GeneID'].unique().shape[0] * percentile
       top_geneIDs = fc_ranked.reset_index().loc[:, 'GeneID'][:int(percentile_idx)] 
     elif gene_ids:
-      top_geneIDs = resolve_gene_id(gene_id=gene_ids, analysis=analysis)
+      top_geneIDs = resolve_gene_id(gene_id=gene_ids, analysis=analysis, gff_method=gff_method)
 
     return top_geneIDs, fc_genes
 
