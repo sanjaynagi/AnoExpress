@@ -10,12 +10,20 @@ jobs:
           python-version: ['3.9', '3.11']
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v4
+    - uses: actions/checkout@v4
+
+    - name: Install poetry
+      run: pipx install poetry==1.8.3
+
+    - name: Setup python
+      uses: actions/setup-python@v5
       with:
-        python-version:  ${{ matrix.python-version }}
-    - run: python3 -m pip install anoexpress malariagen_data nbformat ipykernel papermill nbconvert
+        python-version: "3.12"
+        cache: "poetry"
+
+    - name: Install dependencies
+      run: poetry install
+    
     - run: python -m ipykernel install --user --name anoexpress
     - run: papermill workflow/notebooks/plot-gene-expression.ipynb ci.ipynb -k anoexpress
     - run: papermill workflow/notebooks/plot-families-expression.ipynb ci2.ipynb -k anoexpress
