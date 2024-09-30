@@ -141,6 +141,18 @@ files = [
 frozenlist = ">=1.1.0"
 
 [[package]]
+name = "ansicolors"
+version = "1.1.8"
+description = "ANSI colors for Python"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "ansicolors-1.1.8-py2.py3-none-any.whl", hash = "sha256:00d2dde5a675579325902536738dd27e4fac1fd68f773fe36c21044eb559e187"},
+    {file = "ansicolors-1.1.8.zip", hash = "sha256:99f94f5e3348a0bcd43c82e5fc4414013ccc19d70bd939ad71e0133ce9c372e0"},
+]
+
+[[package]]
 name = "anyio"
 version = "4.6.0"
 description = "High level compatibility layer for multiple asynchronous event loop implementations"
@@ -1115,6 +1127,18 @@ files = [
 ]
 
 [[package]]
+name = "entrypoints"
+version = "0.4"
+description = "Discover and load entry points from installed packages."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "entrypoints-0.4-py3-none-any.whl", hash = "sha256:f174b5ff827504fd3cd97cc3f8649f3693f51538c7e4bdf3ef002c8429d42f9f"},
+    {file = "entrypoints-0.4.tar.gz", hash = "sha256:b706eddaa9218a19ebcd67b56818f05bb27589b1ca9e8d797b74affad4ccacd4"},
+]
+
+[[package]]
 name = "exceptiongroup"
 version = "1.2.2"
 description = "Backport of PEP 654 (exception groups)"
@@ -1160,7 +1184,7 @@ files = [
 name = "fastjsonschema"
 version = "2.20.0"
 description = "Fastest Python implementation of JSON schema"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 files = [
@@ -2036,7 +2060,7 @@ files = [
 name = "jsonschema"
 version = "4.23.0"
 description = "An implementation of JSON Schema validation for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
@@ -2066,7 +2090,7 @@ format-nongpl = ["fqdn", "idna", "isoduration", "jsonpointer (>1.13)", "rfc3339-
 name = "jsonschema-specifications"
 version = "2023.12.1"
 description = "The JSON Schema meta-schemas and vocabularies, exposed as a Registry"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
@@ -2888,7 +2912,7 @@ files = [
 name = "nbclient"
 version = "0.10.0"
 description = "A client library for executing notebooks. Formerly nbconvert's ExecutePreprocessor."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.8.0"
 files = [
@@ -2950,7 +2974,7 @@ webpdf = ["playwright"]
 name = "nbformat"
 version = "5.10.4"
 description = "The Jupyter Notebook format"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
@@ -3771,6 +3795,41 @@ files = [
 ]
 
 [[package]]
+name = "papermill"
+version = "2.6.0"
+description = "Parameterize and run Jupyter and nteract Notebooks"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "papermill-2.6.0-py3-none-any.whl", hash = "sha256:0f09da6ef709f3f14dde77cb1af052d05b14019189869affff374c9e612f2dd5"},
+    {file = "papermill-2.6.0.tar.gz", hash = "sha256:9fe2a91912fd578f391b4cc8d6d105e73124dcd0cde2a43c3c4a1c77ac88ea24"},
+]
+
+[package.dependencies]
+ansicolors = "*"
+click = "*"
+entrypoints = "*"
+nbclient = ">=0.2.0"
+nbformat = ">=5.2.0"
+pyyaml = "*"
+requests = "*"
+tenacity = ">=5.0.2"
+tqdm = ">=4.32.2"
+
+[package.extras]
+all = ["PyGithub (>=1.55)", "azure-datalake-store (>=0.0.30)", "azure-identity (>=1.3.1)", "azure-storage-blob (>=12.1.0)", "black (>=19.3b0)", "boto3", "gcsfs (>=0.2.0)", "pyarrow (>=2.0)", "requests (>=2.21.0)"]
+azure = ["azure-datalake-store (>=0.0.30)", "azure-identity (>=1.3.1)", "azure-storage-blob (>=12.1.0)", "requests (>=2.21.0)"]
+black = ["black (>=19.3b0)"]
+dev = ["attrs (>=17.4.0)", "azure-datalake-store (>=0.0.30)", "azure-identity (>=1.3.1)", "azure-storage-blob (>=12.1.0)", "black (>=19.3b0)", "boto3", "botocore", "bumpversion", "check-manifest", "codecov", "coverage", "gcsfs (>=0.2.0)", "google-compute-engine", "ipython (>=5.0)", "ipywidgets", "moto (>=5.0.0,<5.1.0)", "notebook", "pip (>=18.1)", "pre-commit", "pytest (>=4.1)", "pytest-cov (>=2.6.1)", "pytest-env (>=0.6.2)", "pytest-mock (>=1.10)", "recommonmark", "requests (>=2.21.0)", "setuptools (>=38.6.0)", "tox", "twine (>=1.11.0)", "wheel (>=0.31.0)"]
+docs = ["PyGithub (>=1.55)", "Sphinx (>=7.2.6)", "azure-datalake-store (>=0.0.30)", "azure-identity (>=1.3.1)", "azure-storage-blob (>=12.1.0)", "black (>=19.3b0)", "boto3", "entrypoints", "furo (>=2023.9.10)", "gcsfs (>=0.2.0)", "moto (>=4.2.8)", "myst-parser (>=2.0.0)", "nbformat", "pyarrow (>=2.0)", "requests (>=2.21.0)", "sphinx-copybutton (>=0.5.2)"]
+gcs = ["gcsfs (>=0.2.0)"]
+github = ["PyGithub (>=1.55)"]
+hdfs = ["pyarrow (>=2.0)"]
+s3 = ["boto3"]
+test = ["attrs (>=17.4.0)", "azure-datalake-store (>=0.0.30)", "azure-identity (>=1.3.1)", "azure-storage-blob (>=12.1.0)", "black (>=19.3b0)", "boto3", "botocore", "bumpversion", "check-manifest", "codecov", "coverage", "gcsfs (>=0.2.0)", "google-compute-engine", "ipython (>=5.0)", "ipywidgets", "moto (>=5.0.0,<5.1.0)", "notebook", "pip (>=18.1)", "pre-commit", "pytest (>=4.1)", "pytest-cov (>=2.6.1)", "pytest-env (>=0.6.2)", "pytest-mock (>=1.10)", "recommonmark", "requests (>=2.21.0)", "setuptools (>=38.6.0)", "tox", "twine (>=1.11.0)", "wheel (>=0.31.0)"]
+
+[[package]]
 name = "parso"
 version = "0.8.4"
 description = "A Python Parser"
@@ -4544,7 +4603,7 @@ cffi = {version = "*", markers = "implementation_name == \"pypy\""}
 name = "referencing"
 version = "0.35.1"
 description = "JSON Referencing + Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
@@ -4643,7 +4702,7 @@ files = [
 name = "rpds-py"
 version = "0.20.0"
 description = "Python bindings to Rust's persistent data structures (rpds)"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
@@ -5609,4 +5668,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9, <3.12"
-content-hash = "0710a69ae76d0f82248dd7df0f058bb17153ec0215b6b181da4510b8c1c3ef20"
+content-hash = "b5e390a47370f0a200ae21f54999cda3c9f5e5c5ef5db59e344659465bb21873"

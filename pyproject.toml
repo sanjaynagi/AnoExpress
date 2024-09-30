@@ -16,6 +16,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = ">=3.9, <3.12"
 malariagen_data = ">10.0.1"
+papermill = "*"
 ipykernel = "*"
 scikit-allel="*"
 pandas = "*"
