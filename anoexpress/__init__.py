@@ -1,3 +1,6 @@
 # flake8: noqa
-from . import anoexpress
-from .anoexpress import *
+from .utils import *
+from .data import *
+from .candidates import *
+from .plot import *
+from .gsea import *

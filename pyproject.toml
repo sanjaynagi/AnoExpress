@@ -14,17 +14,15 @@ packages = [
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = ">=3.8, <3.12"
-malariagen_data = ">8.0.1"
+python = ">=3.9, <3.12"
+malariagen_data = ">10.0.1"
+ipykernel = "*"
 scikit-allel="*"
-pandas = [
-    {version="<1.4", python=">=3.7.1,<3.8"},
-    {version="*", python=">=3.8,<3.12"}
-]
+pandas = "*"
 seaborn = "*"
 numpy = "*"
 bokeh = "*"
-plotly = "5.11"
+plotly = ">=5.12"
 scipy = "*"
 tqdm = "*"
 statsmodels = "*"
