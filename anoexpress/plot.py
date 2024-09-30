@@ -11,7 +11,7 @@ from .candidates import load_candidates, contig_expression
 
 
 
-def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=False, sample_query=None, title=None, plot_type='strip', sort_by='agap', pvalue_filter=None, width=1600, height=None, save_html=None):
+def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=False, sample_query=None, title=None, plot_type='strip', sort_by='agap', gff_method='malariagen_data', pvalue_filter=None, width=1600, height=None, save_html=None):
     """Plot fold changes of provided AGAP gene IDs from RNA-Seq 
     meta-analysis dataset
 
@@ -33,9 +33,11 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
       Plot title
     plot_type : {"strip", "boxplot"}, optional
       valid options are 'strip' or 'boxplot' 
-    sort_by : {"median", "mean", "agap", None}, optional
+    sort_by : {"median", "mean", "agap", "position", None}, optional
       sort by median/mean of fold changes (descending), or by AGAP, or dont sort input gene ids. 
       identifier
+    gff_method : {"malariagen_data", "vectorbase"}, optional
+      method to use to load gff, for sorting genes by position. Defaults to 'malariagen_data
     pvalue_filter: float, optional
       if provided, fold-change entries with an adjusted p-value below the threshold will be removed from the plot. Default is None.
     width : int
@@ -53,9 +55,9 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
     df_samples = sample_metadata(analysis=analysis)
 
     # load fold change data, make long format and merge with metadata for hovertext
-    fc_data = data(data_type="fcs", analysis=analysis, microarray=microarray, sample_query=sample_query, gene_id=gene_id, sort_by=sort_by, annotations=True, pvalue_filter=pvalue_filter).reset_index()
+    fc_data = data(data_type="fcs", analysis=analysis, microarray=microarray, sample_query=sample_query, gene_id=gene_id, sort_by=sort_by, annotations=True, pvalue_filter=pvalue_filter, gff_method=gff_method).reset_index()
     # load count data, make long format and merge with metadata for hovertext
-    count_data = data(data_type="log2counts", analysis=analysis, microarray=microarray, gene_id=gene_id, sample_query=sample_query, sort_by=None)
+    count_data = data(data_type="log2counts", analysis=analysis, microarray=microarray, gene_id=gene_id, sample_query=sample_query, sort_by=None, gff_method=gff_method)
     count_data = count_data.loc[fc_data['GeneID']].reset_index()
 
     if sample_query:
@@ -137,7 +139,7 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
 
 
 
-def plot_gene_family_expression(gene_identifier, analysis, title, microarray=False, plot_type='strip', sort_by='median', width=1600, height=None):
+def plot_gene_family_expression(gene_identifier, analysis, title, microarray=False, plot_type='strip', sort_by='median', gff_method="malariagen_data", width=1600, height=None):
   """Plot gene expression of gene families belonging to GO terms or PFAM domains
 
   Parameters
@@ -167,7 +169,7 @@ def plot_gene_family_expression(gene_identifier, analysis, title, microarray=Fal
   # Read in .csv file containing pfam and go terms
   gene_annot_df = load_annotations()
   gene_ids = _gene_ids_from_annotation(gene_annot_df, gene_identifier)
-  fig = plot_gene_expression(gene_id=gene_ids, microarray=microarray, title=title, analysis=analysis, plot_type=plot_type, sort_by=sort_by, width=width, height=height)
+  fig = plot_gene_expression(gene_id=gene_ids, microarray=microarray, title=title, analysis=analysis, plot_type=plot_type, sort_by=sort_by, gff_method=gff_method, width=width, height=height)
 
   return(fig)
 
