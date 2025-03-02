@@ -5,7 +5,7 @@ from .candidates import load_candidates
 from .utils import resolve_gene_id
 
 
-def load_genes_for_enrichment(analysis, func, gene_ids, percentile, microarray, low_count_filter=None, gff_method='malariagen_data'):
+def load_genes_for_enrichment(analysis, func, gene_ids, percentile, microarray, low_count_filter=None, gff_method='vectorbase'):
    
     assert func is not None or gene_ids is not None, "either a ranking function (func) or gene_ids must be provided"
     assert func is None or gene_ids is None, "Only a ranking function (func) or gene_ids must be provided, not both"

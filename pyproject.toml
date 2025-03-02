@@ -14,25 +14,26 @@ packages = [
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = ">=3.9, <3.12"
-malariagen_data = ">10.0.1"
+python = ">=3.10, <3.13"
+malariagen_data = ">13.0.1"
 papermill = "*"
 ipykernel = "*"
 scikit-allel="*"
 pandas = "*"
 seaborn = "*"
-numpy = "1.23.1"
+numpy = ">2.0.1"
 bokeh = "*"
-plotly = "5.11"
+plotly = ">=5.12.0, <6.0.0"
 scipy = "*"
 tqdm = "*"
 statsmodels = "*"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pre-commit = "*"
 black = "*"
 pytest = "*"
 notebook = "*"
+isort = "^6.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]

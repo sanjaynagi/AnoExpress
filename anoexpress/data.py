@@ -87,7 +87,7 @@ def metadata(analysis, microarray=False):
 
 
 
-def data(data_type, analysis, microarray=False, gene_id=None, sample_query=None, sort_by=None, annotations=False, pvalue_filter=None, low_count_filter=None, fraction_na_allowed=None, gff_method='malariagen_data'):
+def data(data_type, analysis, microarray=False, gene_id=None, sample_query=None, sort_by=None, annotations=False, pvalue_filter=None, low_count_filter=None, fraction_na_allowed=None, gff_method='vectorbase'):
     """
     Load the combined data for a given analysis and sample query
 
@@ -118,7 +118,7 @@ def data(data_type, analysis, microarray=False, gene_id=None, sample_query=None,
     fraction_na_allowed: float, optional
       fraction of missing values allowed in the data. Defaults to 0.5
     gff_method: {"malariagen_data", "vectorbase"}, optional
-      which method to use to load the gff file. Default is 'malariagen_data'.
+      which method to use to load the gff file. Default is 'vectorbase'.
     
     Returns
     -------
@@ -197,7 +197,7 @@ def add_annotations_to_array(df):
     df = df.reset_index().merge(df_annots, on="GeneID", how="left").set_index(["GeneID", "GeneName", "GeneDescription"])   
     return df 
 
-def _sort_genes(df, analysis, sort_by=None, gff_method='malariagen_data'):
+def _sort_genes(df, analysis, sort_by=None, gff_method='vectorbase'):
   if sort_by is None:
      return df.copy()
   if sort_by == 'median':

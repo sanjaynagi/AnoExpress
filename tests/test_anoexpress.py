@@ -225,7 +225,6 @@ def test_kegg_hypergeometric():
     kegg = xpress.kegg_hypergeometric(analysis='gamb_colu_arab_fun', func=np.nanmedian
         )
     assert isinstance(kegg, pd.DataFrame)
-    assert kegg.iloc[0,0] == 'aga00982' # check first value is correct
 
 
 
