@@ -21,14 +21,14 @@ ipykernel = "*"
 scikit-allel="*"
 pandas = "*"
 seaborn = "*"
-numpy = "1.23.5"
+numpy = "*"
 bokeh = "*"
-plotly = "<6.0.0"
+plotly = ">=5.12.0, <6.0.0"
 scipy = "*"
 tqdm = "*"
 statsmodels = "*"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pre-commit = "*"
 black = "*"
 pytest = "*"
