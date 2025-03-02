@@ -33,6 +33,7 @@ pre-commit = "*"
 black = "*"
 pytest = "*"
 notebook = "*"
+isort = "^6.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
