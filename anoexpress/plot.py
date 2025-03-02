@@ -37,7 +37,7 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
       sort by median/mean of fold changes (descending), or by AGAP, or dont sort input gene ids. 
       identifier
     gff_method : {"malariagen_data", "vectorbase"}, optional
-      method to use to load gff, for sorting genes by position. Defaults to 'malariagen_data
+      method to use to load gff, for sorting genes by position. Defaults to 'vectorbase'
     pvalue_filter: float, optional
       if provided, fold-change entries with an adjusted p-value below the threshold will be removed from the plot. Default is None.
     width : int
@@ -139,7 +139,7 @@ def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=Fals
 
 
 
-def plot_gene_family_expression(gene_identifier, analysis, title, microarray=False, plot_type='strip', sort_by='median', gff_method="malariagen_data", width=1600, height=None):
+def plot_gene_family_expression(gene_identifier, analysis, title, microarray=False, plot_type='strip', sort_by='median', gff_method="vectorbase", width=1600, height=None):
   """Plot gene expression of gene families belonging to GO terms or PFAM domains
 
   Parameters

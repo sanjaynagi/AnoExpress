@@ -10,7 +10,7 @@ gff_url = "https://vectorbase.org/common/downloads/release-68/AgambiaePEST/gff/d
 CACHE_DIR = Path(os.path.expanduser("~/.cache/anoexpress"))
 
 
-def resolve_gene_id(gene_id, analysis, gff_method="malariagen_data", use_cache=True):
+def resolve_gene_id(gene_id, analysis, gff_method="vectorbase", use_cache=True):
     """
     Resolve a gene identifier, which may be a coordinate range, a file path, or already a gene ID.
 
@@ -20,7 +20,7 @@ def resolve_gene_id(gene_id, analysis, gff_method="malariagen_data", use_cache=T
         Gene identifier(s) to resolve
     analysis : str
         Analysis type, used to check compatibility
-    gff_method : str, default='malariagen_data'
+    gff_method : str, default='vectorbase'
         Method to use for loading GFF data if needed
     use_cache : bool, default=True
         Whether to use cached GFF data if available
