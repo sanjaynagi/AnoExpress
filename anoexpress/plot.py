@@ -11,7 +11,7 @@ from .candidates import load_candidates, contig_expression
 
 
 
-def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=False, sample_query=None, title=None, plot_type='strip', sort_by='agap', gff_method='malariagen_data', pvalue_filter=None, width=1600, height=None, save_html=None):
+def plot_gene_expression(gene_id, analysis="gamb_colu_arab_fun", microarray=False, sample_query=None, title=None, plot_type='strip', sort_by='agap', gff_method='vectorbase', pvalue_filter=None, width=1600, height=None, save_html=None):
     """Plot fold changes of provided AGAP gene IDs from RNA-Seq 
     meta-analysis dataset
 
