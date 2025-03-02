@@ -50,7 +50,7 @@ def _gene_ids_from_annotation(gene_annot_df, annotation):
     return np.unique(gene_list)
 
 
-def load_gff(method='malariagen_data', override_type=None, query=None):
+def load_gff(method='vectorbase', override_type=None, query=None):
 
     if method == 'malariagen_data':
         import malariagen_data
