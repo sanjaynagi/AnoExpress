@@ -5,21 +5,21 @@ Ban_v_BanS	Ban	BanS	coluzzii	Burkina Faso	10.6308	-4.7589	Hisat2 + featureCounts
 BanRe_v_BanS	BanRe	BanS	coluzzii	Burkina Faso	10.6308	-4.7589	Hisat2 + featureCounts	bf_ingham
 Bak_v_Kisumu	Bak	Kisumu	gambiae	Burkina Faso	10.6308	-4.7589	Hisat2 + featureCounts	bf_ingham
 VK7_v_Kisumu	VK7	Kisumu	coluzzii	Burkina Faso	11.4117	-4.36277	Hisat2 + featureCounts	bf_williams
-Cameroon_v_Ngousso	Cameroon	Ngousso	coluzzii	Cameroon	10.844	14.9	Kallisto	ibrahim
-Chad_v_Ngousso	Chad	Ngousso	coluzzii	Chad	12.1	15.03	Kallisto	ibrahim
-Niger_v_Ngousso	Niger	Ngousso	coluzzii	Niger	13.7	7.98	Kallisto	ibrahim
-Nigeria_v_Ngousso	Nigeria	Ngousso	coluzzii	Nigeria	9.9875	12.3605	Kallisto	ibrahim
+Cameroon_v_Ngousso	Cameroon	Ngousso	coluzzii	Cameroon	10.844	14.9	Kallisto	mc_ibrahim
+Chad_v_Ngousso	Chad	Ngousso	coluzzii	Chad	12.1	15.03	Kallisto	mc_ibrahim
+Niger_v_Ngousso	Niger	Ngousso	coluzzii	Niger	13.7	7.98	Kallisto	mc_ibrahim
+Nigeria_v_Ngousso	Nigeria	Ngousso	coluzzii	Nigeria	9.9875	12.3605	Kallisto	mc_ibrahim
 Agboville_v_Mali	Agboville	Mali	coluzzii	Cote d'Ivoire	5.9448	-4.21468	STAR + featureCounts	ci_wipf
 Agboville_v_Ngousso	Agboville	Ngousso	coluzzii	Cote d'Ivoire	5.9448	-4.21468	STAR + featureCounts	ci_wipf
 Dabou_v_Mali	Dabou	Mali	coluzzii	Cote d'Ivoire	5.331	-4.372	STAR + featureCounts	ci_wipf
 Dabou_v_Ngousso	Dabou	Ngousso	coluzzii	Cote d'Ivoire	5.331	-4.372	STAR + featureCounts	ci_wipf
 Tiassale_v_Mali	Tiassale	Mali	coluzzii	Cote d'Ivoire	5.9006	-4.835	STAR + featureCounts	ci_wipf
 Tiassale_v_Ngousso	Tiassale	Ngousso	coluzzii	Cote d'Ivoire	5.9006	-4.835	STAR + featureCounts	ci_wipf
-Cam_fun_v_Fang	Cam_fun	Fang	funestus	Cameroon	6.08	11.47	Subread + featureCounts	wondji
-Fumoz_v_Fang	Fumoz	Fang	funestus	Mozambique	-22.77488	33.809	Subread + featureCounts	wondji
-Ghana_fun_v_Fang	Ghana_fun	Fang	funestus	Ghana	5.933	-1.6	Subread + featureCounts	wondji
-Malawi_fun_v_Fang	Malawi_fun	Fang	funestus	Malawi	-16.01	34.7833	Subread + featureCounts	wondji
-Uganda_fun_v_Fang	Uganda_fun	Fang	funestus	Uganda	0.677	34.184	Subread + featureCounts	wondji
+Cam_fun_v_Fang	Cam_fun	Fang	funestus	Cameroon	6.08	11.47	Subread + featureCounts	mc_wondji
+Fumoz_v_Fang	Fumoz	Fang	funestus	Mozambique	-22.77488	33.809	Subread + featureCounts	mc_wondji
+Ghana_fun_v_Fang	Ghana_fun	Fang	funestus	Ghana	5.933	-1.6	Subread + featureCounts	mc_wondji
+Malawi_fun_v_Fang	Malawi_fun	Fang	funestus	Malawi	-16.01	34.7833	Subread + featureCounts	mc_wondji
+Uganda_fun_v_Fang	Uganda_fun	Fang	funestus	Uganda	0.677	34.184	Subread + featureCounts	mc_wondji
 Asendabo_v_Moz	Asendabo	Moz	arabiensis	Ethiopia	7.7728	37.22979	Hisat2 + htseq-count	et_simma
 Chewaka_v_Moz	Chewaka	Moz	arabiensis	Ethiopia	8.89366	36.15594	Hisat2 + htseq-count	et_simma
 Tolay_v_Moz	Tolay	Moz	arabiensis	Ethiopia	8.356	37.3409	Hisat2 + htseq-count	et_simma

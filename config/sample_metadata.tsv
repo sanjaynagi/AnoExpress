@@ -1,199 +1,199 @@
-sampleID	condition	resistance	species	batch	country	counting_method
-Tie1	Tiefora	resistant	coluzzii	1	Burkina Faso	Hisat2 + featureCounts
-Tie2	Tiefora	resistant	coluzzii	1	Burkina Faso	Hisat2 + featureCounts
-Tie3	Tiefora	resistant	coluzzii	1	Burkina Faso	Hisat2 + featureCounts
-Ban1	Ban	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts
-Ban2	Ban	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts
-Ban3	Ban	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts
-Ban4	Ban	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts
-Bak1	Bak	resistant	gambiae	3	Burkina Faso	Hisat2 + featureCounts
-Bak2	Bak	resistant	gambiae	3	Burkina Faso	Hisat2 + featureCounts
-Bak3	Bak	resistant	gambiae	3	Burkina Faso	Hisat2 + featureCounts
-Bak4	Bak	resistant	gambiae	3	Burkina Faso	Hisat2 + featureCounts
-VK71	VK7	resistant	coluzzii	3	Burkina Faso	Hisat2 + featureCounts
-VK72	VK7	resistant	coluzzii	3	Burkina Faso	Hisat2 + featureCounts
-VK73	VK7	resistant	coluzzii	3	Burkina Faso	Hisat2 + featureCounts
-VK74	VK7	resistant	coluzzii	3	Burkina Faso	Hisat2 + featureCounts
-BanRe1	BanRe	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts
-BanRe2	BanRe	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts
-BanRe3	BanRe	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts
-BanRe4	BanRe	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts
-Chad1	Chad	resistant	coluzzii	4	Chad	Kallisto
-Chad2	Chad	resistant	coluzzii	4	Chad	Kallisto
-Chad3	Chad	resistant	coluzzii	4	Chad	Kallisto
-Chad4	Chad	resistant	coluzzii	4	Chad	Kallisto
-Chad5	Chad	resistant	coluzzii	4	Chad	Kallisto
-Chad6	Chad	resistant	coluzzii	4	Chad	Kallisto
-Nigeria1	Nigeria	resistant	coluzzii	4	Nigeria	Kallisto
-Nigeria2	Nigeria	resistant	coluzzii	4	Nigeria	Kallisto
-Nigeria3	Nigeria	resistant	coluzzii	4	Nigeria	Kallisto
-Nigeria4	Nigeria	resistant	coluzzii	4	Nigeria	Kallisto
-Nigeria5	Nigeria	resistant	coluzzii	4	Nigeria	Kallisto
-Nigeria6	Nigeria	resistant	coluzzii	4	Nigeria	Kallisto
-Cameroon1	Cameroon	resistant	coluzzii	4	Cameroon	Kallisto
-Cameroon2	Cameroon	resistant	coluzzii	4	Cameroon	Kallisto
-Cameroon3	Cameroon	resistant	coluzzii	4	Cameroon	Kallisto
-Cameroon4	Cameroon	resistant	coluzzii	4	Cameroon	Kallisto
-Cameroon5	Cameroon	resistant	coluzzii	4	Cameroon	Kallisto
-Niger1	Niger	resistant	coluzzii	4	Niger	Kallisto
-Niger2	Niger	resistant	coluzzii	4	Niger	Kallisto
-Niger3	Niger	resistant	coluzzii	4	Niger	Kallisto
-Niger4	Niger	resistant	coluzzii	4	Niger	Kallisto
-Niger5	Niger	resistant	coluzzii	4	Niger	Kallisto
-Niger6	Niger	resistant	coluzzii	4	Niger	Kallisto
-NG_Jess1	Ngousso	susceptible	coluzzii	1	Cameroon	Hisat2 + featureCounts
-NG_Jess2	Ngousso	susceptible	coluzzii	1	Cameroon	Hisat2 + featureCounts
-NG_Jess3	Ngousso	susceptible	coluzzii	1	Cameroon	Hisat2 + featureCounts
-Kis1	Kisumu	susceptible	gambiae	3	Kenya	Hisat2 + featureCounts
-Kis2	Kisumu	susceptible	gambiae	3	Kenya	Hisat2 + featureCounts
-Kis3	Kisumu	susceptible	gambiae	3	Kenya	Hisat2 + featureCounts
-Kis4	Kisumu	susceptible	gambiae	3	Kenya	Hisat2 + featureCounts
-BanS1	BanS	susceptible	coluzzii	2	BanS	Hisat2 + featureCounts
-BanS2	BanS	susceptible	coluzzii	2	BanS	Hisat2 + featureCounts
-BanS3	BanS	susceptible	coluzzii	2	BanS	Hisat2 + featureCounts
-BanS4	BanS	susceptible	coluzzii	2	BanS	Hisat2 + featureCounts
-NG_Crete1	Ngousso	susceptible	coluzzii	5	Cameroon	Hisat2 + featureCounts
-NG_Crete2	Ngousso	susceptible	coluzzii	5	Cameroon	Hisat2 + featureCounts
-NG_Crete3	Ngousso	susceptible	coluzzii	5	Cameroon	Hisat2 + featureCounts
-NG_Sul1	Ngousso	susceptible	coluzzii	4	Cameroon	Kallisto
-NG_Sul2	Ngousso	susceptible	coluzzii	4	Cameroon	Kallisto
-NG_Sul3	Ngousso	susceptible	coluzzii	4	Cameroon	Kallisto
-Agboville1	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Agboville2	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Agboville3	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Agboville4	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Agboville5	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Agboville6	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Agboville7	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Agboville8	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Agboville9	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Dabou1	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Dabou2	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Dabou3	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Dabou4	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Dabou5	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Dabou6	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Dabou7	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Dabou8	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Dabou9	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Dabou10	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Tiassale1	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Tiassale2	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Tiassale3	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Tiassale4	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Tiassale5	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Tiassale6	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Tiassale7	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Tiassale8	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Tiassale9	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Tiassale10	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts
-Ngousso_Wipf1	Ngousso	susceptible	coluzzii	6	Cameroon	STAR + featureCounts
-Ngousso_Wipf2	Ngousso	susceptible	coluzzii	6	Cameroon	STAR + featureCounts
-Ngousso_Wipf3	Ngousso	susceptible	coluzzii	6	Cameroon	STAR + featureCounts
-Ngousso_Wipf4	Ngousso	susceptible	coluzzii	6	Cameroon	STAR + featureCounts
-Ngousso_Wipf5	Ngousso	susceptible	coluzzii	6	Cameroon	STAR + featureCounts
-Mali1	Mali	susceptible	coluzzii	6	Mali	STAR + featureCounts
-Mali2	Mali	susceptible	coluzzii	6	Mali	STAR + featureCounts
-Mali3	Mali	susceptible	coluzzii	6	Mali	STAR + featureCounts
-Mali4	Mali	susceptible	coluzzii	6	Mali	STAR + featureCounts
-Mali5	Mali	susceptible	coluzzii	6	Mali	STAR + featureCounts
-Bouake_Kisumu1	Kisumu	susceptible	gambiae	10	Kenya	Kallisto
-Bouake_Kisumu2	Kisumu	susceptible	gambiae	10	Kenya	Kallisto
-Bouake_Kisumu3	Kisumu	susceptible	gambiae	10	Kenya	Kallisto
-Bouake_Kisumu4	Kisumu	susceptible	gambiae	10	Kenya	Kallisto
-Bouake_colu_unexp1	Bouake_colu_unexp	resistant	coluzzii	11	Cote d'Ivoire	Kallisto
-Bouake_colu_unexp2	Bouake_colu_unexp	resistant	coluzzii	11	Cote d'Ivoire	Kallisto
-Bouake_colu_unexp3	Bouake_colu_unexp	resistant	coluzzii	11	Cote d'Ivoire	Kallisto
-Bouake_colu_unexp4	Bouake_colu_unexp	resistant	coluzzii	11	Cote d'Ivoire	Kallisto
-Bouake_Ngousso1	Ngousso	susceptible	coluzzii	11	Cameroon	Kallisto
-Bouake_Ngousso2	Ngousso	susceptible	coluzzii	11	Cameroon	Kallisto
-Bouake_Ngousso3	Ngousso	susceptible	coluzzii	11	Cameroon	Kallisto
-Bouake_Ngousso4	Ngousso	susceptible	coluzzii	11	Cameroon	Kallisto
-Bouake_gamb_unexp1	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire	Kallisto
-Bouake_gamb_unexp2	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire	Kallisto
-Bouake_gamb_unexp3	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire	Kallisto
-Bouake_gamb_unexp4	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire	Kallisto
-BusiaSurvivors1	BusiaSurvivors	resistant	gambiae	12	Uganda	Kallisto
-BusiaSurvivors2	BusiaSurvivors	resistant	gambiae	12	Uganda	Kallisto
-BusiaSurvivors3	BusiaSurvivors	resistant	gambiae	12	Uganda	Kallisto
-BusiaSurvivors4	BusiaSurvivors	resistant	gambiae	12	Uganda	Kallisto
-BusiaSurvivors5	BusiaSurvivors	resistant	gambiae	12	Uganda	Kallisto
-BusiaSurvivors6	BusiaSurvivors	resistant	gambiae	12	Uganda	Kallisto
-Kisumu1	Kisumu	susceptible	gambiae	12	Kenya	Kallisto
-Kisumu2	Kisumu	susceptible	gambiae	12	Kenya	Kallisto
-Kisumu3	Kisumu	susceptible	gambiae	12	Kenya	Kallisto
-Kisumu4	Kisumu	susceptible	gambiae	12	Kenya	Kallisto
-Asendabo_ara1	Asendabo	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count
-Asendabo_ara2	Asendabo	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count
-Asendabo_ara3	Asendabo	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count
-Asendabo_ara4	Asendabo	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count
-Chewaka_ara1	Chewaka	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count
-Chewaka_ara2	Chewaka	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count
-Chewaka_ara3	Chewaka	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count
-Chewaka_ara4	Chewaka	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count
-Moz_VanLeeuwen1	Moz	susceptible	arabiensis	8	Mozambique	Hisat2 + htseq-count
-Moz_VanLeeuwen2	Moz	susceptible	arabiensis	8	Mozambique	Hisat2 + htseq-count
-Moz_VanLeeuwen3	Moz	susceptible	arabiensis	8	Mozambique	Hisat2 + htseq-count
-Moz_VanLeeuwen4	Moz	susceptible	arabiensis	8	Mozambique	Hisat2 + htseq-count
-Tolay1	Tolay	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count
-Tolay2	Tolay	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count
-Tolay3	Tolay	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count
-Tolay4	Tolay	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count
-Dongola1	Dongola	susceptible	arabiensis	9	Sudan	Subjunc + featureCounts
-Dongola2	Dongola	susceptible	arabiensis	9	Sudan	Subjunc + featureCounts
-Dongola3	Dongola	susceptible	arabiensis	9	Sudan	Subjunc + featureCounts
-Ethiopia1	Ethiopia	resistant	arabiensis	9	Ethiopia	Subjunc + featureCounts
-Ethiopia2	Ethiopia	resistant	arabiensis	9	Ethiopia	Subjunc + featureCounts
-Ethiopia3	Ethiopia	resistant	arabiensis	9	Ethiopia	Subjunc + featureCounts
-Gou1	Gou	resistant	arabiensis	1	Burkina Faso	Hisat2 + featureCounts
-Gou2	Gou	resistant	arabiensis	1	Burkina Faso	Hisat2 + featureCounts
-Gou3	Gou	resistant	arabiensis	1	Burkina Faso	Hisat2 + featureCounts
-Moz_Ranson1	Moz	susceptible	arabiensis	1	Mozambique	Hisat2 + featureCounts
-Moz_Ranson2	Moz	susceptible	arabiensis	1	Mozambique	Hisat2 + featureCounts
-Moz_Ranson3	Moz	susceptible	arabiensis	1	Mozambique	Hisat2 + featureCounts
-Cameroon_fun1	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts
-Cameroon_fun2	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts
-Cameroon_fun3	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts
-Cameroon_fun4	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts
-Cameroon_fun5	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts
-Cameroon_fun6	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts
-Cameroon_fun7	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts
-Cameroon_fun8	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts
-Cameroon_fun9	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts
-Fang1	Fang	susceptible	funestus	7	Angola	Subread + featureCounts
-Fang2	Fang	susceptible	funestus	7	Angola	Subread + featureCounts
-Fang3	Fang	susceptible	funestus	7	Angola	Subread + featureCounts
-Fumoz1	Fumoz	resistant	funestus	7	Mozambique	Subread + featureCounts
-Fumoz2	Fumoz	resistant	funestus	7	Mozambique	Subread + featureCounts
-Fumoz3	Fumoz	resistant	funestus	7	Mozambique	Subread + featureCounts
-Fumoz4	Fumoz	resistant	funestus	7	Mozambique	Subread + featureCounts
-Fumoz5	Fumoz	resistant	funestus	7	Mozambique	Subread + featureCounts
-Ghana_fun1	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts
-Ghana_fun2	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts
-Ghana_fun3	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts
-Ghana_fun4	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts
-Ghana_fun5	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts
-Ghana_fun6	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts
-Ghana_fun7	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts
-Ghana_fun8	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts
-Ghana_fun9	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts
-Ghana_fun10	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts
-Malawi_fun1	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts
-Malawi_fun2	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts
-Malawi_fun3	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts
-Malawi_fun4	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts
-Malawi_fun5	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts
-Malawi_fun6	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts
-Malawi_fun7	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts
-Malawi_fun8	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts
-Malawi_fun9	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts
-Malawi_fun10	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts
-Uganda_fun1	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts
-Uganda_fun2	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts
-Uganda_fun3	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts
-Uganda_fun4	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts
-Uganda_fun5	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts
-Uganda_fun6	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts
-Uganda_fun7	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts
-Uganda_fun8	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts
-Uganda_fun9	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts
+sampleID	condition	resistance	species	batch	country	counting_method	study
+Tie1	Tiefora	resistant	coluzzii	1	Burkina Faso	Hisat2 + featureCounts	bf_williams
+Tie2	Tiefora	resistant	coluzzii	1	Burkina Faso	Hisat2 + featureCounts	bf_williams
+Tie3	Tiefora	resistant	coluzzii	1	Burkina Faso	Hisat2 + featureCounts	bf_williams
+Ban1	Ban	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts	bf_ingham
+Ban2	Ban	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts	bf_ingham
+Ban3	Ban	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts	bf_ingham
+Ban4	Ban	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts	bf_ingham
+Bak1	Bak	resistant	gambiae	3	Burkina Faso	Hisat2 + featureCounts	bf_ingham
+Bak2	Bak	resistant	gambiae	3	Burkina Faso	Hisat2 + featureCounts	bf_ingham
+Bak3	Bak	resistant	gambiae	3	Burkina Faso	Hisat2 + featureCounts	bf_ingham
+Bak4	Bak	resistant	gambiae	3	Burkina Faso	Hisat2 + featureCounts	bf_ingham
+VK71	VK7	resistant	coluzzii	3	Burkina Faso	Hisat2 + featureCounts	bf_williams
+VK72	VK7	resistant	coluzzii	3	Burkina Faso	Hisat2 + featureCounts	bf_williams
+VK73	VK7	resistant	coluzzii	3	Burkina Faso	Hisat2 + featureCounts	bf_williams
+VK74	VK7	resistant	coluzzii	3	Burkina Faso	Hisat2 + featureCounts	bf_williams
+BanRe1	BanRe	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts	bf_ingham
+BanRe2	BanRe	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts	bf_ingham
+BanRe3	BanRe	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts	bf_ingham
+BanRe4	BanRe	resistant	coluzzii	2	Burkina Faso	Hisat2 + featureCounts	bf_ingham
+Chad1	Chad	resistant	coluzzii	4	Chad	Kallisto	mc_ibrahim
+Chad2	Chad	resistant	coluzzii	4	Chad	Kallisto	mc_ibrahim
+Chad3	Chad	resistant	coluzzii	4	Chad	Kallisto	mc_ibrahim
+Chad4	Chad	resistant	coluzzii	4	Chad	Kallisto	mc_ibrahim
+Chad5	Chad	resistant	coluzzii	4	Chad	Kallisto	mc_ibrahim
+Chad6	Chad	resistant	coluzzii	4	Chad	Kallisto	mc_ibrahim
+Nigeria1	Nigeria	resistant	coluzzii	4	Nigeria	Kallisto	mc_ibrahim
+Nigeria2	Nigeria	resistant	coluzzii	4	Nigeria	Kallisto	mc_ibrahim
+Nigeria3	Nigeria	resistant	coluzzii	4	Nigeria	Kallisto	mc_ibrahim
+Nigeria4	Nigeria	resistant	coluzzii	4	Nigeria	Kallisto	mc_ibrahim
+Nigeria5	Nigeria	resistant	coluzzii	4	Nigeria	Kallisto	mc_ibrahim
+Nigeria6	Nigeria	resistant	coluzzii	4	Nigeria	Kallisto	mc_ibrahim
+Cameroon1	Cameroon	resistant	coluzzii	4	Cameroon	Kallisto	mc_ibrahim
+Cameroon2	Cameroon	resistant	coluzzii	4	Cameroon	Kallisto	mc_ibrahim
+Cameroon3	Cameroon	resistant	coluzzii	4	Cameroon	Kallisto	mc_ibrahim
+Cameroon4	Cameroon	resistant	coluzzii	4	Cameroon	Kallisto	mc_ibrahim
+Cameroon5	Cameroon	resistant	coluzzii	4	Cameroon	Kallisto	mc_ibrahim
+Niger1	Niger	resistant	coluzzii	4	Niger	Kallisto	mc_ibrahim
+Niger2	Niger	resistant	coluzzii	4	Niger	Kallisto	mc_ibrahim
+Niger3	Niger	resistant	coluzzii	4	Niger	Kallisto	mc_ibrahim
+Niger4	Niger	resistant	coluzzii	4	Niger	Kallisto	mc_ibrahim
+Niger5	Niger	resistant	coluzzii	4	Niger	Kallisto	mc_ibrahim
+Niger6	Niger	resistant	coluzzii	4	Niger	Kallisto	mc_ibrahim
+NG_Jess1	Ngousso	susceptible	coluzzii	1	Cameroon	Hisat2 + featureCounts	bf_ingham
+NG_Jess2	Ngousso	susceptible	coluzzii	1	Cameroon	Hisat2 + featureCounts	bf_ingham
+NG_Jess3	Ngousso	susceptible	coluzzii	1	Cameroon	Hisat2 + featureCounts	bf_ingham
+Kis1	Kisumu	susceptible	gambiae	3	Kenya	Hisat2 + featureCounts	bf_ingham
+Kis2	Kisumu	susceptible	gambiae	3	Kenya	Hisat2 + featureCounts	bf_ingham
+Kis3	Kisumu	susceptible	gambiae	3	Kenya	Hisat2 + featureCounts	bf_ingham
+Kis4	Kisumu	susceptible	gambiae	3	Kenya	Hisat2 + featureCounts	bf_ingham
+BanS1	BanS	susceptible	coluzzii	2	BanS	Hisat2 + featureCounts	bf_ingham
+BanS2	BanS	susceptible	coluzzii	2	BanS	Hisat2 + featureCounts	bf_ingham
+BanS3	BanS	susceptible	coluzzii	2	BanS	Hisat2 + featureCounts	bf_ingham
+BanS4	BanS	susceptible	coluzzii	2	BanS	Hisat2 + featureCounts	bf_ingham
+NG_Crete1	Ngousso	susceptible	coluzzii	5	Cameroon	Hisat2 + featureCounts	bf_ingham
+NG_Crete2	Ngousso	susceptible	coluzzii	5	Cameroon	Hisat2 + featureCounts	bf_ingham
+NG_Crete3	Ngousso	susceptible	coluzzii	5	Cameroon	Hisat2 + featureCounts	bf_ingham
+NG_Sul1	Ngousso	susceptible	coluzzii	4	Cameroon	Kallisto	mc_ibrahim
+NG_Sul2	Ngousso	susceptible	coluzzii	4	Cameroon	Kallisto	mc_ibrahim
+NG_Sul3	Ngousso	susceptible	coluzzii	4	Cameroon	Kallisto	mc_ibrahim
+Agboville1	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Agboville2	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Agboville3	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Agboville4	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Agboville5	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Agboville6	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Agboville7	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Agboville8	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Agboville9	Agboville	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Dabou1	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Dabou2	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Dabou3	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Dabou4	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Dabou5	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Dabou6	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Dabou7	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Dabou8	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Dabou9	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Dabou10	Dabou	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Tiassale1	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Tiassale2	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Tiassale3	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Tiassale4	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Tiassale5	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Tiassale6	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Tiassale7	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Tiassale8	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Tiassale9	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Tiassale10	Tiassale	resistant	coluzzii	6	Cote d'Ivoire	STAR + featureCounts	ci_wipf
+Ngousso_Wipf1	Ngousso	susceptible	coluzzii	6	Cameroon	STAR + featureCounts	ci_wipf
+Ngousso_Wipf2	Ngousso	susceptible	coluzzii	6	Cameroon	STAR + featureCounts	ci_wipf
+Ngousso_Wipf3	Ngousso	susceptible	coluzzii	6	Cameroon	STAR + featureCounts	ci_wipf
+Ngousso_Wipf4	Ngousso	susceptible	coluzzii	6	Cameroon	STAR + featureCounts	ci_wipf
+Ngousso_Wipf5	Ngousso	susceptible	coluzzii	6	Cameroon	STAR + featureCounts	ci_wipf
+Mali1	Mali	susceptible	coluzzii	6	Mali	STAR + featureCounts	ci_wipf
+Mali2	Mali	susceptible	coluzzii	6	Mali	STAR + featureCounts	ci_wipf
+Mali3	Mali	susceptible	coluzzii	6	Mali	STAR + featureCounts	ci_wipf
+Mali4	Mali	susceptible	coluzzii	6	Mali	STAR + featureCounts	ci_wipf
+Mali5	Mali	susceptible	coluzzii	6	Mali	STAR + featureCounts	ci_wipf
+Bouake_Kisumu1	Kisumu	susceptible	gambiae	10	Kenya	Kallisto	ci_nagi
+Bouake_Kisumu2	Kisumu	susceptible	gambiae	10	Kenya	Kallisto	ci_nagi
+Bouake_Kisumu3	Kisumu	susceptible	gambiae	10	Kenya	Kallisto	ci_nagi
+Bouake_Kisumu4	Kisumu	susceptible	gambiae	10	Kenya	Kallisto	ci_nagi
+Bouake_colu_unexp1	Bouake_colu_unexp	resistant	coluzzii	11	Cote d'Ivoire	Kallisto	ci_nagi
+Bouake_colu_unexp2	Bouake_colu_unexp	resistant	coluzzii	11	Cote d'Ivoire	Kallisto	ci_nagi
+Bouake_colu_unexp3	Bouake_colu_unexp	resistant	coluzzii	11	Cote d'Ivoire	Kallisto	ci_nagi
+Bouake_colu_unexp4	Bouake_colu_unexp	resistant	coluzzii	11	Cote d'Ivoire	Kallisto	ci_nagi
+Bouake_Ngousso1	Ngousso	susceptible	coluzzii	11	Cameroon	Kallisto	ci_nagi
+Bouake_Ngousso2	Ngousso	susceptible	coluzzii	11	Cameroon	Kallisto	ci_nagi
+Bouake_Ngousso3	Ngousso	susceptible	coluzzii	11	Cameroon	Kallisto	ci_nagi
+Bouake_Ngousso4	Ngousso	susceptible	coluzzii	11	Cameroon	Kallisto	ci_nagi
+Bouake_gamb_unexp1	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire	Kallisto	ci_nagi
+Bouake_gamb_unexp2	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire	Kallisto	ci_nagi
+Bouake_gamb_unexp3	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire	Kallisto	ci_nagi
+Bouake_gamb_unexp4	Bouake_gamb_unexp	resistant	gambiae	10	Cote d'Ivoire	Kallisto	ci_nagi
+BusiaSurvivors1	BusiaSurvivors	resistant	gambiae	12	Uganda	Kallisto	ug_nagi
+BusiaSurvivors2	BusiaSurvivors	resistant	gambiae	12	Uganda	Kallisto	ug_nagi
+BusiaSurvivors3	BusiaSurvivors	resistant	gambiae	12	Uganda	Kallisto	ug_nagi
+BusiaSurvivors4	BusiaSurvivors	resistant	gambiae	12	Uganda	Kallisto	ug_nagi
+BusiaSurvivors5	BusiaSurvivors	resistant	gambiae	12	Uganda	Kallisto	ug_nagi
+BusiaSurvivors6	BusiaSurvivors	resistant	gambiae	12	Uganda	Kallisto	ug_nagi
+Kisumu1	Kisumu	susceptible	gambiae	12	Kenya	Kallisto	ug_nagi
+Kisumu2	Kisumu	susceptible	gambiae	12	Kenya	Kallisto	ug_nagi
+Kisumu3	Kisumu	susceptible	gambiae	12	Kenya	Kallisto	ug_nagi
+Kisumu4	Kisumu	susceptible	gambiae	12	Kenya	Kallisto	ug_nagi
+Asendabo_ara1	Asendabo	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count	et_simma
+Asendabo_ara2	Asendabo	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count	et_simma
+Asendabo_ara3	Asendabo	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count	et_simma
+Asendabo_ara4	Asendabo	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count	et_simma
+Chewaka_ara1	Chewaka	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count	et_simma
+Chewaka_ara2	Chewaka	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count	et_simma
+Chewaka_ara3	Chewaka	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count	et_simma
+Chewaka_ara4	Chewaka	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count	et_simma
+Moz_VanLeeuwen1	Moz	susceptible	arabiensis	8	Mozambique	Hisat2 + htseq-count	et_simma
+Moz_VanLeeuwen2	Moz	susceptible	arabiensis	8	Mozambique	Hisat2 + htseq-count	et_simma
+Moz_VanLeeuwen3	Moz	susceptible	arabiensis	8	Mozambique	Hisat2 + htseq-count	et_simma
+Moz_VanLeeuwen4	Moz	susceptible	arabiensis	8	Mozambique	Hisat2 + htseq-count	et_simma
+Tolay1	Tolay	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count	et_simma
+Tolay2	Tolay	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count	et_simma
+Tolay3	Tolay	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count	et_simma
+Tolay4	Tolay	resistant	arabiensis	8	Ethiopia	Hisat2 + htseq-count	et_simma
+Dongola1	Dongola	susceptible	arabiensis	9	Sudan	Subjunc + featureCounts	et_wipf
+Dongola2	Dongola	susceptible	arabiensis	9	Sudan	Subjunc + featureCounts	et_wipf
+Dongola3	Dongola	susceptible	arabiensis	9	Sudan	Subjunc + featureCounts	et_wipf
+Ethiopia1	Ethiopia	resistant	arabiensis	9	Ethiopia	Subjunc + featureCounts	et_wipf
+Ethiopia2	Ethiopia	resistant	arabiensis	9	Ethiopia	Subjunc + featureCounts	et_wipf
+Ethiopia3	Ethiopia	resistant	arabiensis	9	Ethiopia	Subjunc + featureCounts	et_wipf
+Gou1	Gou	resistant	arabiensis	1	Burkina Faso	Hisat2 + featureCounts	bf_williams
+Gou2	Gou	resistant	arabiensis	1	Burkina Faso	Hisat2 + featureCounts	bf_williams
+Gou3	Gou	resistant	arabiensis	1	Burkina Faso	Hisat2 + featureCounts	bf_williams
+Moz_Ranson1	Moz	susceptible	arabiensis	1	Mozambique	Hisat2 + featureCounts	bf_williams
+Moz_Ranson2	Moz	susceptible	arabiensis	1	Mozambique	Hisat2 + featureCounts	bf_williams
+Moz_Ranson3	Moz	susceptible	arabiensis	1	Mozambique	Hisat2 + featureCounts	bf_williams
+Cameroon_fun1	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts	mc_wondji
+Cameroon_fun2	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts	mc_wondji
+Cameroon_fun3	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts	mc_wondji
+Cameroon_fun4	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts	mc_wondji
+Cameroon_fun5	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts	mc_wondji
+Cameroon_fun6	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts	mc_wondji
+Cameroon_fun7	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts	mc_wondji
+Cameroon_fun8	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts	mc_wondji
+Cameroon_fun9	Cam_fun	resistant	funestus	7	Cameroon	Subread + featureCounts	mc_wondji
+Fang1	Fang	susceptible	funestus	7	Angola	Subread + featureCounts	mc_wondji
+Fang2	Fang	susceptible	funestus	7	Angola	Subread + featureCounts	mc_wondji
+Fang3	Fang	susceptible	funestus	7	Angola	Subread + featureCounts	mc_wondji
+Fumoz1	Fumoz	resistant	funestus	7	Mozambique	Subread + featureCounts	mc_wondji
+Fumoz2	Fumoz	resistant	funestus	7	Mozambique	Subread + featureCounts	mc_wondji
+Fumoz3	Fumoz	resistant	funestus	7	Mozambique	Subread + featureCounts	mc_wondji
+Fumoz4	Fumoz	resistant	funestus	7	Mozambique	Subread + featureCounts	mc_wondji
+Fumoz5	Fumoz	resistant	funestus	7	Mozambique	Subread + featureCounts	mc_wondji
+Ghana_fun1	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts	mc_wondji
+Ghana_fun2	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts	mc_wondji
+Ghana_fun3	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts	mc_wondji
+Ghana_fun4	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts	mc_wondji
+Ghana_fun5	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts	mc_wondji
+Ghana_fun6	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts	mc_wondji
+Ghana_fun7	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts	mc_wondji
+Ghana_fun8	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts	mc_wondji
+Ghana_fun9	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts	mc_wondji
+Ghana_fun10	Ghana_fun	resistant	funestus	7	Ghana	Subread + featureCounts	mc_wondji
+Malawi_fun1	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts	mc_wondji
+Malawi_fun2	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts	mc_wondji
+Malawi_fun3	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts	mc_wondji
+Malawi_fun4	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts	mc_wondji
+Malawi_fun5	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts	mc_wondji
+Malawi_fun6	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts	mc_wondji
+Malawi_fun7	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts	mc_wondji
+Malawi_fun8	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts	mc_wondji
+Malawi_fun9	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts	mc_wondji
+Malawi_fun10	Malawi_fun	resistant	funestus	7	Malawi	Subread + featureCounts	mc_wondji
+Uganda_fun1	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts	mc_wondji
+Uganda_fun2	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts	mc_wondji
+Uganda_fun3	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts	mc_wondji
+Uganda_fun4	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts	mc_wondji
+Uganda_fun5	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts	mc_wondji
+Uganda_fun6	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts	mc_wondji
+Uganda_fun7	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts	mc_wondji
+Uganda_fun8	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts	mc_wondji
+Uganda_fun9	Uganda_fun	resistant	funestus	7	Uganda	Subread + featureCounts	mc_wondji
