@@ -1,11 +1,13 @@
 name: pytest
+
 on:
+  pull_request:
   push:
     branches:
-    - main
-  pull_request:
-    branches:
-    - main
+      - main
+  schedule:
+    - cron: '0 0 1 * *'
+
 jobs:
   tests:
     strategy:
