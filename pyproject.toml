@@ -46,11 +46,3 @@ profile = "black"
 enable = true
 vcs = "git"
 style = "semver"
-[tool.pixi.workspace]
-channels = ["conda-forge"]
-platforms = ["osx-arm64"]
-
-[tool.pixi.pypi-dependencies]
-anoexpress = { path = ".", editable = true }
-
-[tool.pixi.tasks]
