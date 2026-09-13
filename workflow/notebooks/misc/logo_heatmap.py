@@ -1,7 +1,7 @@
-"""Render the AnoExpress logo (docs/logo.png) as an expression-style heatmap from docs/logo_img2.png.
+"""Render the AnoExpress logo (docs/logo.png) as an expression-style heatmap from docs/logo_heatmap_source.png.
 
 Usage (from repo root):
-    uv run --with numpy --with pillow --with matplotlib python workflow/notebooks/misc/logo_heatmap.py
+    uv run --no-project --with numpy --with pillow --with matplotlib python workflow/notebooks/misc/logo_heatmap.py
 """
 from pathlib import Path
 
@@ -69,7 +69,7 @@ def render(vals, out, cmap="RdBu_r", facecolor="white", gap=0.6):
 
 
 def main():
-    ink = load_ink(DOCS / "logo_img2.png")
+    ink = load_ink(DOCS / "logo_heatmap_source.png")
     grid = np.pad(to_grid(ink, NROWS), PAD)
     # first all-blank column after the mosquito marks the mosquito/text boundary
     split = int(np.where(grid[:, PAD:].max(0) < 0.1)[0][0] + PAD)
