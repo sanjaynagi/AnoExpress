@@ -1,6 +1,6 @@
-![image](https://raw.githubusercontent.com/sanjaynagi/AnoExpress/main/docs/logo.png)
+![AnoExpress logo](docs/logo.png)
 
-[![Execute notebook](https://github.com/sanjaynagi/AnoExpress/workflows/Execute%20notebook/badge.svg)](https://github.com/sanjaynagi/AnoExpress/actions?query=workflow:"Execute+notebook")
+[![Execute notebooks](https://github.com/sanjaynagi/AnoExpress/actions/workflows/github-action-anoexpress.yaml/badge.svg)](https://github.com/sanjaynagi/AnoExpress/actions/workflows/github-action-anoexpress.yaml)
 [![GitHub release](https://img.shields.io/github/release/sanjaynagi/AnoExpress?include_prereleases=&sort=semver&color=blue)](https://github.com/sanjaynagi/AnoExpress/releases/)
 
 **<ins>*Ano</ins>pheles* gene <ins>exp</ins>ression in <ins>res</ins>istance <ins>s</ins>tudies**
